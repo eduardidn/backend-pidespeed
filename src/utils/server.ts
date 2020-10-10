@@ -3,12 +3,16 @@ import { json, urlencoded } from "body-parser";
 import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
-import {  } from "./middlewares";
+import {
+  UserTokenMiddleware,
+  BussinesTokenMiddleware,
+  AdminTokenMiddleware,
+} from "./middlewares";
 import fileUpload from "express-fileupload";
 import http from "http";
 
 import logger from "./logger";
-//import socket from "./Socket";
+// import socket from "./Socket";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -27,6 +31,9 @@ app
       limit: "20mb",
     }),
   )
+  .use(UserTokenMiddleware)
+  .use(BussinesTokenMiddleware)
+  .use(AdminTokenMiddleware)
   .use(
     fileUpload({
       limits: { fileSize: 50 * 1024 * 1024 },
@@ -42,9 +49,9 @@ app
   )
   .set("trust proxy", true);
 
-//socket(httpServer);
+// socket(httpServer);
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger.info(`Running on port ${port}`));
 
 export default app;

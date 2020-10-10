@@ -1,0 +1,17 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "object-literal-sort-keys": false,
+    "prettier": [true, ".prettierrc"],
+    "only-arrow-functions": false,
+    "no-bitwise": false,
+    "max-classes-per-file": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "no-shadowed-variable": false,
+    "radix": false
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"]
+}

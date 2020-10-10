@@ -1,0 +1,25 @@
+
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["standard"],
+  "plugins": ["import", "node"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "node/no-unsupported-features": "off",
+    "node/no-unpublished-require": 0,
+    "no-console": "error",
+    "no-new": "off",
+    "prefer-const": "error",
+    "no-async-promise-executor": "off"
+  }
+}
