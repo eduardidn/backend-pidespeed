@@ -5,14 +5,14 @@ import cors from "cors";
 import morgan from "morgan";
 import {
   UserTokenMiddleware,
-  BussinesTokenMiddleware,
+  BusinessTokenMiddleware,
   AdminTokenMiddleware,
 } from "./middlewares";
 import fileUpload from "express-fileupload";
 import http from "http";
 
 import logger from "./logger";
-// import socket from "./Socket";
+import socket from "./Socket";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -32,7 +32,7 @@ app
     }),
   )
   .use(UserTokenMiddleware)
-  .use(BussinesTokenMiddleware)
+  .use(BusinessTokenMiddleware)
   .use(AdminTokenMiddleware)
   .use(
     fileUpload({
@@ -49,7 +49,7 @@ app
   )
   .set("trust proxy", true);
 
-// socket(httpServer);
+socket(httpServer);
 
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger.info(`Running on port ${port}`));

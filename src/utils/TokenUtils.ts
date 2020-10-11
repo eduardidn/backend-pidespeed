@@ -4,7 +4,7 @@ import path from "path";
 
 import TokenCrypt from "./TokenCrypt";
 
-const PKPath = path.resolve(__dirname, "../../jwt.pem");
+const PKPath = path.resolve(__dirname, "../../user.pem");
 const PK = fs.readFileSync(PKPath);
 
 async function _createToken(key, content) {
@@ -24,7 +24,7 @@ async function _createToken(key, content) {
   return TokenCrypt.crypt(String(key), token);
 }
 
-async function createBussinesToken({ id }) {
+async function createBusinessToken({ id }) {
   return _createToken(id, {
     id,
   });
@@ -82,7 +82,7 @@ async function needValidate(url) {
 
 export default {
   createUserToken,
-  createBussinesToken,
+  createBusinessToken,
   createAdminToken,
   needValidate,
   validateToken,

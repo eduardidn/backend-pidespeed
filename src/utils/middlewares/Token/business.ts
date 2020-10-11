@@ -6,16 +6,16 @@ export default async function (req, res, next) {
       message: `${expired ? "Expired" : "Invalid"} institution session`,
     });
 
-  const { bussines, needValidate } = req.headers;
+  const { business, needValidate } = req.headers;
   if (needValidate) {
-    if (!bussines) return invalid(false);
+    if (!business) return invalid(false);
 
     const { valid, expired, data } = await TokenUtils.validateToken({
-      token: bussines,
+      token: business,
     });
     if (!valid) return invalid(expired);
 
-    req.bussines = data;
+    req.business = data;
     return next();
   }
 }
