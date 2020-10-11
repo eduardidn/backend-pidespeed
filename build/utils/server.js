@@ -12,7 +12,7 @@ const middlewares_1 = require("./middlewares");
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const http_1 = __importDefault(require("http"));
 const logger_1 = __importDefault(require("./logger"));
-// import socket from "./Socket";
+const Socket_1 = __importDefault(require("./Socket"));
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
 app
@@ -26,7 +26,7 @@ app
     limit: "20mb",
 }))
     .use(middlewares_1.UserTokenMiddleware)
-    .use(middlewares_1.BussinesTokenMiddleware)
+    .use(middlewares_1.BusinessTokenMiddleware)
     .use(middlewares_1.AdminTokenMiddleware)
     .use(express_fileupload_1.default({
     limits: { fileSize: 50 * 1024 * 1024 },
@@ -38,7 +38,7 @@ app
     skip: (req, res) => req.method === "OPTIONS",
 }))
     .set("trust proxy", true);
-// socket(httpServer);
+Socket_1.default(httpServer);
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger_1.default.info(`Running on port ${port}`));
 exports.default = app;

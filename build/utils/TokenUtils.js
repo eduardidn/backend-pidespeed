@@ -16,7 +16,7 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const TokenCrypt_1 = __importDefault(require("./TokenCrypt"));
-const PKPath = path_1.default.resolve(__dirname, "../../jwt.pem");
+const PKPath = path_1.default.resolve(__dirname, "../../user.pem");
 const PK = fs_1.default.readFileSync(PKPath);
 function _createToken(key, content) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ function _createToken(key, content) {
         return TokenCrypt_1.default.crypt(String(key), token);
     });
 }
-function createBussinesToken({ id }) {
+function createBusinessToken({ id }) {
     return __awaiter(this, void 0, void 0, function* () {
         return _createToken(id, {
             id,
@@ -91,7 +91,7 @@ function needValidate(url) {
 }
 exports.default = {
     createUserToken,
-    createBussinesToken,
+    createBusinessToken,
     createAdminToken,
     needValidate,
     validateToken,
