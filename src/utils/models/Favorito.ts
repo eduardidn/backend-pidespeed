@@ -18,6 +18,7 @@ const schema = new Schema(
       ref: "categoria",
       required: [true, "categoria is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

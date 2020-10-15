@@ -10,6 +10,7 @@ const schema = new Schema(
     estado: {
       type: Schema.Types.ObjectId,
       ref: "estado",
+      required: [true, "estado is required"],
     },
   },
   {

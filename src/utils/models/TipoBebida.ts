@@ -7,6 +7,7 @@ const schema = new Schema(
       type: String,
       required: [true, "nombre is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

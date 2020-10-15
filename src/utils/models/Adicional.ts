@@ -32,7 +32,6 @@ const schema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "producto",
-        required: [true, "productos is required"],
       },
     ],
     consulta: {
@@ -47,6 +46,7 @@ const schema = new Schema(
       type: String,
       default: "",
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

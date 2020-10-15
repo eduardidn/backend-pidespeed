@@ -23,11 +23,11 @@ const schema = new Schema(
     },
     moneda: {
       type: String,
-      required: [true, "moneda is required"],
+      default: "BSS",
     },
     pagado: {
       type: Number,
-      required: [true, "pagado is required"],
+      default: 0,
     },
   },
   {

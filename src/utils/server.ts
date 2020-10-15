@@ -31,9 +31,9 @@ app
       limit: "20mb",
     }),
   )
-  .use(UserTokenMiddleware)
-  .use(BusinessTokenMiddleware)
-  .use(AdminTokenMiddleware)
+  // .use(UserTokenMiddleware)
+  // .use(BusinessTokenMiddleware)
+  // .use(AdminTokenMiddleware)
   .use(
     fileUpload({
       limits: { fileSize: 50 * 1024 * 1024 },
@@ -49,7 +49,7 @@ app
   )
   .set("trust proxy", true);
 
-socket(httpServer);
+// socket(httpServer);
 
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger.info(`Running on port ${port}`));

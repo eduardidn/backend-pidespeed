@@ -8,7 +8,7 @@ const schema = new Schema(
       required: [true, "nombre_producto is required"],
     },
     producto: {
-      ttype: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "producto",
       required: [true, "producto is required"],
     },
@@ -17,11 +17,11 @@ const schema = new Schema(
       required: [true, "precio_producto is required"],
     },
     acomp: {
-      type: Schema.Types.ObjectId,
+      type: Object,
       required: [true, "acomp is required"],
     },
     add: {
-      type: Schema.Types.ObjectId,
+      type: Object,
       required: [true, "add is required"],
     },
     cantidad: {

@@ -12,7 +12,7 @@ const schema = new Schema(
       required: [true, "detalles is required"],
     },
     coordenadas: {
-      type: String,
+      type: Object,
       required: [true, "coordenadas is required"],
     },
     img: {

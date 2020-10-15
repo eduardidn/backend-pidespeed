@@ -2,10 +2,10 @@ import express from "express";
 
 import { ErrorHandle } from "@middlewares";
 
-// import { systemRoutes } from "./service/system";
+import { exampleRoutes } from "./service/module_base";
 
 export default async function (app) {
-  const router = express.Router();
+  const router = express.Router().use(exampleRoutes);
 
   app.use("/api", router).use(ErrorHandle);
   return app;

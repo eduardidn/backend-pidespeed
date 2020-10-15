@@ -19,6 +19,7 @@ const schema = new Schema(
       type: Number,
       required: [true, "publish is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,
