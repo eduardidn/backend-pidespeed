@@ -46,7 +46,6 @@ const schema = new Schema(
       type: String,
       default: "",
     },
-    prev_id: Number,
   },
   {
     timestamps: true,

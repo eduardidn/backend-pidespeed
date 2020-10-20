@@ -3,4 +3,11 @@ import * as controller from "./controller";
 import { CatchErrors } from "@utils";
 export default express
   .Router()
-  .get("/importar", CatchErrors(controller.importar));
+  .get("/:tipo/public", CatchErrors(controller.list))
+  .get("get/one/:categoriaProductoId/public", CatchErrors(controller.listOne))
+  .post("/", CatchErrors(controller.addCategoriaProducto))
+  .put("/:categoriaProductoId", CatchErrors(controller.updateCategoriaProducto))
+  .delete(
+    "/:categoriaProductoId",
+    CatchErrors(controller.deleteCategoriaProducto),
+  );
