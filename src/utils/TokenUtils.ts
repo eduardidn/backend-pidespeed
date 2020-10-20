@@ -71,7 +71,7 @@ async function validateToken({ token }) {
 async function needValidate(url) {
   const whitelist = [""];
 
-  const whiteListEndsWidth = [""];
+  const whiteListEndsWidth = ["/list"];
 
   for (const wlUrl of whiteListEndsWidth) if (url.endsWith(wlUrl)) return false;
 
