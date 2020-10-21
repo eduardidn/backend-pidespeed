@@ -25,7 +25,6 @@ const schema = new Schema(
       ref: "tipoBebida",
       required: [true, "tipoBebida is required"],
     },
-    prev_id: Number,
   },
   {
     timestamps: true,
