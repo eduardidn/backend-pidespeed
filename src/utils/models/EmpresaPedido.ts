@@ -50,6 +50,7 @@ const schema = new Schema(
       ref: "pedido",
       required: [true, "pedido is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

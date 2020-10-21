@@ -7,6 +7,10 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "codigo is required"],
     },
+    moneda: {
+        type: String,
+        default: "BSS",
+    },
     precio: {
         type: String,
         required: [true, "precio is required"],
@@ -16,7 +20,7 @@ const schema = new mongoose_1.Schema({
         required: [true, "to_go is required"],
     },
     delivery: {
-        type: String,
+        type: Object,
         required: [true, "precio is required"],
     },
     precio_delivery: {

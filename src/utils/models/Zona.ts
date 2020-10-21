@@ -7,10 +7,7 @@ const schema = new Schema(
       type: String,
       required: [true, "nombre is required"],
     },
-    detalles: {
-      type: String,
-      required: [true, "detalles is required"],
-    },
+    detalle: String,
     coordenadas: {
       type: Object,
       required: [true, "coordenadas is required"],
@@ -24,6 +21,7 @@ const schema = new Schema(
       ref: "ciudad",
       required: [true, "ciudad is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

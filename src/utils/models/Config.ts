@@ -19,9 +19,9 @@ const schema = new Schema(
       type: String,
       required: [true, "rif is required"],
     },
-    enail_pagos: {
+    email_pagos: {
       type: String,
-      required: [true, "enail_pagos is required"],
+      required: [true, "email_pagos is required"],
     },
     telefono: {
       type: String,

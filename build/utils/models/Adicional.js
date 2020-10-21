@@ -32,7 +32,6 @@ const schema = new mongoose_1.Schema({
         {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "producto",
-            required: [true, "productos is required"],
         },
     ],
     consulta: {
@@ -47,6 +46,7 @@ const schema = new mongoose_1.Schema({
         type: String,
         default: "",
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

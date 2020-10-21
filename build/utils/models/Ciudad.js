@@ -10,6 +10,7 @@ const schema = new mongoose_1.Schema({
     estado: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "estado",
+        required: [true, "estado is required"],
     },
 }, {
     timestamps: true,

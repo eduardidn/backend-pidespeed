@@ -20,6 +20,7 @@ const schema = new Schema(
       ref: "empresa",
       required: [true, "empresa is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

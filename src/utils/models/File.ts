@@ -11,6 +11,7 @@ const schema = new Schema(
       type: String,
       required: [true, "type is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

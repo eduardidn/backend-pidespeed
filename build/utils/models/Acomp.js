@@ -7,6 +7,7 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "nombre is required"],
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

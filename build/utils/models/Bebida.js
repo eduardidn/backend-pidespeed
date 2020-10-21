@@ -25,6 +25,7 @@ const schema = new mongoose_1.Schema({
         ref: "tipoBebida",
         required: [true, "tipoBebida is required"],
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

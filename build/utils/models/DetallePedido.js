@@ -8,7 +8,7 @@ const schema = new mongoose_1.Schema({
         required: [true, "nombre_producto is required"],
     },
     producto: {
-        ttype: mongoose_1.Schema.Types.ObjectId,
+        type: mongoose_1.Schema.Types.ObjectId,
         ref: "producto",
         required: [true, "producto is required"],
     },
@@ -17,11 +17,11 @@ const schema = new mongoose_1.Schema({
         required: [true, "precio_producto is required"],
     },
     acomp: {
-        type: mongoose_1.Schema.Types.ObjectId,
+        type: Object,
         required: [true, "acomp is required"],
     },
     add: {
-        type: mongoose_1.Schema.Types.ObjectId,
+        type: Object,
         required: [true, "add is required"],
     },
     cantidad: {
