@@ -2,8 +2,10 @@ import { CategoriaProducto } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo) {
-  tipo = tipo === 1 ? 1 : 0;
-  return CategoriaProducto.find({ publish: tipo }).lean();
+  tipo = Number(tipo) === 1 ? 1 : 0;
+  let query: any;
+  if (tipo === 1) query = { ...query, publish: tipo };
+  return CategoriaProducto.find(query).populate("categoria", "icono").lean();
 }
 
 export async function listOne({ categoriaProductoId }) {

@@ -69,7 +69,7 @@ async function validateToken({ token }) {
 }
 
 async function needValidate(url) {
-  const whitelist = [""];
+  const whitelist = ["api/login"];
 
   const whiteListEndsWidth = ["/public"];
 

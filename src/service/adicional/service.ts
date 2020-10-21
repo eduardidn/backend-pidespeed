@@ -2,14 +2,22 @@ import { Adicional } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo, empresaId) {
-  tipo = tipo === 1 ? 1 : 0;
-  return Adicional.find({ publish: tipo, empresa: empresaId }).lean();
+  tipo = Number(tipo) === 1 ? 1 : 0;
+  let query: any = {
+    empresa: empresaId,
+  };
+  if (tipo === 1) query = { ...query, publish: tipo };
+  return Adicional.find(query).lean();
 }
 
 export async function listByIds(tipo, ids) {
-  tipo = tipo === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? 1 : 0;
   ids = ids.split(",");
-  return Adicional.find({ _id: { $in: ids }, publish: tipo }).lean();
+  let query: any = {
+    _id: { $in: ids },
+  };
+  if (tipo === 1) query = { ...query, publish: tipo };
+  return Adicional.find(query).lean();
 }
 
 export async function listOne({ adicionalId }) {

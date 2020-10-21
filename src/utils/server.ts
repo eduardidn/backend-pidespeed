@@ -31,7 +31,7 @@ app
       limit: "20mb",
     }),
   )
-  // .use(UserTokenMiddleware)
+  .use(UserTokenMiddleware)
   // .use(BusinessTokenMiddleware)
   // .use(AdminTokenMiddleware)
   .use(
@@ -49,7 +49,7 @@ app
   )
   .set("trust proxy", true);
 
-// socket(httpServer);
+socket(httpServer);
 
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger.info(`Running on port ${port}`));
