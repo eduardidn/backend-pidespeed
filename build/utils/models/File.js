@@ -11,6 +11,7 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "type is required"],
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

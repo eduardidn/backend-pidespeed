@@ -16,7 +16,6 @@ const schema = new mongoose_1.Schema({
         ref: "categoria",
         required: [true, "categoria is required"],
     },
-    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

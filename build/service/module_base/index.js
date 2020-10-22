@@ -1,4 +1,8 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var routes_1 = require("./routes");
-Object.defineProperty(exports, "exampleRoutes", { enumerable: true, get: function () { return routes_1.default; } });
+const express_1 = __importDefault(require("express"));
+const routes_1 = __importDefault(require("./routes"));
+exports.default = express_1.default.Router().use("/example", routes_1.default);

@@ -57,7 +57,7 @@ const schema = new mongoose_1.Schema({
         type: Number,
         required: [true, "terminado is required"],
     },
-    entrgado: {
+    entregado: {
         type: Number,
         required: [true, "entrgado is required"],
     },
@@ -65,6 +65,7 @@ const schema = new mongoose_1.Schema({
         type: Number,
         required: [true, "promo is required"],
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

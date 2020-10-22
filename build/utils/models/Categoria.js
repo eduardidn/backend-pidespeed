@@ -19,7 +19,6 @@ const schema = new mongoose_1.Schema({
         type: Number,
         required: [true, "publish is required"],
     },
-    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

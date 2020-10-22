@@ -29,6 +29,7 @@ const schema = new mongoose_1.Schema({
         type: Number,
         default: 0,
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

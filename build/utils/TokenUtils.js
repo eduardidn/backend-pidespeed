@@ -78,8 +78,8 @@ function validateToken({ token }) {
 }
 function needValidate(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        const whitelist = [""];
-        const whiteListEndsWidth = [""];
+        const whitelist = ["api/login"];
+        const whiteListEndsWidth = ["/public"];
         for (const wlUrl of whiteListEndsWidth)
             if (url.endsWith(wlUrl))
                 return false;

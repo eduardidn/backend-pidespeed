@@ -14,10 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const _middlewares_1 = require("@middlewares");
-const module_base_1 = require("./service/module_base");
+const module_base_1 = __importDefault(require("./service/module_base"));
+const acomp_1 = __importDefault(require("./service/acomp"));
+const adicional_1 = __importDefault(require("./service/adicional"));
+const bebida_1 = __importDefault(require("./service/bebida"));
+const categoriaProducto_1 = __importDefault(require("./service/categoriaProducto"));
+const categoria_1 = __importDefault(require("./service/categoria"));
+const ciudad_1 = __importDefault(require("./service/ciudad"));
+const config_1 = __importDefault(require("./service/config"));
+const cuenta_1 = __importDefault(require("./service/cuenta"));
 function default_1(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const router = express_1.default.Router().use(module_base_1.exampleRoutes);
+        const router = express_1.default
+            .Router()
+            .use(acomp_1.default)
+            .use(adicional_1.default)
+            .use(bebida_1.default)
+            .use(categoriaProducto_1.default)
+            .use(categoria_1.default)
+            .use(ciudad_1.default)
+            .use(config_1.default)
+            .use(cuenta_1.default)
+            .use(module_base_1.default);
         app.use("/api", router).use(_middlewares_1.ErrorHandle);
         return app;
     });

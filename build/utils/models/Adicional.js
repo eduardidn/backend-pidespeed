@@ -46,7 +46,6 @@ const schema = new mongoose_1.Schema({
         type: String,
         default: "",
     },
-    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

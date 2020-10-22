@@ -32,9 +32,9 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "to_go is required"],
     },
-    delivey: {
+    delivery: {
         type: String,
-        required: [true, "delivey is required"],
+        required: [true, "delivery is required"],
     },
     total: {
         type: String,
@@ -50,6 +50,7 @@ const schema = new mongoose_1.Schema({
         ref: "pedido",
         required: [true, "pedido is required"],
     },
+    prev_id: Number,
 }, {
     timestamps: true,
     minimize: false,

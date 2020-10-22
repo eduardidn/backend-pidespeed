@@ -4,7 +4,7 @@ import { CatchErrors } from "@utils";
 export default express
   .Router()
   .get("/:empresaId/:tipo/public", CatchErrors(controller.list))
-  .get("/byIds/:adicionalId/:tipo/public", CatchErrors(controller.listByIds))
+  .get("/byIds/:ids/:tipo/public", CatchErrors(controller.listByIds))
   .get("get/one/:adicionalId/public", CatchErrors(controller.listOne))
   .post("/", CatchErrors(controller.addAdicional))
   .put("/:adicionalId", CatchErrors(controller.updateAdicional))
