@@ -27,9 +27,10 @@ const controller = __importStar(require("./controller"));
 const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/byIds/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("get/one/:bebidaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addBebida))
-    .put("/:bebidaId", _utils_1.CatchErrors(controller.updateBebida))
-    .delete("/:bebidaId", _utils_1.CatchErrors(controller.deleteBebida));
+    .get("/", _utils_1.CatchErrors(controller.list))
+    .get("/:pedidoId/:empresaId", _utils_1.CatchErrors(controller.listPedidos))
+    .get("/get/byPedido/:pedidoId", _utils_1.CatchErrors(controller.listByPedido))
+    .get("/:detallePedidoId", _utils_1.CatchErrors(controller.listOne))
+    .post("/", _utils_1.CatchErrors(controller.addDetallePedido))
+    .put("/:detallePedidoId", _utils_1.CatchErrors(controller.updateDetallePedido))
+    .delete("/:detallePedidoId", _utils_1.CatchErrors(controller.deleteDetallePedido));

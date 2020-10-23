@@ -27,9 +27,17 @@ const controller = __importStar(require("./controller"));
 const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/byIds/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("get/one/:bebidaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addBebida))
-    .put("/:bebidaId", _utils_1.CatchErrors(controller.updateBebida))
-    .delete("/:bebidaId", _utils_1.CatchErrors(controller.deleteBebida));
+    .get("/", _utils_1.CatchErrors(controller.list))
+    .get("/byEmpresaByPedido/:pedidoId/:empresaId", _utils_1.CatchErrors(controller.listEmpresaPedidos))
+    .get("/byPedido/:pedidoId", _utils_1.CatchErrors(controller.listByPedido))
+    .get("/byEmpresa/:EmpresaId", _utils_1.CatchErrors(controller.listByEmpresa))
+    .get("/todos/pendientes", _utils_1.CatchErrors(controller.listAllPendientes))
+    .get("/todos/terminados", _utils_1.CatchErrors(controller.listAllTerminados))
+    .get("/pendientes/:empresaId", _utils_1.CatchErrors(controller.listPendientes))
+    .get("/terminados/:empresaId", _utils_1.CatchErrors(controller.listTerminados))
+    .get("/entregados/:empresaId", _utils_1.CatchErrors(controller.listEntregados))
+    .get("/get/byPago/:ids", _utils_1.CatchErrors(controller.listByIds))
+    .get("/:empresaPedidoId", _utils_1.CatchErrors(controller.listOne))
+    .post("/", _utils_1.CatchErrors(controller.addEmpresaPedido))
+    .put("/:empresaPedidoId", _utils_1.CatchErrors(controller.updateEmpresaPedido))
+    .delete("/:empresaPedidoId", _utils_1.CatchErrors(controller.deleteEmpresaPedido));

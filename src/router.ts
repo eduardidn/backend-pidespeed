@@ -12,6 +12,7 @@ import ciudad from "./service/ciudad";
 import config from "./service/config";
 import cuenta from "./service/cuenta";
 import detallePedido from "./service/detallePedido";
+import empresa from "./service/empresa";
 import empresaPedido from "./service/empresaPedido";
 import estado from "./service/estado";
 import faq from "./service/faq";
@@ -33,6 +34,7 @@ export default async function (app) {
     .use(config)
     .use(cuenta)
     .use(detallePedido)
+    .use(empresa)
     .use(empresaPedido)
     .use(estado)
     .use(faq)

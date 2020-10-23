@@ -27,9 +27,11 @@ const controller = __importStar(require("./controller"));
 const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/byIds/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("get/one/:bebidaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addBebida))
-    .put("/:bebidaId", _utils_1.CatchErrors(controller.updateBebida))
-    .delete("/:bebidaId", _utils_1.CatchErrors(controller.deleteBebida));
+    .post("/cambio", _utils_1.CatchErrors(controller.mailCambio))
+    .post("/estadoPedido", _utils_1.CatchErrors(controller.mailEstadoPedido))
+    .post("/pedidoTerminado", _utils_1.CatchErrors(controller.mailPedidoListo))
+    .post("/nuevoPedido", _utils_1.CatchErrors(controller.mailNuevoPedido))
+    .post("/bienvenido", _utils_1.CatchErrors(controller.mailBienvenido))
+    .post("/verificar", _utils_1.CatchErrors(controller.mailVerificacion))
+    .post("/recuperarPass", _utils_1.CatchErrors(controller.mailRecuperarPass))
+    .post("/promocion", _utils_1.CatchErrors(controller.mailPromocion));

@@ -29,7 +29,8 @@ exports.default = express_1.default
     .Router()
     .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
     .get("/byIds/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("get/one/:bebidaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addBebida))
-    .put("/:bebidaId", _utils_1.CatchErrors(controller.updateBebida))
-    .delete("/:bebidaId", _utils_1.CatchErrors(controller.deleteBebida));
+    .get("get/one/:siropeId/public", _utils_1.CatchErrors(controller.listOne))
+    .post("/", _utils_1.CatchErrors(controller.addSirope))
+    .put("/:siropeId", _utils_1.CatchErrors(controller.updateSirope))
+    .put("/byIds/:ids", _utils_1.CatchErrors(controller.updateByIds))
+    .delete("/:siropeId", _utils_1.CatchErrors(controller.deleteSirope));

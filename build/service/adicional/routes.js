@@ -28,7 +28,7 @@ const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
     .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/byIds/:adicionalId/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
+    .get("/byIds/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
     .get("get/one/:adicionalId/public", _utils_1.CatchErrors(controller.listOne))
     .post("/", _utils_1.CatchErrors(controller.addAdicional))
     .put("/:adicionalId", _utils_1.CatchErrors(controller.updateAdicional))
