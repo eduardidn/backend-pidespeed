@@ -1,4 +1,4 @@
-import { CategoriaProducto } from "@models";
+import { CategoriaProducto, Empresa } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo) {
@@ -6,6 +6,16 @@ export async function list(tipo) {
   let query: any;
   if (tipo === 1) query = { ...query, publish: tipo };
   return CategoriaProducto.find(query).populate("categoria", "icono").lean();
+}
+
+export async function listByRuta({ tipo, ruta }) {
+  const { _id: empresa } = await Empresa.findOne({ ruta }).lean();
+  tipo = Number(tipo) === 1 ? 1 : 0;
+  let query: any = {
+    empresa,
+  };
+  if (tipo === 1) query = { ...query, publish: tipo };
+  return CategoriaProducto.find(query).lean();
 }
 
 export async function listOne({ categoriaProductoId }) {

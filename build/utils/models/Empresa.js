@@ -6,7 +6,6 @@ const schema = new mongoose_1.Schema({
     nombre: {
         type: String,
         required: [true, "nombre is required"],
-        alias: "nombreEmpresa",
     },
     suffix: {
         type: String,
@@ -19,7 +18,6 @@ const schema = new mongoose_1.Schema({
     email: {
         type: String,
         required: [true, "email is required"],
-        alias: "emailEmpresa",
     },
     rif: {
         type: String,
@@ -28,7 +26,14 @@ const schema = new mongoose_1.Schema({
     telefono: {
         type: String,
         required: [true, "telefono is required"],
-        alias: "telefonoEmpresa",
+    },
+    username: {
+        type: String,
+        required: [true, "telefono is required"],
+    },
+    password: {
+        type: String,
+        required: [true, "telefono is required"],
     },
     logo: {
         type: String,

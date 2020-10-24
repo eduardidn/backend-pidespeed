@@ -24,6 +24,7 @@ const ciudad_1 = __importDefault(require("./service/ciudad"));
 const config_1 = __importDefault(require("./service/config"));
 const cuenta_1 = __importDefault(require("./service/cuenta"));
 const detallePedido_1 = __importDefault(require("./service/detallePedido"));
+const empresa_1 = __importDefault(require("./service/empresa"));
 const empresaPedido_1 = __importDefault(require("./service/empresaPedido"));
 const estado_1 = __importDefault(require("./service/estado"));
 const faq_1 = __importDefault(require("./service/faq"));
@@ -45,6 +46,7 @@ function default_1(app) {
             .use(config_1.default)
             .use(cuenta_1.default)
             .use(detallePedido_1.default)
+            .use(empresa_1.default)
             .use(empresaPedido_1.default)
             .use(estado_1.default)
             .use(faq_1.default)

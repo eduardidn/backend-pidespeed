@@ -3,12 +3,12 @@ import * as service from "./service";
 
 export async function list(req, res) {
   const { tipo, empresaId } = Validator.validate(req.params, "tipo empresaId");
-  return service.list(tipo, empresaId).then((data) => res.json(data));
+  return service.list({ tipo, empresaId }).then((data) => res.json(data));
 }
 
 export async function listByIds(req, res) {
   const { tipo, ids } = Validator.validate(req.params, "tipo ids");
-  return service.listByIds(tipo, ids).then((data) => res.json(data));
+  return service.listByIds({ tipo, ids }).then((data) => res.json(data));
 }
 
 export async function listOne(req, res) {

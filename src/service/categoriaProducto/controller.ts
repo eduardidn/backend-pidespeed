@@ -6,6 +6,11 @@ export async function list(req, res) {
   return service.list(tipo).then((data) => res.json(data));
 }
 
+export async function listByRuta(req, res) {
+  const { tipo, ruta } = Validator.validate(req.params, "tipo ruta");
+  return service.listByRuta({ tipo, ruta }).then((data) => res.json(data));
+}
+
 export async function listOne(req, res) {
   const { categoriaProductoId } = req.params;
   return service

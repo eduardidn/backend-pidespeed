@@ -1,7 +1,7 @@
 import { Bebida } from "@models";
 import { Socket } from "@utils";
 
-export async function list(tipo, empresaId) {
+export async function list({ tipo, empresaId }) {
   tipo = Number(tipo) === 1 ? 1 : 0;
   let query: any = {
     empresa: empresaId,
@@ -10,7 +10,7 @@ export async function list(tipo, empresaId) {
   return Bebida.find(query).lean();
 }
 
-export async function listByIds(tipo, ids) {
+export async function listByIds({ tipo, ids }) {
   tipo = Number(tipo) === 1 ? 1 : 0;
   ids = ids.split(",");
   let query: any = {

@@ -5,7 +5,7 @@ export default express
   .Router()
   .get("/", CatchErrors(controller.list))
   .get("/:pedidoId/:empresaId", CatchErrors(controller.listPedidos))
-  .get("/get/byPedido/:pedidoId", CatchErrors(controller.listByPedido))
+  .get("/list/byPedido/:pedidoId", CatchErrors(controller.listByPedido))
   .get("/:detallePedidoId", CatchErrors(controller.listOne))
   .post("/", CatchErrors(controller.addDetallePedido))
   .put("/:detallePedidoId", CatchErrors(controller.updateDetallePedido))

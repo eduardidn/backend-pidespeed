@@ -15,7 +15,7 @@ export default express
   .get("/pendientes/:empresaId", CatchErrors(controller.listPendientes))
   .get("/terminados/:empresaId", CatchErrors(controller.listTerminados))
   .get("/entregados/:empresaId", CatchErrors(controller.listEntregados))
-  .get("/get/byPago/:ids", CatchErrors(controller.listByIds))
+  .get("/list/byPago/:ids", CatchErrors(controller.listByIds))
   .get("/:empresaPedidoId", CatchErrors(controller.listOne))
   .post("/", CatchErrors(controller.addEmpresaPedido))
   .put("/:empresaPedidoId", CatchErrors(controller.updateEmpresaPedido))

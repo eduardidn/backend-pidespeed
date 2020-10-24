@@ -25,10 +25,10 @@ export async function listAllInfo({ empresaId, ciudadId }) {
     .lean();
 }
 
-export async function listHome({ type, ciudad, sort }) {
+export async function listHome({ tipo, ciudad, sort }) {
   let query: any = { es_sucursal: 0 };
-  if (type === 3) query = { ...query, prueba: 1 };
-  if (type === 1) query = { ...query, publish: 1 };
+  if (tipo === 3) query = { ...query, prueba: 1 };
+  if (tipo === 1) query = { ...query, publish: 1 };
   if (ciudad) query = { ...query, ciudad };
   return Empresa.find(query)
     .populate("categoria", "ruta")
@@ -60,25 +60,6 @@ export async function addVenta({ ruta }) {
   empresa.save();
 }
 
-/**
- * CONSULTAS PARA EL LOGIN
- */
-
-export async function listOneEmpresaByField({ field, value }) {
-  return Empresa.findOne({ [field]: value }).lean;
-}
-
-export async function updatePassword({ field, value, password }) {
-  const hashPassword = PasswordHelper.hash(password);
-  return Empresa.findOneAndUpdate(
-    { [field]: value },
-    { password: hashPassword },
-    { new: true, lean: true },
-  );
-}
-/**
- * FIN CONSULTAS DEL LOGIN
- */
 export async function addEmpresa(value) {
   return Empresa.create(value);
 }

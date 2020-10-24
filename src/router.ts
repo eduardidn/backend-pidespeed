@@ -16,11 +16,20 @@ import empresa from "./service/empresa";
 import empresaPedido from "./service/empresaPedido";
 import estado from "./service/estado";
 import faq from "./service/faq";
+import favorito from "./service/favorito";
+import login from "./service/login";
 import mail from "./service/mail";
 import pago from "./service/pago";
+import pedido from "./service/pedido";
+import producto from "./service/producto";
 import sabor from "./service/sabor";
 import sirope from "./service/sirope";
+import tamano from "./service/tamano";
 import tipoBebida from "./service/tipoBebida";
+import topping from "./service/topping";
+import usuario from "./service/usuario";
+import venta from "./service/venta";
+import zona from "./service/zona";
 
 export default async function (app) {
   const router = express
@@ -38,11 +47,20 @@ export default async function (app) {
     .use(empresaPedido)
     .use(estado)
     .use(faq)
+    .use(favorito)
+    .use(login)
     .use(mail)
     .use(pago)
+    .use(pedido)
+    .use(producto)
     .use(sabor)
     .use(sirope)
+    .use(tamano)
     .use(tipoBebida)
+    .use(topping)
+    .use(usuario)
+    .use(venta)
+    .use(zona)
     .use(exampleRoutes);
 
   app.use("/api", router).use(ErrorHandle);

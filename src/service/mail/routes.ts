@@ -7,7 +7,7 @@ export default express
   .post("/estadoPedido", CatchErrors(controller.mailEstadoPedido))
   .post("/pedidoTerminado", CatchErrors(controller.mailPedidoListo))
   .post("/nuevoPedido", CatchErrors(controller.mailNuevoPedido))
-  .post("/bienvenido", CatchErrors(controller.mailBienvenido))
-  .post("/verificar", CatchErrors(controller.mailVerificacion))
-  .post("/recuperarPass", CatchErrors(controller.mailRecuperarPass))
-  .post("/promocion", CatchErrors(controller.mailPromocion));
+  .post("/bienvenido/public", CatchErrors(controller.mailBienvenido))
+  .post("/verificar/public", CatchErrors(controller.mailVerificacion))
+  .post("/recuperarPass/public", CatchErrors(controller.mailRecuperarPass))
+  .post("/promocion/public", CatchErrors(controller.mailPromocion));

@@ -18,9 +18,9 @@ export async function listAllInfo(res, req) {
 }
 
 export async function listHome(res, req) {
-  const { type, ciudad, sort } = req.params;
+  const { tipo, ciudad, sort } = req.params;
   return service
-    .listHome({ type, ciudad, sort })
+    .listHome({ tipo, ciudad, sort })
     .then((data) => res.json(data));
 }
 
@@ -42,21 +42,6 @@ export async function addVisita(res, req) {
 export async function addVenta(res, req) {
   const { ruta } = req.params;
   return service.addVenta({ ruta }).then((data) => res.json(data));
-}
-
-export async function listOneEmpresaByField(res, req) {
-  const { field, value } = req.params;
-  return service
-    .listOneEmpresaByField({ field, value })
-    .then((data) => res.json(data));
-}
-
-export async function updatePassword(res, req) {
-  const { field, value } = req.params;
-  const { password } = req.body;
-  return service
-    .updatePassword({ field, value, password })
-    .then((data) => res.json(data));
 }
 
 export async function addEmpresa(res, req) {

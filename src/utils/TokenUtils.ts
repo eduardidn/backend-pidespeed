@@ -36,9 +36,7 @@ async function createAdminToken({ id }) {
   });
 }
 
-async function createUserToken({ user }) {
-  const { _id: userId } = user;
-
+async function createUserToken({ userId }) {
   return _createToken(userId, {
     userId,
   });
@@ -69,7 +67,7 @@ async function validateToken({ token }) {
 }
 
 async function needValidate(url) {
-  const whitelist = ["api/login"];
+  const whitelist = ["/api/login", "/api/empresa/public", "/api/favorito"];
 
   const whiteListEndsWidth = ["/public"];
 

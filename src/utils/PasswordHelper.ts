@@ -34,7 +34,7 @@ async function hash(password) {
   });
 }
 
-async function compare(password, hash) {
+async function compare({ password, hash }) {
   return new Promise(async (resolve, reject) => {
     try {
       const buffer = Buffer.from(hash, "base64");
@@ -70,7 +70,7 @@ async function encryptPassword(password: string) {
   return hash;
 }
 
-async function matchPassword(password: string, savedPassword: string) {
+async function matchPassword({ password, savedPassword }) {
   return bcrypt.compare(password, savedPassword);
 }
 

@@ -27,5 +27,6 @@ export { default as Tamano } from "./Tamano";
 export { default as TipoBebida } from "./TipoBebida";
 export { default as Topping } from "./Topping";
 export { default as Usuario } from "./Usuario";
+export { default as UsuarioEmpresa } from "./UsuarioEmpresa";
 export { default as Venta } from "./Venta";
 export { default as Zona } from "./Zona";
