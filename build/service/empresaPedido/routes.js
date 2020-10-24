@@ -36,7 +36,7 @@ exports.default = express_1.default
     .get("/pendientes/:empresaId", _utils_1.CatchErrors(controller.listPendientes))
     .get("/terminados/:empresaId", _utils_1.CatchErrors(controller.listTerminados))
     .get("/entregados/:empresaId", _utils_1.CatchErrors(controller.listEntregados))
-    .get("/get/byPago/:ids", _utils_1.CatchErrors(controller.listByIds))
+    .get("/list/byPago/:ids", _utils_1.CatchErrors(controller.listByIds))
     .get("/:empresaPedidoId", _utils_1.CatchErrors(controller.listOne))
     .post("/", _utils_1.CatchErrors(controller.addEmpresaPedido))
     .put("/:empresaPedidoId", _utils_1.CatchErrors(controller.updateEmpresaPedido))

@@ -36,9 +36,9 @@ async function createAdminToken({ id }) {
   });
 }
 
-async function createUserToken({ userId }) {
-  return _createToken(userId, {
-    userId,
+async function createUserToken({ usuarioId }) {
+  return _createToken(usuarioId, {
+    usuarioId,
   });
 }
 

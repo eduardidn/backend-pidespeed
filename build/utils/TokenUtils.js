@@ -43,9 +43,8 @@ function createAdminToken({ id }) {
         });
     });
 }
-function createUserToken({ user }) {
+function createUserToken({ userId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: userId } = user;
         return _createToken(userId, {
             userId,
         });
@@ -78,7 +77,7 @@ function validateToken({ token }) {
 }
 function needValidate(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        const whitelist = ["api/login"];
+        const whitelist = ["/api/login", "/api/empresa/public", "/api/favorito"];
         const whiteListEndsWidth = ["/public"];
         for (const wlUrl of whiteListEndsWidth)
             if (url.endsWith(wlUrl))

@@ -28,11 +28,20 @@ const empresa_1 = __importDefault(require("./service/empresa"));
 const empresaPedido_1 = __importDefault(require("./service/empresaPedido"));
 const estado_1 = __importDefault(require("./service/estado"));
 const faq_1 = __importDefault(require("./service/faq"));
+const favorito_1 = __importDefault(require("./service/favorito"));
+const login_1 = __importDefault(require("./service/login"));
 const mail_1 = __importDefault(require("./service/mail"));
 const pago_1 = __importDefault(require("./service/pago"));
+const pedido_1 = __importDefault(require("./service/pedido"));
+const producto_1 = __importDefault(require("./service/producto"));
 const sabor_1 = __importDefault(require("./service/sabor"));
 const sirope_1 = __importDefault(require("./service/sirope"));
+const tamano_1 = __importDefault(require("./service/tamano"));
 const tipoBebida_1 = __importDefault(require("./service/tipoBebida"));
+const topping_1 = __importDefault(require("./service/topping"));
+const usuario_1 = __importDefault(require("./service/usuario"));
+const venta_1 = __importDefault(require("./service/venta"));
+const zona_1 = __importDefault(require("./service/zona"));
 function default_1(app) {
     return __awaiter(this, void 0, void 0, function* () {
         const router = express_1.default
@@ -50,11 +59,20 @@ function default_1(app) {
             .use(empresaPedido_1.default)
             .use(estado_1.default)
             .use(faq_1.default)
+            .use(favorito_1.default)
+            .use(login_1.default)
             .use(mail_1.default)
             .use(pago_1.default)
+            .use(pedido_1.default)
+            .use(producto_1.default)
             .use(sabor_1.default)
             .use(sirope_1.default)
+            .use(tamano_1.default)
             .use(tipoBebida_1.default)
+            .use(topping_1.default)
+            .use(usuario_1.default)
+            .use(venta_1.default)
+            .use(zona_1.default)
             .use(module_base_1.default);
         app.use("/api", router).use(_middlewares_1.ErrorHandle);
         return app;

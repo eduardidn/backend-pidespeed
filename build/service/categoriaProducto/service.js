@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.list = void 0;
+exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.listByRuta = exports.list = void 0;
 const _models_1 = require("@models");
 function list(tipo) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -21,6 +21,19 @@ function list(tipo) {
     });
 }
 exports.list = list;
+function listByRuta({ tipo, ruta }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
+        tipo = Number(tipo) === 1 ? 1 : 0;
+        let query = {
+            empresa,
+        };
+        if (tipo === 1)
+            query = Object.assign(Object.assign({}, query), { publish: tipo });
+        return _models_1.CategoriaProducto.find(query).lean();
+    });
+}
+exports.listByRuta = listByRuta;
 function listOne({ categoriaProductoId }) {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.CategoriaProducto.findOne({ _id: categoriaProductoId }).lean();

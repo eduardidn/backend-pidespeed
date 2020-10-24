@@ -66,7 +66,9 @@ export async function addUser(req, res) {
 }
 
 export async function updateUser(req, res) {
-  const { userId } = req.params;
+  const { usuarioId } = req.params;
   const value = req.body;
-  return service.updateUser({ userId, value }).then((data) => res.json(data));
+  return service
+    .updateUser({ usuarioId, value })
+    .then((data) => res.json(data));
 }

@@ -40,7 +40,7 @@ function hash(password) {
         }));
     });
 }
-function compare(password, hash) {
+function compare({ password, hash }) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
@@ -70,7 +70,7 @@ function encryptPassword(password) {
         return hash;
     });
 }
-function matchPassword(password, savedPassword) {
+function matchPassword({ password, savedPassword }) {
     return __awaiter(this, void 0, void 0, function* () {
         return bcryptjs_1.default.compare(password, savedPassword);
     });

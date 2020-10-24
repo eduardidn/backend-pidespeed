@@ -74,6 +74,8 @@ var Topping_1 = require("./Topping");
 Object.defineProperty(exports, "Topping", { enumerable: true, get: function () { return Topping_1.default; } });
 var Usuario_1 = require("./Usuario");
 Object.defineProperty(exports, "Usuario", { enumerable: true, get: function () { return Usuario_1.default; } });
+var UsuarioEmpresa_1 = require("./UsuarioEmpresa");
+Object.defineProperty(exports, "UsuarioEmpresa", { enumerable: true, get: function () { return UsuarioEmpresa_1.default; } });
 var Venta_1 = require("./Venta");
 Object.defineProperty(exports, "Venta", { enumerable: true, get: function () { return Venta_1.default; } });
 var Zona_1 = require("./Zona");

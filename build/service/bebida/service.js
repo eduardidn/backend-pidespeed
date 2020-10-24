@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBebida = exports.updateBebida = exports.addBebida = exports.listOne = exports.listByIds = exports.list = void 0;
 const _models_1 = require("@models");
-function list(tipo, empresaId) {
+function list({ tipo, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? 1 : 0;
         let query = {
@@ -23,7 +23,7 @@ function list(tipo, empresaId) {
     });
 }
 exports.list = list;
-function listByIds(tipo, ids) {
+function listByIds({ tipo, ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? 1 : 0;
         ids = ids.split(",");

@@ -24,7 +24,9 @@ class TasaFunc {
         const tasaDT = response.data.USD.promedio.toFixed();
 
         // token para las consultas restringidas
-        this.token = await TokenUtils.createUserToken({ user: { _id: 1234 } });
+        this.token = await TokenUtils.createUserToken({
+          usuarioId: { _id: 1234 },
+        });
         const data = {
           tasa_dt: tasaDT,
           tasa_bcv: tasaBCV,

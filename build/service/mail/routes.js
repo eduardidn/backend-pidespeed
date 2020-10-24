@@ -31,7 +31,7 @@ exports.default = express_1.default
     .post("/estadoPedido", _utils_1.CatchErrors(controller.mailEstadoPedido))
     .post("/pedidoTerminado", _utils_1.CatchErrors(controller.mailPedidoListo))
     .post("/nuevoPedido", _utils_1.CatchErrors(controller.mailNuevoPedido))
-    .post("/bienvenido", _utils_1.CatchErrors(controller.mailBienvenido))
-    .post("/verificar", _utils_1.CatchErrors(controller.mailVerificacion))
-    .post("/recuperarPass", _utils_1.CatchErrors(controller.mailRecuperarPass))
-    .post("/promocion", _utils_1.CatchErrors(controller.mailPromocion));
+    .post("/bienvenido/public", _utils_1.CatchErrors(controller.mailBienvenido))
+    .post("/verificar/public", _utils_1.CatchErrors(controller.mailVerificacion))
+    .post("/recuperarPass/public", _utils_1.CatchErrors(controller.mailRecuperarPass))
+    .post("/promocion/public", _utils_1.CatchErrors(controller.mailPromocion));

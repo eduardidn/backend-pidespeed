@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.list = void 0;
+exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.listByRuta = exports.list = void 0;
 const _utils_1 = require("@utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
@@ -38,6 +38,13 @@ function list(req, res) {
     });
 }
 exports.list = list;
+function listByRuta(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { tipo, ruta } = _utils_1.Validator.validate(req.params, "tipo ruta");
+        return service.listByRuta({ tipo, ruta }).then((data) => res.json(data));
+    });
+}
+exports.listByRuta = listByRuta;
 function listOne(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { categoriaProductoId } = req.params;

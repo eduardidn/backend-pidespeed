@@ -14,7 +14,7 @@ export async function loginUser({ password, user }) {
   const match = await PasswordHelper.matchPassword({ password, savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
-  const token = await TokenUtils.createUserToken({ userId: usuario._id });
+  const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
   return { message: "ok", token, user: usuario[0] };
 }
 
@@ -29,7 +29,7 @@ export async function loginEmpresa({ password, user }) {
   // let match = await PasswordHelper.compare({ password, hash: savedPassword })
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
-  const token = await TokenUtils.createUserToken({ userId: usuario._id });
+  const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
   const tokenEmpresa = await TokenUtils.createBusinessToken({
     id: usuario._id,
   });
@@ -47,7 +47,7 @@ export async function loginAdmin({ password, user }) {
   // let match = await PasswordHelper.compare({ password, hash: savedPassword })
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
-  const token = await TokenUtils.createUserToken({ userId: admin._id });
+  const token = await TokenUtils.createUserToken({ usuarioId: admin._id });
   const tokenAdmin = await TokenUtils.createAdminToken({ id: admin._id });
   return { message: "ok", token, tokenAdmin, user: admin[0] };
 }
@@ -101,9 +101,9 @@ export async function addUser(value) {
   return Usuario.create({ value });
 }
 
-export async function updateUser({ value, userId }) {
+export async function updateUser({ value, usuarioId }) {
   return Usuario.findOneAndUpdate(
-    { _id: userId },
+    { _id: usuarioId },
     { value },
     { new: true, lean: true },
   );

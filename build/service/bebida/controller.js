@@ -34,14 +34,14 @@ const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { tipo, empresaId } = _utils_1.Validator.validate(req.params, "tipo empresaId");
-        return service.list(tipo, empresaId).then((data) => res.json(data));
+        return service.list({ tipo, empresaId }).then((data) => res.json(data));
     });
 }
 exports.list = list;
 function listByIds(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { tipo, ids } = _utils_1.Validator.validate(req.params, "tipo ids");
-        return service.listByIds(tipo, ids).then((data) => res.json(data));
+        return service.listByIds({ tipo, ids }).then((data) => res.json(data));
     });
 }
 exports.listByIds = listByIds;
