@@ -15,7 +15,7 @@ export async function loginUser({ password, user }) {
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
-  return { message: "ok", token, user: usuario[0] };
+  return { message: "ok", token, user: usuario };
 }
 
 export async function loginEmpresa({ password, user }) {
@@ -33,7 +33,7 @@ export async function loginEmpresa({ password, user }) {
   const tokenEmpresa = await TokenUtils.createBusinessToken({
     id: usuario._id,
   });
-  return { message: "ok", token, tokenAdmin: tokenEmpresa, user: usuario[0] };
+  return { message: "ok", token, tokenAdmin: tokenEmpresa, user: usuario };
 }
 
 export async function loginAdmin({ password, user }) {
@@ -49,7 +49,7 @@ export async function loginAdmin({ password, user }) {
 
   const token = await TokenUtils.createUserToken({ usuarioId: admin._id });
   const tokenAdmin = await TokenUtils.createAdminToken({ id: admin._id });
-  return { message: "ok", token, tokenAdmin, user: admin[0] };
+  return { message: "ok", token, tokenAdmin, user: admin };
 }
 
 /**
@@ -57,7 +57,14 @@ export async function loginAdmin({ password, user }) {
  */
 
 export async function listEmpresaByField({ field, value }) {
-  return Empresa.findOne({ [field]: value }).lean;
+  return Empresa.findOne({ [field]: value })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function updatePasswordUser({ email, password }) {
@@ -66,7 +73,12 @@ export async function updatePasswordUser({ email, password }) {
     { email },
     { password: hashPassword },
     { new: true, lean: true },
-  );
+  ).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
 }
 
 export async function updatePasswordEmpresa({ field, value, password }) {
@@ -75,7 +87,12 @@ export async function updatePasswordEmpresa({ field, value, password }) {
     { [field]: value },
     { password: hashPassword },
     { new: true, lean: true },
-  );
+  ).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
 }
 
 export async function updatePasswordAdmin({ adminId, password }) {
@@ -84,7 +101,12 @@ export async function updatePasswordAdmin({ adminId, password }) {
     { _id: adminId },
     { password: hashPassword },
     { new: true, lean: true },
-  );
+  ).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
 }
 
 /**
@@ -92,7 +114,14 @@ export async function updatePasswordAdmin({ adminId, password }) {
  */
 
 export async function listUserByField({ field, value }) {
-  return Usuario.findOne({ [field]: value }).lean();
+  return Usuario.findOne({ [field]: value })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addUser(value) {
@@ -106,5 +135,10 @@ export async function updateUser({ value, usuarioId }) {
     { _id: usuarioId },
     { value },
     { new: true, lean: true },
-  );
+  ).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
 }

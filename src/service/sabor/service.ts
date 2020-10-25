@@ -7,7 +7,16 @@ export async function list(tipo, empresaId) {
     empresa: empresaId,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Sabor.find(query).lean();
+  return Sabor.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listByIds(tipo, ids) {
@@ -17,11 +26,27 @@ export async function listByIds(tipo, ids) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Sabor.find(query).lean();
+  return Sabor.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ saborId }) {
-  return Sabor.findOne({ _id: saborId }).lean();
+  return Sabor.findOne({ _id: saborId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addSabor(value) {
@@ -32,6 +57,11 @@ export async function updateSabor({ saborId, value }) {
   return Sabor.findOneAndUpdate({ _id: saborId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

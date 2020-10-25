@@ -43,10 +43,10 @@ function createAdminToken({ id }) {
         });
     });
 }
-function createUserToken({ userId }) {
+function createUserToken({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _createToken(userId, {
-            userId,
+        return _createToken(usuarioId, {
+            usuarioId,
         });
     });
 }

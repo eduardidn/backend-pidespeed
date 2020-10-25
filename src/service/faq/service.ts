@@ -2,11 +2,27 @@ import { Faq } from "@models";
 import { Socket } from "@utils";
 
 export async function list() {
-  return Faq.find({}).lean();
+  return Faq.find({})
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ faqId }) {
-  return Faq.findOne({ _id: faqId }).lean();
+  return Faq.findOne({ _id: faqId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addFaq(value) {
@@ -17,6 +33,11 @@ export async function updateFaq({ faqId, value }) {
   return Faq.findOneAndUpdate({ _id: faqId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

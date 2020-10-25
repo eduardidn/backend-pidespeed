@@ -7,7 +7,16 @@ export async function list(tipo, empresaId) {
     empresa: empresaId,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Topping.find(query).lean();
+  return Topping.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listByIds(tipo, ids) {
@@ -17,11 +26,27 @@ export async function listByIds(tipo, ids) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Topping.find(query).lean();
+  return Topping.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ toppingId }) {
-  return Topping.findOne({ _id: toppingId }).lean();
+  return Topping.findOne({ _id: toppingId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addTopping(value) {
@@ -32,6 +57,11 @@ export async function updateTopping({ toppingId, value }) {
   return Topping.findOneAndUpdate({ _id: toppingId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

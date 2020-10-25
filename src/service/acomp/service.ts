@@ -2,11 +2,27 @@ import { Acomp } from "@models";
 import { Socket } from "@utils";
 
 export async function list() {
-  return Acomp.find({}).lean();
+  return Acomp.find({})
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ acompId }) {
-  return Acomp.findOne({ _id: acompId }).lean();
+  return Acomp.findOne({ _id: acompId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addAcomp(value) {
@@ -17,6 +33,11 @@ export async function updateAcomp({ acompId, value }) {
   return Acomp.findOneAndUpdate({ _id: acompId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

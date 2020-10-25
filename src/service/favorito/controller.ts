@@ -18,16 +18,35 @@ export async function listOne(req, res) {
     .then((data) => res.json(data));
 }
 
+export async function verifyFavorito(req, res) {
+  const { usuarioId, empresaId } = req.params;
+  return service
+    .verifyFavorito({ usuarioId, empresaId })
+    .then((data) => res.json(data));
+}
+
 export async function listAll(req, res) {
   return service.listAll().then((data) => res.json(data));
 }
 
 export async function addFavorito(req, res) {
-  const { nombre } = Validator.validate(req.body, "nombre");
-  return service.addFavorito({ nombre }).then((data) => res.json(data));
+  const { usuario, empresa, categoria } = Validator.validate(
+    req.body,
+    "usuario empresa categoria",
+  );
+  return service
+    .addFavorito({ usuario, empresa, categoria })
+    .then((data) => res.json(data));
 }
 
 export async function deleteFavorito(req, res) {
   const { favoritoId } = req.params;
   return service.deleteFavorito(favoritoId).then((data) => res.json(data));
+}
+
+export async function deleteFavoritoByUsuario(req, res) {
+  const { usuarioId, empresaId } = req.params;
+  return service
+    .deleteFavoritoByUsuario({ usuarioId, empresaId })
+    .then((data) => res.json(data));
 }

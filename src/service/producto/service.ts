@@ -8,7 +8,17 @@ export async function list({ tipo, ruta }) {
     empresa,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Producto.find(query).populate("file", "url").lean();
+  return Producto.find(query)
+    .populate("file", "url")
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listCatEsp({ tipo, ruta }) {
@@ -19,10 +29,20 @@ export async function listCatEsp({ tipo, ruta }) {
   };
   if (tipo === 1) query = { ...query, publish: tipo };
   let categorias = await Producto.find(query)
+    .select("categoria_product")
     .populate("categoria_product", "nombre")
     .sort({ categoria_product: 1 })
     .lean();
-  categorias = [...new Set(categorias)];
+  categorias = categorias.map((categoria) => {
+    categoria.categoria_product.id = categoria.categoria_product._id;
+    return categoria.categoria_product;
+  });
+  const hash = {};
+  categorias = categorias.filter((categoria) => {
+    const exists = !hash[categoria._id];
+    hash[categoria._id] = true;
+    return exists;
+  });
   return categorias;
 }
 
@@ -33,13 +53,26 @@ export async function listByIds({ tipo, ids }) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Producto.find(query).lean();
+  return Producto.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOneByDatos({ nombre, descripcion }) {
   return Producto.findOne({ nombre, descripcion })
     .populate("file", "url")
-    .lean();
+    .lean()
+    .then((data) => {
+      data.id = data._id;
+      return data;
+    });
 }
 
 export async function restarCantidad({ productoId, cantidad }) {
@@ -51,7 +84,15 @@ export async function restarCantidad({ productoId, cantidad }) {
 }
 
 export async function listOne({ productoId }) {
-  return Producto.findOne({ _id: productoId }).populate("file", "url").lean();
+  return Producto.findOne({ _id: productoId })
+    .populate("file", "url")
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addProducto(value) {
@@ -62,6 +103,11 @@ export async function updateProducto({ productoId, value }) {
   return Producto.findOneAndUpdate({ _id: productoId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

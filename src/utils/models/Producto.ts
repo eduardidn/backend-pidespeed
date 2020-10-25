@@ -28,7 +28,7 @@ const schema = new Schema(
     },
     categoria_product: {
       type: Schema.Types.ObjectId,
-      ref: "categoriaProduct",
+      ref: "categoriaProducto",
       required: [true, "categoria_product is required"],
     },
     acomp: {

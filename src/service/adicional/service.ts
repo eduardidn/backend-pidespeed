@@ -7,7 +7,16 @@ export async function list({ tipo, empresaId }) {
     empresa: empresaId,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Adicional.find(query).lean();
+  return Adicional.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listByIds({ tipo, ids }) {
@@ -17,11 +26,27 @@ export async function listByIds({ tipo, ids }) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Adicional.find(query).lean();
+  return Adicional.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ adicionalId }) {
-  return Adicional.findOne({ _id: adicionalId }).lean();
+  return Adicional.findOne({ _id: adicionalId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addAdicional(value) {
@@ -32,6 +57,11 @@ export async function updateAdicional({ adicionalId, value }) {
   return Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

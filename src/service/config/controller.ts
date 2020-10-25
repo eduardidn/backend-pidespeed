@@ -6,8 +6,7 @@ export async function list(req, res) {
 }
 
 export async function listOne(req, res) {
-  const { configId } = req.params;
-  return service.listOne({ configId }).then((data) => res.json(data));
+  return service.listOne().then((data) => res.json(data));
 }
 
 export async function addConfig(req, res) {

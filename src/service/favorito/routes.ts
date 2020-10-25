@@ -6,6 +6,11 @@ export default express
   .get("/:usuarioId", CatchErrors(controller.list))
   .get("/list/all", CatchErrors(controller.listAll))
   .get("/listOne/:usuarioId/:empresaId", CatchErrors(controller.listOne))
-  .get("/:usuarioId/:ruta", CatchErrors(controller.listEsp))
+  .get("/verify/:usuarioId/:empresaId", CatchErrors(controller.verifyFavorito))
+  .get("/listByRuta/:usuarioId/:ruta", CatchErrors(controller.listEsp))
   .post("/", CatchErrors(controller.addFavorito))
-  .delete("/:favoritoId", CatchErrors(controller.deleteFavorito));
+  .delete("/:favoritoId", CatchErrors(controller.deleteFavorito))
+  .delete(
+    "/:usuarioId/:empresaId",
+    CatchErrors(controller.deleteFavoritoByUsuario),
+  );

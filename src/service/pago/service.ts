@@ -2,15 +2,40 @@ import { Pago } from "@models";
 import { Socket } from "@utils";
 
 export async function list({ empresaId }) {
-  return Pago.find({ empresa: empresaId }).lean();
+  return Pago.find({ empresa: empresaId })
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listAll() {
-  return Pago.find({}).lean();
+  return Pago.find({})
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ pagoId }) {
-  return Pago.findOne({ _id: pagoId }).lean();
+  return Pago.findOne({ _id: pagoId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addPago(value) {
@@ -21,6 +46,11 @@ export async function updatePago({ pagoId, value }) {
   return Pago.findOneAndUpdate({ _id: pagoId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

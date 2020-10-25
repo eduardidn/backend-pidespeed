@@ -7,7 +7,16 @@ export async function list(tipo, empresaId) {
     empresa: empresaId,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Sirope.find(query).lean();
+  return Sirope.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listByIds(tipo, ids) {
@@ -17,11 +26,27 @@ export async function listByIds(tipo, ids) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Sirope.find(query).lean();
+  return Sirope.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ siropeId }) {
-  return Sirope.findOne({ _id: siropeId }).lean();
+  return Sirope.findOne({ _id: siropeId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addSirope(value) {
@@ -32,6 +57,11 @@ export async function updateSirope({ siropeId, value }) {
   return Sirope.findOneAndUpdate({ _id: siropeId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

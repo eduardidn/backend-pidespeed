@@ -1,19 +1,19 @@
 import { Validator } from "@utils";
 import * as service from "./service";
 
-export async function loginUser(res, req) {
+export async function loginUser(req, res) {
   const { user, password } = Validator.validate(req.body, "user password");
   return service.loginUser({ user, password }).then((data) => res.json(data));
 }
 
-export async function loginEmpresa(res, req) {
+export async function loginEmpresa(req, res) {
   const { user, password } = Validator.validate(req.body, "user password");
   return service
     .loginEmpresa({ user, password })
     .then((data) => res.json(data));
 }
 
-export async function loginAdmin(res, req) {
+export async function loginAdmin(req, res) {
   const { user, password } = Validator.validate(req.body, "user password");
   return service.loginAdmin({ user, password }).then((data) => res.json(data));
 }
@@ -22,28 +22,28 @@ export async function loginAdmin(res, req) {
  * UPDATE PASSWORD
  */
 
-export async function listEmpresaByField(res, req) {
+export async function listEmpresaByField(req, res) {
   const { field, value } = Validator.validate(req.body, "field value");
   return service
     .listEmpresaByField({ field, value })
     .then((data) => res.json(data));
 }
 
-export async function updatePasswordUser(res, req) {
+export async function updatePasswordUser(req, res) {
   const { password, email } = Validator.validate(req.body, "password");
   return service
     .updatePasswordUser({ email, password })
     .then((data) => res.json(data));
 }
 
-export async function updatePasswordEmpresa(res, req) {
+export async function updatePasswordEmpresa(req, res) {
   const { password, field, value } = Validator.validate(req.body, "password");
   return service
     .updatePasswordEmpresa({ field, value, password })
     .then((data) => res.json(data));
 }
 
-export async function updatePasswordAdmin(res, req) {
+export async function updatePasswordAdmin(req, res) {
   const { password, adminId } = Validator.validate(req.body, "password");
   return service
     .updatePasswordAdmin({ adminId, password })
@@ -54,7 +54,7 @@ export async function updatePasswordAdmin(res, req) {
  * USUARIOS
  */
 
-export async function listUserByField(res, req) {
+export async function listUserByField(req, res) {
   const { field, value } = Validator.validate(req.body, "field value");
   return service
     .listUserByField({ field, value })

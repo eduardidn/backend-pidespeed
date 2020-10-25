@@ -2,11 +2,27 @@ import { Ciudad } from "@models";
 import { Socket } from "@utils";
 
 export async function list() {
-  return Ciudad.find({}).lean();
+  return Ciudad.find({})
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ ciudadId }) {
-  return Ciudad.findOne({ _id: ciudadId }).lean();
+  return Ciudad.findOne({ _id: ciudadId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addCiudad(value) {
@@ -17,6 +33,11 @@ export async function updateCiudad({ ciudadId, value }) {
   return Ciudad.findOneAndUpdate({ _id: ciudadId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

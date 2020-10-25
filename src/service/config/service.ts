@@ -2,11 +2,28 @@ import { Config } from "@models";
 import { Socket } from "@utils";
 
 export async function list() {
-  return Config.find({}).lean();
+  return Config.find({})
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
-export async function listOne({ configId }) {
-  return Config.findOne({ _id: configId }).lean();
+export async function listOne() {
+  return Config.findOne({})
+    .sort({ _id: 1 })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addConfig(value) {
@@ -17,6 +34,11 @@ export async function updateConfig({ configId, value }) {
   return Config.findOneAndUpdate({ _id: configId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

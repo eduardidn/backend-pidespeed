@@ -7,7 +7,16 @@ export async function list({ tipo, empresaId }) {
     empresa: empresaId,
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Bebida.find(query).lean();
+  return Bebida.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listByIds({ tipo, ids }) {
@@ -17,11 +26,27 @@ export async function listByIds({ tipo, ids }) {
     _id: { $in: ids },
   };
   if (tipo === 1) query = { ...query, publish: tipo };
-  return Bebida.find(query).lean();
+  return Bebida.find(query)
+    .lean()
+    .then((datos) =>
+      datos.map((data) => {
+        if (data) {
+          data.id = data._id;
+          return data;
+        }
+      }),
+    );
 }
 
 export async function listOne({ bebidaId }) {
-  return Bebida.findOne({ _id: bebidaId }).lean();
+  return Bebida.findOne({ _id: bebidaId })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function addBebida(value) {
@@ -32,6 +57,11 @@ export async function updateBebida({ bebidaId, value }) {
   return Bebida.findOneAndUpdate({ _id: bebidaId }, value, {
     new: true,
     lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
   });
 }
 

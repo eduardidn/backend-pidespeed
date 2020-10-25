@@ -4,13 +4,16 @@ import { CatchErrors } from "@utils";
 export default express
   .Router()
   .get("/public/list/all", CatchErrors(controller.listAll))
-  .get("/public/home/:tipo/:ciudadId/:sort", CatchErrors(controller.listHome))
-  .get("/public/categoria/:ruta/:ciudad?", CatchErrors(controller.list))
-  .get("/public/list/all/:empresaId/:ciudad?", CatchErrors(controller.listAll))
+  .get("/public/home/:tipo/:sort/:ciudad?", CatchErrors(controller.listHome))
+  .get("/public/categoria/:ruta/:ciudadId?", CatchErrors(controller.list))
+  .get(
+    "/public/list/all/:empresaId/:ciudadId?",
+    CatchErrors(controller.listAll),
+  )
   .get("/public/one/:field/:value", CatchErrors(controller.listOne))
-  .get("/sucursales/:empresaId", CatchErrors(controller.listSucursales))
-  .put("/public/addvisita/:ruta", CatchErrors(controller.addVisita))
-  .put("/public/addventa/:ruta", CatchErrors(controller.addVenta))
+  .get("/public/sucursales/:empresaId", CatchErrors(controller.listSucursales))
+  .get("/public/addVisita/:ruta", CatchErrors(controller.addVisita))
+  .get("/public/addVenta/:ruta", CatchErrors(controller.addVenta))
   .post("/", CatchErrors(controller.addEmpresa))
   .put("/:id", CatchErrors(controller.updateEmpresa))
   .delete("/:id", CatchErrors(controller.deleteEmpresa));
