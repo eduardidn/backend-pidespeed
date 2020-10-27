@@ -27,8 +27,8 @@ const controller = __importStar(require("./controller"));
 const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
-    .get("/public", _utils_1.CatchErrors(controller.list))
-    .get("/:cuentaId/public", _utils_1.CatchErrors(controller.listOne))
+    .get("", _utils_1.CatchErrors(controller.list))
+    .get("/:cuentaId", _utils_1.CatchErrors(controller.listOne))
     .post("/", _utils_1.CatchErrors(controller.addCuenta))
     .put("/:cuentaId", _utils_1.CatchErrors(controller.updateCuenta))
     .delete("/:cuentaId", _utils_1.CatchErrors(controller.deleteCuenta));

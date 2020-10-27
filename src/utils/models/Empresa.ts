@@ -75,7 +75,7 @@ const schema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "subcategoria",
     },
-    horarios: Array,
+    horarios: Object,
     contacto: Object,
     visitas: {
       type: Number,
@@ -106,7 +106,7 @@ const schema = new Schema(
       type: Number,
       required: [true, "en_local is required"],
     },
-    delivery: Array,
+    delivery: Object,
     porcent_mas: Number,
     tiene_sucursal: Number,
     es_sucursal: Number,

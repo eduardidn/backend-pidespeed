@@ -7,7 +7,12 @@ import { HTTP400Error, PasswordHelper, TokenUtils } from "@utils";
 export async function loginUser({ password, user }) {
   const usuario = await Usuario.findOne({
     $or: [{ username: user }, { email: user }],
-  }).lean();
+  })
+    .lean()
+    .then((data) => {
+      data.id = data._id;
+      return data;
+    });
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const { password: savedPassword } = usuario;
@@ -21,7 +26,12 @@ export async function loginUser({ password, user }) {
 export async function loginEmpresa({ password, user }) {
   const usuario = await UsuarioEmpresa.findOne({
     $or: [{ username: user }, { email: user }],
-  }).lean();
+  })
+    .lean()
+    .then((data) => {
+      data.id = data._id;
+      return data;
+    });
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const { password: savedPassword } = usuario;
@@ -39,7 +49,12 @@ export async function loginEmpresa({ password, user }) {
 export async function loginAdmin({ password, user }) {
   const admin = await Admin.findOne({
     $or: [{ username: user }, { email: user }],
-  }).lean();
+  })
+    .lean()
+    .then((data) => {
+      data.id = data._id;
+      return data;
+    });
   if (!admin) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const { password: savedPassword } = admin;

@@ -36,7 +36,7 @@ const schema = new Schema(
       default: 0,
     },
     add: {
-      type: Object,
+      type: String,
       default: 0,
     },
     bebida: {

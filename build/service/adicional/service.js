@@ -19,7 +19,14 @@ function list({ tipo, empresaId }) {
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Adicional.find(query).lean();
+        return _models_1.Adicional.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
@@ -32,13 +39,27 @@ function listByIds({ tipo, ids }) {
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Adicional.find(query).lean();
+        return _models_1.Adicional.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByIds = listByIds;
 function listOne({ adicionalId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Adicional.findOne({ _id: adicionalId }).lean();
+        return _models_1.Adicional.findOne({ _id: adicionalId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -53,6 +74,11 @@ function updateAdicional({ adicionalId, value }) {
         return _models_1.Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

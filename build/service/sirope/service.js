@@ -19,7 +19,14 @@ function list(tipo, empresaId) {
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sirope.find(query).lean();
+        return _models_1.Sirope.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
@@ -32,13 +39,27 @@ function listByIds(tipo, ids) {
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sirope.find(query).lean();
+        return _models_1.Sirope.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByIds = listByIds;
 function listOne({ siropeId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sirope.findOne({ _id: siropeId }).lean();
+        return _models_1.Sirope.findOne({ _id: siropeId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -53,6 +74,11 @@ function updateSirope({ siropeId, value }) {
         return _models_1.Sirope.findOneAndUpdate({ _id: siropeId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

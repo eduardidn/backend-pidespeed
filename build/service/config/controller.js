@@ -39,8 +39,7 @@ function list(req, res) {
 exports.list = list;
 function listOne(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { configId } = req.params;
-        return service.listOne({ configId }).then((data) => res.json(data));
+        return service.listOne().then((data) => res.json(data));
     });
 }
 exports.listOne = listOne;

@@ -13,25 +13,53 @@ exports.deleteEmpresaPedido = exports.updateEmpresaPedido = exports.addEmpresaPe
 const _models_1 = require("@models");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({}).lean();
+        return _models_1.EmpresaPedido.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listEmpresaPedidos({ pedidoId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ pedido: pedidoId, empresa: empresaId }).lean();
+        return _models_1.EmpresaPedido.find({ pedido: pedidoId, empresa: empresaId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listEmpresaPedidos = listEmpresaPedidos;
 function listByPedido({ pedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ pedido: pedidoId }).lean();
+        return _models_1.EmpresaPedido.find({ pedido: pedidoId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByPedido = listByPedido;
 function listByEmpresa({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ empresa: empresaId }).lean();
+        return _models_1.EmpresaPedido.find({ empresa: empresaId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByEmpresa = listByEmpresa;
@@ -40,7 +68,11 @@ function listAllPendientes() {
         return _models_1.EmpresaPedido.find({ terminado: 0, entregado: 0 })
             .populate("empresa", "nombre email telefono logo")
             .sort({ date: 1 })
-            .lean();
+            .lean()
+            .then((datos) => datos.map((data) => {
+            data.id = data._id;
+            return data;
+        }));
     });
 }
 exports.listAllPendientes = listAllPendientes;
@@ -49,7 +81,11 @@ function listAllTerminados() {
         return _models_1.EmpresaPedido.find({ terminado: 1, entregado: 0 })
             .populate("empresa", "nombre email telefono logo")
             .sort({ date: 1 })
-            .lean();
+            .lean()
+            .then((datos) => datos.map((data) => {
+            data.id = data._id;
+            return data;
+        }));
     });
 }
 exports.listAllTerminados = listAllTerminados;
@@ -59,7 +95,14 @@ function listPendientes({ empresaId }) {
             empresa: empresaId,
             terminado: 0,
             entregado: 0,
-        }).lean();
+        })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listPendientes = listPendientes;
@@ -69,7 +112,14 @@ function listTerminados({ empresaId }) {
             empresa: empresaId,
             terminado: 1,
             entregado: 0,
-        }).lean();
+        })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listTerminados = listTerminados;
@@ -79,20 +129,41 @@ function listEntregados({ empresaId }) {
             empresa: empresaId,
             terminado: 1,
             entregado: 1,
-        }).lean();
+        })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listEntregados = listEntregados;
 function listByIds({ ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.EmpresaPedido.find({ _id: { $in: ids } }).lean();
+        return _models_1.EmpresaPedido.find({ _id: { $in: ids } })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByIds = listByIds;
 function listOne({ empresaPedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.findOne({ _id: empresaPedidoId }).lean();
+        return _models_1.EmpresaPedido.findOne({ _id: empresaPedidoId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -107,6 +178,11 @@ function updateEmpresaPedido({ empresaPedidoId, value }) {
         return _models_1.EmpresaPedido.findOneAndUpdate({ _id: empresaPedidoId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

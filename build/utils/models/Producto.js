@@ -28,7 +28,7 @@ const schema = new mongoose_1.Schema({
     },
     categoria_product: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "categoriaProduct",
+        ref: "categoriaProducto",
         required: [true, "categoria_product is required"],
     },
     acomp: {

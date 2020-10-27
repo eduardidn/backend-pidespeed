@@ -13,13 +13,27 @@ exports.deleteTipoBebida = exports.updateTipoBebida = exports.addTipoBebida = ex
 const _models_1 = require("@models");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.find({}).lean();
+        return _models_1.TipoBebida.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listOne({ tipoBebidaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.findOne({ _id: tipoBebidaId }).lean();
+        return _models_1.TipoBebida.findOne({ _id: tipoBebidaId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -34,6 +48,11 @@ function updateTipoBebida({ tipoBebidaId, value }) {
         return _models_1.TipoBebida.findOneAndUpdate({ _id: tipoBebidaId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

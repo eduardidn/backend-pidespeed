@@ -17,7 +17,15 @@ function list(tipo) {
         let query;
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.CategoriaProducto.find(query).populate("categoria", "icono").lean();
+        return _models_1.CategoriaProducto.find(query)
+            .populate("categoria", "icono")
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
@@ -30,13 +38,27 @@ function listByRuta({ tipo, ruta }) {
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.CategoriaProducto.find(query).lean();
+        return _models_1.CategoriaProducto.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByRuta = listByRuta;
 function listOne({ categoriaProductoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.CategoriaProducto.findOne({ _id: categoriaProductoId }).lean();
+        return _models_1.CategoriaProducto.findOne({ _id: categoriaProductoId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -51,6 +73,11 @@ function updateCategoriaProducto({ categoriaProductoId, value }) {
         return _models_1.CategoriaProducto.findOneAndUpdate({ _id: categoriaProductoId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

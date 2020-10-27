@@ -13,13 +13,27 @@ exports.deleteFaq = exports.updateFaq = exports.addFaq = exports.listOne = expor
 const _models_1 = require("@models");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Faq.find({}).lean();
+        return _models_1.Faq.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listOne({ faqId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Faq.findOne({ _id: faqId }).lean();
+        return _models_1.Faq.findOne({ _id: faqId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -34,6 +48,11 @@ function updateFaq({ faqId, value }) {
         return _models_1.Faq.findOneAndUpdate({ _id: faqId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

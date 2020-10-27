@@ -13,25 +13,53 @@ exports.deleteDetallePedido = exports.updateDetallePedido = exports.addDetallePe
 const _models_1 = require("@models");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({}).lean();
+        return _models_1.DetallePedido.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listPedidos({ pedidoId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({ pedido: pedidoId, empresa: empresaId }).lean();
+        return _models_1.DetallePedido.find({ pedido: pedidoId, empresa: empresaId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listPedidos = listPedidos;
 function listByPedido({ pedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({ pedido: pedidoId }).lean();
+        return _models_1.DetallePedido.find({ pedido: pedidoId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listByPedido = listByPedido;
 function listOne({ detallePedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.findOne({ _id: detallePedidoId }).lean();
+        return _models_1.DetallePedido.findOne({ _id: detallePedidoId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -46,6 +74,11 @@ function updateDetallePedido({ detallePedidoId, value }) {
         return _models_1.DetallePedido.findOneAndUpdate({ _id: detallePedidoId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

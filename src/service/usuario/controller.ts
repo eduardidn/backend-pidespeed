@@ -6,12 +6,12 @@ export async function list(req, res) {
 }
 
 export async function listOne(req, res) {
-  const { id: usuarioId } = req.user;
+  const { usuarioId } = req.user;
   return service.listOne({ usuarioId }).then((data) => res.json(data));
 }
 
 export async function updateUsuario(req, res) {
-  const { id: usuarioId } = req.user;
+  const { usuarioId } = req.user;
   const value = req.body;
   return service
     .updateUsuario({ usuarioId, value })
@@ -19,7 +19,7 @@ export async function updateUsuario(req, res) {
 }
 
 export async function updatePassword(res, req) {
-  const { id: usuarioId } = req.user;
+  const { usuarioId } = req.user;
   const { password } = Validator.validate(req.body, "password");
   return service
     .updatePassword({ usuarioId, password })

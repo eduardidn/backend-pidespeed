@@ -13,19 +13,40 @@ exports.deletePago = exports.updatePago = exports.addPago = exports.listOne = ex
 const _models_1 = require("@models");
 function list({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.find({ empresa: empresaId }).lean();
+        return _models_1.Pago.find({ empresa: empresaId })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.find({}).lean();
+        return _models_1.Pago.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.listAll = listAll;
 function listOne({ pagoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.findOne({ _id: pagoId }).lean();
+        return _models_1.Pago.findOne({ _id: pagoId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -40,6 +61,11 @@ function updatePago({ pagoId, value }) {
         return _models_1.Pago.findOneAndUpdate({ _id: pagoId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

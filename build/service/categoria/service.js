@@ -17,13 +17,27 @@ function list(tipo) {
         let query;
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Categoria.find(query).lean();
+        return _models_1.Categoria.find(query)
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listOne({ categoriaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Categoria.findOne({ _id: categoriaId }).lean();
+        return _models_1.Categoria.findOne({ _id: categoriaId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -38,6 +52,11 @@ function updateCategoria({ categoriaId, value }) {
         return _models_1.Categoria.findOneAndUpdate({ _id: categoriaId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

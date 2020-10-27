@@ -13,13 +13,27 @@ exports.deleteAcomp = exports.updateAcomp = exports.addAcomp = exports.listOne =
 const _models_1 = require("@models");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.find({}).lean();
+        return _models_1.Acomp.find({})
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
     });
 }
 exports.list = list;
 function listOne({ acompId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.findOne({ _id: acompId }).lean();
+        return _models_1.Acomp.findOne({ _id: acompId })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
     });
 }
 exports.listOne = listOne;
@@ -34,6 +48,11 @@ function updateAcomp({ acompId, value }) {
         return _models_1.Acomp.findOneAndUpdate({ _id: acompId }, value, {
             new: true,
             lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
         });
     });
 }

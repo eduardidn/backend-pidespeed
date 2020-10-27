@@ -28,7 +28,7 @@ const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
     .get("/public", _utils_1.CatchErrors(controller.list))
-    .get("/:configId/public", _utils_1.CatchErrors(controller.listOne))
+    .get("/list/one/public", _utils_1.CatchErrors(controller.listOne))
     .post("/", _utils_1.CatchErrors(controller.addConfig))
     .put("/:configId", _utils_1.CatchErrors(controller.updateConfig))
     .delete("/:configId", _utils_1.CatchErrors(controller.deleteConfig));
