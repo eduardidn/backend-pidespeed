@@ -7,14 +7,6 @@ const schema = new Schema(
       type: String,
       required: [true, "nombre is required"],
     },
-    precio$: {
-      type: String,
-      default: 0,
-    },
-    precio: {
-      type: String,
-      required: [true, "precio is required"],
-    },
     cantidad: {
       type: Number,
       required: [true, "cantidad is required"],

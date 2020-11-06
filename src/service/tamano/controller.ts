@@ -21,8 +21,7 @@ export async function listOne(req, res) {
 }
 
 export async function addTamano(req, res) {
-  const { nombre } = Validator.validate(req.body, "nombre");
-  return service.addTamano({ nombre }).then((data) => res.json(data));
+  return service.addTamano(req.body).then((data) => res.json(data));
 }
 
 export async function updateTamano(req, res) {

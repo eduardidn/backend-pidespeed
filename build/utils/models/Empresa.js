@@ -75,7 +75,7 @@ const schema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "subcategoria",
     },
-    horarios: Array,
+    horarios: Object,
     contacto: Object,
     visitas: {
         type: Number,
@@ -106,7 +106,7 @@ const schema = new mongoose_1.Schema({
         type: Number,
         required: [true, "en_local is required"],
     },
-    delivery: Array,
+    delivery: Object,
     porcent_mas: Number,
     tiene_sucursal: Number,
     es_sucursal: Number,

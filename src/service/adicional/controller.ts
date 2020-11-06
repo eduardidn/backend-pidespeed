@@ -17,13 +17,7 @@ export async function listOne(req, res) {
 }
 
 export async function addAdicional(req, res) {
-  const { nombre, precio, cantidad, publish, empresa } = Validator.validate(
-    req.body,
-    "nombre precio cantidad publish empresa",
-  );
-  return service
-    .addAdicional({ nombre, precio, cantidad, publish, empresa })
-    .then((data) => res.json(data));
+  return service.addAdicional(req.body).then((data) => res.json(data));
 }
 
 export async function updateAdicional(req, res) {

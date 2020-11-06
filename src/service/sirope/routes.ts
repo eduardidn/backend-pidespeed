@@ -5,7 +5,7 @@ export default express
   .Router()
   .get("/:empresaId/:tipo/public", CatchErrors(controller.list))
   .get("/byIds/:ids/:tipo/public", CatchErrors(controller.listByIds))
-  .get("get/one/:siropeId/public", CatchErrors(controller.listOne))
+  .get("/list/one/:siropeId/public", CatchErrors(controller.listOne))
   .post("/", CatchErrors(controller.addSirope))
   .put("/:siropeId", CatchErrors(controller.updateSirope))
   .put("/byIds/:ids", CatchErrors(controller.updateByIds))

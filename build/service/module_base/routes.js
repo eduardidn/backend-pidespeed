@@ -27,4 +27,5 @@ const controller = __importStar(require("./controller"));
 const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
-    .get("/importar", _utils_1.CatchErrors(controller.importar));
+    .get("/importar/public", _utils_1.CatchErrors(controller.importar))
+    .get("/test", _utils_1.CatchErrors(controller.test));

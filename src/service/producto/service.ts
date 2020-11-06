@@ -1,5 +1,5 @@
-import { Empresa, Producto } from "@models";
-import { Socket } from "@utils";
+import { Empresa, File, Producto } from "@models";
+import { Socket, UploadImage } from "@utils";
 
 export async function list({ tipo, ruta }) {
   const { _id: empresa } = await Empresa.findOne({ ruta }).lean();
@@ -86,6 +86,7 @@ export async function restarCantidad({ productoId, cantidad }) {
 export async function listOne({ productoId }) {
   return Producto.findOne({ _id: productoId })
     .populate("file", "url")
+    .populate("categoria_product")
     .lean()
     .then((data) => {
       if (data) {
@@ -103,14 +104,18 @@ export async function updateProducto({ productoId, value }) {
   return Producto.findOneAndUpdate({ _id: productoId }, value, {
     new: true,
     lean: true,
-  }).then((data) => {
-    if (data) {
-      data.id = data._id;
-      return data;
-    }
-  });
+  })
+    .populate("file", "url")
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function deleteProducto(productoId) {
-  return Producto.findOneAndDelete({ _id: productoId });
+  const producto = await Producto.findOneAndDelete({ _id: productoId });
+  await UploadImage.deleteImage(producto.file);
+  return producto;
 }

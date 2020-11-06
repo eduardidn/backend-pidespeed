@@ -27,21 +27,13 @@ const schema = new Schema(
       type: String,
       required: [true, "telefono is required"],
     },
-    username: {
-      type: String,
-      required: [true, "telefono is required"],
-    },
-    password: {
-      type: String,
-      required: [true, "telefono is required"],
-    },
     logo: {
-      type: String,
-      default: "",
+      type: Schema.Types.ObjectId,
+      ref: "file",
     },
     img: {
-      type: String,
-      default: "",
+      type: Schema.Types.ObjectId,
+      ref: "file",
     },
     descripcion: {
       type: String,
@@ -121,6 +113,13 @@ const schema = new Schema(
     },
     mensaje_carrito: String,
     orden: Array,
+    usuario: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "usuarioEmpresa",
+        required: [true, "usuario is required"],
+      },
+    ],
     prev_id: Number,
   },
   {

@@ -10,8 +10,10 @@ export async function loginUser({ password, user }) {
   })
     .lean()
     .then((data) => {
-      data.id = data._id;
-      return data;
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
     });
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
@@ -29,8 +31,10 @@ export async function loginEmpresa({ password, user }) {
   })
     .lean()
     .then((data) => {
-      data.id = data._id;
-      return data;
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
     });
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
@@ -38,12 +42,23 @@ export async function loginEmpresa({ password, user }) {
   const match = await PasswordHelper.matchPassword({ password, savedPassword });
   // let match = await PasswordHelper.compare({ password, hash: savedPassword })
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
-
+  const empresa = await Empresa.findOne({ usuario: usuario._id })
+    .populate("categoria")
+    .populate("logo")
+    .populate("img")
+    .populate("ciudad")
+    .populate("estado");
   const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
   const tokenEmpresa = await TokenUtils.createBusinessToken({
     id: usuario._id,
   });
-  return { message: "ok", token, tokenAdmin: tokenEmpresa, user: usuario };
+  return {
+    message: "ok",
+    token,
+    tokenAdmin: tokenEmpresa,
+    user: usuario,
+    empresa,
+  };
 }
 
 export async function loginAdmin({ password, user }) {
@@ -52,8 +67,10 @@ export async function loginAdmin({ password, user }) {
   })
     .lean()
     .then((data) => {
-      data.id = data._id;
-      return data;
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
     });
   if (!admin) throw new HTTP400Error("Usuario o contraseña incorrectos");
 

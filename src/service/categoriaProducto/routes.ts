@@ -4,8 +4,11 @@ import { CatchErrors } from "@utils";
 export default express
   .Router()
   .get("/:tipo/public", CatchErrors(controller.list))
-  .get("list/one/:categoriaProductoId/public", CatchErrors(controller.listOne))
-  .get("/list/categorias/:ruta/:tipo?", CatchErrors(controller.listByRuta))
+  .get("/list/one/:categoriaProductoId/public", CatchErrors(controller.listOne))
+  .get(
+    "/list/categorias/:rutaCategoria/:tipo?",
+    CatchErrors(controller.listByRuta),
+  )
   .post("/", CatchErrors(controller.addCategoriaProducto))
   .put("/:categoriaProductoId", CatchErrors(controller.updateCategoriaProducto))
   .delete(

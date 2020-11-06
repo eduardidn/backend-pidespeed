@@ -10,6 +10,11 @@ export async function listOne(req, res) {
   return service.listOne({ usuarioId }).then((data) => res.json(data));
 }
 
+export async function listOneById(req, res) {
+  const { usuarioId } = req.params;
+  return service.listOne({ usuarioId }).then((data) => res.json(data));
+}
+
 export async function updateUsuario(req, res) {
   const { usuarioId } = req.user;
   const value = req.body;

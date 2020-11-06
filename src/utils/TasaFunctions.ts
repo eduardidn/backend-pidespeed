@@ -44,7 +44,7 @@ class TasaFunc {
   public cambiarTasaDT(tasaDT: any) {
     // buscar empresas con tasa de dolar today
     axios
-      .get("https://ssl.pidespeed.com/public/empresas/get/byTasa/tasa_dt")
+      .get("https://ssl.pidespeed.com/public/empresas/list/byTasa/tasa_dt")
       .then((empresas: any) => {
         // recorrer empresas
         empresas.data.map((empresa: any) => {
@@ -208,7 +208,7 @@ class TasaFunc {
   public cambiarTasaBCV(tasaBCV: any) {
     // buscar empresas con tasa de dolar BCV
     axios
-      .get("https://ssl.pidespeed.com/public/empresas/get/byTasa/tasa_bcv")
+      .get("https://ssl.pidespeed.com/public/empresas/list/byTasa/tasa_bcv")
       .then((empresas: any) => {
         // recorrer empresas
         empresas.data.map((empresa: any) => {

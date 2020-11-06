@@ -6,6 +6,8 @@ export async function list({ ruta, ciudadId }) {
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return Empresa.find(query)
     .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
     .populate("ciudad", "nombre")
     .populate("estado", "nombre")
     .lean()
@@ -19,6 +21,11 @@ export async function list({ ruta, ciudadId }) {
 
 export async function listAll() {
   return Empresa.find({})
+    .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
+    .populate("ciudad", "nombre")
+    .populate("estado", "nombre")
     .lean()
     .then((datos) =>
       datos.map((data) => {
@@ -34,6 +41,9 @@ export async function listAllInfo({ empresaId, ciudadId }) {
   let query: any = { _id: empresaId };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return Empresa.find(query)
+    .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
     .populate("ciudad", "nombre")
     .populate("estado", "nombre")
     .lean()
@@ -53,6 +63,8 @@ export async function listHome({ tipo, ciudadId, sort }) {
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return Empresa.find(query)
     .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
     .populate("ciudad", "nombre")
     .populate("estado", "nombre")
     .sort({ [sort]: -1 })
@@ -80,6 +92,11 @@ export async function listSucursales({ empresaId }) {
 export async function listOne({ field, value }) {
   return Empresa.findOne({ [field]: value })
     .lean()
+    .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
+    .populate("ciudad", "nombre")
+    .populate("estado", "nombre")
     .then((data) => {
       if (data) {
         data.id = data._id;
@@ -108,12 +125,18 @@ export async function updateEmpresa({ empresaId, value }) {
   return Empresa.findOneAndUpdate({ _id: empresaId }, value, {
     new: true,
     lean: true,
-  }).then((data) => {
-    if (data) {
-      data.id = data._id;
-      return data;
-    }
-  });
+  })
+    .populate("categoria", "ruta")
+    .populate("logo", "url")
+    .populate("img", "url")
+    .populate("ciudad", "nombre")
+    .populate("estado", "nombre")
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
 }
 
 export async function deleteEmpresa(empresaId) {

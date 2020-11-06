@@ -5,11 +5,9 @@ const schema = new Schema(
   {
     nombre: {
       type: String,
-      required: [true, "nombre is required"],
     },
     apellido: {
       type: String,
-      required: [true, "apellido is required"],
     },
     email: {
       type: String,
@@ -17,7 +15,6 @@ const schema = new Schema(
     },
     cedula: {
       type: String,
-      required: [true, "cedula is required"],
     },
     img: String,
     username: {
@@ -29,14 +26,15 @@ const schema = new Schema(
       required: [true, "password is required"],
     },
     direccion: Array,
-    telefono1: {
+    telefono: {
       type: String,
-      required: [true, "telefono1 is required"],
+      required: [true, "telefono is required"],
     },
     type: {
       type: String,
       required: [true, "type is required"],
     },
+    prev_id: Number,
   },
   {
     timestamps: true,

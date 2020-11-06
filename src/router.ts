@@ -17,6 +17,7 @@ import empresaPedido from "./service/empresaPedido";
 import estado from "./service/estado";
 import faq from "./service/faq";
 import favorito from "./service/favorito";
+import file from "./service/file";
 import login from "./service/login";
 import mail from "./service/mail";
 import pago from "./service/pago";
@@ -48,6 +49,7 @@ export default async function (app) {
     .use(estado)
     .use(faq)
     .use(favorito)
+    .use(file)
     .use(login)
     .use(mail)
     .use(pago)

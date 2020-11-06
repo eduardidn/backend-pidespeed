@@ -36,7 +36,7 @@ const schema = new mongoose_1.Schema({
         default: 0,
     },
     add: {
-        type: Object,
+        type: String,
         default: 0,
     },
     bebida: {

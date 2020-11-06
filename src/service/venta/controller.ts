@@ -26,8 +26,7 @@ export async function listOne(req, res) {
 }
 
 export async function addVenta(req, res) {
-  const { nombre } = Validator.validate(req.body, "nombre");
-  return service.addVenta({ nombre }).then((data) => res.json(data));
+  return service.addVenta(req.body).then((data) => res.json(data));
 }
 
 export async function updateVenta(req, res) {

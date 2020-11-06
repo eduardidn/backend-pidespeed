@@ -7,8 +7,13 @@ export async function list(req, res) {
 }
 
 export async function listByRuta(req, res) {
-  const { tipo, ruta } = Validator.validate(req.params, "tipo ruta");
-  return service.listByRuta({ tipo, ruta }).then((data) => res.json(data));
+  const { tipo, rutaCategoria } = Validator.validate(
+    req.params,
+    "tipo rutaCategoria",
+  );
+  return service
+    .listByRuta({ tipo, rutaCategoria })
+    .then((data) => res.json(data));
 }
 
 export async function listOne(req, res) {

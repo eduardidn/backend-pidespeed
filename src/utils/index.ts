@@ -1,4 +1,5 @@
 import * as Socket from "./Socket";
+export * as UploadImage from "./UploadImage";
 
 export { Socket };
 

@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.importar = void 0;
+exports.test = exports.importar = void 0;
 const service = __importStar(require("./service"));
 function importar(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -36,3 +36,9 @@ function importar(req, res) {
     });
 }
 exports.importar = importar;
+function test(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return res.json({ message: "ok" });
+    });
+}
+exports.test = test;

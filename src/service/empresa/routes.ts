@@ -13,7 +13,7 @@ export default express
   .get("/public/one/:field/:value", CatchErrors(controller.listOne))
   .get("/public/sucursales/:empresaId", CatchErrors(controller.listSucursales))
   .get("/public/addVisita/:ruta", CatchErrors(controller.addVisita))
-  .get("/public/addVenta/:ruta", CatchErrors(controller.addVenta))
+  .get("/addVenta/:ruta", CatchErrors(controller.addVenta))
   .post("/", CatchErrors(controller.addEmpresa))
-  .put("/:id", CatchErrors(controller.updateEmpresa))
-  .delete("/:id", CatchErrors(controller.deleteEmpresa));
+  .put("/:empresaId", CatchErrors(controller.updateEmpresa))
+  .delete("/:empresaId", CatchErrors(controller.deleteEmpresa));
