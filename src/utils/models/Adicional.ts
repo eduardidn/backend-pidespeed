@@ -28,12 +28,7 @@ const schema = new Schema(
       ref: "empresa",
       required: [true, "empresa is required"],
     },
-    productos: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "producto",
-      },
-    ],
+    acomps: Array,
     consulta: {
       type: Number,
       required: [true, "consulta is required"],

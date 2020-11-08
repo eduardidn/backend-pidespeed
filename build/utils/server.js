@@ -30,6 +30,9 @@ app
     // .use(AdminTokenMiddleware)
     .use(express_fileupload_1.default({
     limits: { fileSize: 50 * 1024 * 1024 },
+    useTempFiles: true,
+    tempFileDir: "./tmp/",
+    preserveExtension: true,
 }))
     .use(morgan_1.default("combined", {
     stream: {

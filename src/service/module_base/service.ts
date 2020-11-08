@@ -35,7 +35,7 @@ const tablas = {
 };
 
 export async function importar() {
-  await UploadImage.listFiles();
+  // await UploadImage.listFiles();
   /* let empresas = await Empresa.find({}).skip(17).limit(5).lean();
   for (let empresa of empresas) {
     if (filename != 'default-empresas.jpg') {
@@ -47,12 +47,13 @@ export async function importar() {
   return 'ok' */
   /* let files = await File.find().limit(15).sort({ _id: -1 }).lean()
   return files */
-  // const datos = await Empresa.find({}).skip(1).lean();
-  /* for (let data of datos) {
-    let { contacto } = data;
-    if (contacto == "") contacto = {}
-    else contacto = JSON.parse(contacto)
-    await Empresa.findOneAndUpdate({ _id: data._id }, { contacto }, { lean: true, new: true })
+  /* const datos = await Empresa.find({}).skip(1).lean();
+  for (let data of datos) {
+    let logo = '5fa5b4bdb6dac50570af1a1b';
+    let img = '5fa5b438e8a25c36c0fe1f52';
+    if (data.logo === 'web/6.png') {
+      await Empresa.findOneAndUpdate({ _id: data._id }, { logo, img }, { lean: true, new: true })
+    }
   } */
   // return datos;
 }

@@ -40,8 +40,10 @@ function list(req, res) {
 exports.list = list;
 function listByRuta(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, ruta } = _utils_1.Validator.validate(req.params, "tipo ruta");
-        return service.listByRuta({ tipo, ruta }).then((data) => res.json(data));
+        const { tipo, rutaCategoria } = _utils_1.Validator.validate(req.params, "tipo rutaCategoria");
+        return service
+            .listByRuta({ tipo, rutaCategoria })
+            .then((data) => res.json(data));
     });
 }
 exports.listByRuta = listByRuta;

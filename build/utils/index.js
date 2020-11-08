@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Socket = void 0;
 const Socket = __importStar(require("./Socket"));
 exports.Socket = Socket;
+exports.UploadImage = __importStar(require("./UploadImage"));
 var server_1 = require("./server");
 Object.defineProperty(exports, "app", { enumerable: true, get: function () { return server_1.default; } });
 var logger_1 = require("./logger");

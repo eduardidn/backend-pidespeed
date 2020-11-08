@@ -27,21 +27,13 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "telefono is required"],
     },
-    username: {
-        type: String,
-        required: [true, "telefono is required"],
-    },
-    password: {
-        type: String,
-        required: [true, "telefono is required"],
-    },
     logo: {
-        type: String,
-        default: "",
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
     },
     img: {
-        type: String,
-        default: "",
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
     },
     descripcion: {
         type: String,
@@ -121,6 +113,13 @@ const schema = new mongoose_1.Schema({
     },
     mensaje_carrito: String,
     orden: Array,
+    usuario: [
+        {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "usuarioEmpresa",
+            required: [true, "usuario is required"],
+        },
+    ],
     prev_id: Number,
 }, {
     timestamps: true,

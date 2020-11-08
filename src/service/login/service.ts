@@ -39,8 +39,7 @@ export async function loginEmpresa({ password, user }) {
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const { password: savedPassword } = usuario;
-  const match = await PasswordHelper.matchPassword({ password, savedPassword });
-  // let match = await PasswordHelper.compare({ password, hash: savedPassword })
+  const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
   const empresa = await Empresa.findOne({ usuario: usuario._id })
     .populate("categoria")
@@ -75,8 +74,8 @@ export async function loginAdmin({ password, user }) {
   if (!admin) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const { password: savedPassword } = admin;
-  const match = await PasswordHelper.matchPassword({ password, savedPassword });
-  // let match = await PasswordHelper.compare({ password, hash: savedPassword })
+  // const match = await PasswordHelper.matchPassword({ password, savedPassword });
+  const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const token = await TokenUtils.createUserToken({ usuarioId: admin._id });

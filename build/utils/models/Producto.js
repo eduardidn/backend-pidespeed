@@ -18,10 +18,6 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "precio1 is required"],
     },
-    moneda: {
-        type: String,
-        default: "BSS",
-    },
     descripcion: {
         type: String,
         required: [true, "descripcion is required"],

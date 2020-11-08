@@ -29,12 +29,14 @@ function list(tipo) {
     });
 }
 exports.list = list;
-function listByRuta({ tipo, ruta }) {
+function listByRuta({ tipo, rutaCategoria }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
+        const { _id: categoria } = yield _models_1.Categoria.findOne({
+            ruta: rutaCategoria,
+        }).lean();
         tipo = Number(tipo) === 1 ? 1 : 0;
         let query = {
-            empresa,
+            categoria,
         };
         if (tipo === 1)
             query = Object.assign(Object.assign({}, query), { publish: tipo });

@@ -28,8 +28,8 @@ const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
     .get("/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("list/one/:categoriaProductoId/public", _utils_1.CatchErrors(controller.listOne))
-    .get("/list/categorias/:ruta/:tipo?", _utils_1.CatchErrors(controller.listByRuta))
+    .get("/list/one/:categoriaProductoId/public", _utils_1.CatchErrors(controller.listOne))
+    .get("/list/categorias/:rutaCategoria/:tipo?", _utils_1.CatchErrors(controller.listByRuta))
     .post("/", _utils_1.CatchErrors(controller.addCategoriaProducto))
     .put("/:categoriaProductoId", _utils_1.CatchErrors(controller.updateCategoriaProducto))
     .delete("/:categoriaProductoId", _utils_1.CatchErrors(controller.deleteCategoriaProducto));

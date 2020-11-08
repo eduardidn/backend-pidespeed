@@ -54,10 +54,7 @@ function listOne(req, res) {
 exports.listOne = listOne;
 function addAdicional(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre, precio, cantidad, publish, empresa } = _utils_1.Validator.validate(req.body, "nombre precio cantidad publish empresa");
-        return service
-            .addAdicional({ nombre, precio, cantidad, publish, empresa })
-            .then((data) => res.json(data));
+        return service.addAdicional(req.body).then((data) => res.json(data));
     });
 }
 exports.addAdicional = addAdicional;

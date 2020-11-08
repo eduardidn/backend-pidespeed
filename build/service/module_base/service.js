@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.importar = void 0;
 const _models_1 = require("@models");
+const _utils_1 = require("@utils");
+const BUCKETNAME = "pidespeed-storage";
 const tablas = {
     acomp: _models_1.Acomp,
     adicional: _models_1.Adicional,
@@ -24,14 +26,26 @@ const tablas = {
 };
 function importar() {
     return __awaiter(this, void 0, void 0, function* () {
-        const datos = yield _models_1.Empresa.find({}).skip(1).lean();
+        yield _utils_1.UploadImage.listFiles();
+        /* let empresas = await Empresa.find({}).skip(17).limit(5).lean();
+        for (let empresa of empresas) {
+          if (filename != 'default-empresas.jpg') {
+            await UploadImage.uploadTest(filename)
+            let { _id: file } = await File.create({ url: empresa.img, type: 'empresa' })
+            await Empresa.findOneAndUpdate({ _id: empresa._id }, { img: file }, { lean: true })
+          }
+        }
+        return 'ok' */
+        /* let files = await File.find().limit(15).sort({ _id: -1 }).lean()
+        return files */
+        // const datos = await Empresa.find({}).skip(1).lean();
         /* for (let data of datos) {
           let { contacto } = data;
           if (contacto == "") contacto = {}
           else contacto = JSON.parse(contacto)
           await Empresa.findOneAndUpdate({ _id: data._id }, { contacto }, { lean: true, new: true })
         } */
-        return datos;
+        // return datos;
     });
 }
 exports.importar = importar;

@@ -29,6 +29,7 @@ const empresaPedido_1 = __importDefault(require("./service/empresaPedido"));
 const estado_1 = __importDefault(require("./service/estado"));
 const faq_1 = __importDefault(require("./service/faq"));
 const favorito_1 = __importDefault(require("./service/favorito"));
+const file_1 = __importDefault(require("./service/file"));
 const login_1 = __importDefault(require("./service/login"));
 const mail_1 = __importDefault(require("./service/mail"));
 const pago_1 = __importDefault(require("./service/pago"));
@@ -60,6 +61,7 @@ function default_1(app) {
             .use(estado_1.default)
             .use(faq_1.default)
             .use(favorito_1.default)
+            .use(file_1.default)
             .use(login_1.default)
             .use(mail_1.default)
             .use(pago_1.default)

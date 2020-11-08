@@ -29,7 +29,7 @@ exports.default = express_1.default
     .Router()
     .get("/:empresaId", _utils_1.CatchErrors(controller.list))
     .get("/list/all", _utils_1.CatchErrors(controller.listAll))
-    .get("/:pagoId", _utils_1.CatchErrors(controller.listOne))
+    .get("/list/one/:pagoId", _utils_1.CatchErrors(controller.listOne))
     .post("/", _utils_1.CatchErrors(controller.addPago))
     .put("/:pagoId", _utils_1.CatchErrors(controller.updatePago))
     .delete("/:pagoId", _utils_1.CatchErrors(controller.deletePago));
