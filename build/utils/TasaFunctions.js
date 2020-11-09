@@ -15,9 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _utils_1 = require("@utils");
 const node_cron_1 = __importDefault(require("node-cron"));
 const axios_1 = __importDefault(require("axios"));
+const Empresa_1 = __importDefault(require("./models/Empresa"));
+const Adicional_1 = __importDefault(require("./models/Adicional"));
+const Producto_1 = __importDefault(require("./models/Producto"));
+const Config_1 = __importDefault(require("./models/Config"));
 class TasaFunc {
     constructor() {
         this.mes = 0;
+    }
+    start() {
         node_cron_1.default.schedule("*/30 * * * *", () => {
             this.revisarTasa();
         });
@@ -36,303 +42,118 @@ class TasaFunc {
             this.token = yield _utils_1.TokenUtils.createUserToken({
                 usuarioId: { _id: 1234 },
             });
-            const data = {
-                tasa_dt: tasaDT,
-                tasa_bcv: tasaBCV,
-            };
-            // actualizar tasa config
-            axios_1.default.put(`https://ssl.pidespeed.com/api/config/1`, data, {
-                headers: { Authorization: `Bearer ${this.token}` },
-            });
             this.cambiarTasaBCV(tasaBCV);
             this.cambiarTasaDT(tasaDT);
+            yield Config_1.default.findOneAndUpdate({}, { tasa_dt: tasaDT, tasa_bcv: tasaBCV }, { lean: true });
         }));
     }
     cambiarTasaDT(tasaDT) {
-        // buscar empresas con tasa de dolar today
-        axios_1.default
-            .get("https://ssl.pidespeed.com/public/empresas/list/byTasa/tasa_dt")
-            .then((empresas) => {
+        return __awaiter(this, void 0, void 0, function* () {
+            // buscar empresas con tasa de dolar today
+            const empresas = yield Empresa_1.default.find({ tasa_dt: 1 }).lean();
             // recorrer empresas
-            empresas.data.map((empresa) => {
+            empresas.map((empresa) => __awaiter(this, void 0, void 0, function* () {
                 if (empresa.tasa !== tasaDT) {
-                    // buscar adicionales
-                    axios_1.default
-                        .get(`https://ssl.pidespeed.com/public/adicionales/${empresa.id}/2`)
-                        .then((adicionales) => {
-                        // recorrer adicionales
-                        adicionales.data.forEach((adicional, index) => {
-                            let precioFinal1 = 0;
-                            if (adicional.precio$ !== 0) {
-                                let precioBs = Math.round(tasaDT * adicional.precio$);
-                                if (empresa.porcent_mas !== 0) {
-                                    precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
-                                }
-                                precioFinal1 = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinal1 = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            const precio = {
-                                precio: precioFinal1,
-                            };
-                            if (precioFinal1 !== 0) {
-                                // actualizar precio de adicional
-                                axios_1.default.put(`https://ssl.pidespeed.com/api/adicionales/${adicional.id}`, precio, { headers: { Authorization: `Bearer ${this.token}` } });
-                            }
-                        });
-                        // foreacho de adicionales
-                    });
-                    // busqueda de productos
-                    axios_1.default
-                        .get(`https://ssl.pidespeed.com/public/productos/${empresa.ruta}/2`)
-                        .then((productos) => {
-                        // recorrer productos
-                        productos.data.forEach((producto, index) => {
-                            let precioFinal1 = 0;
-                            let precioFinalToGo = 1;
-                            if (producto.precio1_dl !== 0) {
-                                let precioBs = Math.round(tasaDT * producto.precio1_dl);
-                                if (empresa.porcent_mas !== 0) {
-                                    precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
-                                }
-                                precioFinal1 = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinal1 = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            if (producto.to_go > 1) {
-                                const precioBs = Math.round(tasaDT * producto.to_go$);
-                                precioFinalToGo = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinalToGo = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinalToGo = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinalToGo = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            else if (producto.to_go === 0) {
-                                precioFinalToGo = 0;
-                            }
-                            const precio = {
-                                precio1: precioFinal1,
-                                to_go: precioFinalToGo,
-                            };
-                            // modificar precio de productos
-                            axios_1.default
-                                .put(`https://ssl.pidespeed.com/api/productos/${producto.id}`, precio, { headers: { Authorization: `Bearer ${this.token}` } })
-                                .then((producto) => {
-                                if (index === productos.data.length - 1) {
-                                    const data = {
-                                        tasa: tasaDT,
-                                    };
-                                    axios_1.default.put(`https://ssl.pidespeed.com/api/empresas/${empresa.id}`, data, {
-                                        headers: {
-                                            Authorization: `Bearer ${this.token}`,
-                                        },
-                                    });
-                                }
-                            });
-                        });
-                        // forech de productos
-                    });
-                    // busqueda de productos
+                    this.actualizarAdicionales(tasaDT, empresa);
+                    this.actualizarProductos(tasaDT, empresa);
+                    yield Empresa_1.default.findOneAndUpdate({ _id: empresa._id }, { tasa: tasaDT }, { lean: true });
                 }
-            });
+            }));
             // map de empresas
         });
-        // busqueda de empresas
     }
     cambiarTasaBCV(tasaBCV) {
-        // buscar empresas con tasa de dolar BCV
-        axios_1.default
-            .get("https://ssl.pidespeed.com/public/empresas/list/byTasa/tasa_bcv")
-            .then((empresas) => {
+        return __awaiter(this, void 0, void 0, function* () {
+            // buscar empresas con tasa de dolar BCV
+            const empresas = yield Empresa_1.default.find({ tasa_bcv: 1 }).lean();
             // recorrer empresas
-            empresas.data.map((empresa) => {
+            empresas.map((empresa) => __awaiter(this, void 0, void 0, function* () {
                 if (empresa.tasa !== tasaBCV) {
-                    // buscar adicionales
-                    axios_1.default
-                        .get(`https://ssl.pidespeed.com/public/adicionales/${empresa.id}/2`)
-                        .then((adicionales) => {
-                        // recorrer adicionales
-                        adicionales.data.forEach((adicional, index) => {
-                            let precioFinal1 = 0;
-                            if (adicional.precio$ !== 0) {
-                                let precioBs = Math.round(tasaBCV * adicional.precio$);
-                                if (empresa.porcent_mas !== 0) {
-                                    precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
-                                }
-                                precioFinal1 = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinal1 = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            const precio = {
-                                precio: precioFinal1,
-                            };
-                            if (precioFinal1 !== 0) {
-                                // modificar precio de adicionales
-                                axios_1.default.put(`https://ssl.pidespeed.com/api/adicionales/${adicional.id}`, precio, { headers: { Authorization: `Bearer ${this.token}` } });
-                            }
-                        });
-                        // foreacho de adicionales
-                    });
-                    // busqueda de productos
-                    axios_1.default
-                        .get(`https://ssl.pidespeed.com/public/productos/${empresa.ruta}/2`)
-                        .then((productos) => {
-                        // recorrer productos
-                        productos.data.forEach((producto, index) => {
-                            let precioFinal1 = 0;
-                            let precioFinalToGo = 1;
-                            if (producto.precio1_dl !== 0) {
-                                let precioBs = Math.round(tasaBCV * producto.precio1_dl);
-                                if (empresa.porcent_mas !== 0) {
-                                    precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
-                                }
-                                precioFinal1 = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinal1 = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinal1 = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            if (producto.to_go > 1) {
-                                const precioBs = Math.round(tasaBCV * producto.to_go$);
-                                precioFinalToGo = precioBs;
-                                if (empresa.redondear_precio === 1) {
-                                    const precioBsString = precioBs.toString();
-                                    let ultNums = precioBsString.substr(-3);
-                                    let primNums = "";
-                                    if (ultNums === "500") {
-                                        precioFinalToGo = precioBs;
-                                    }
-                                    else {
-                                        const longitud = precioBsString.length - 3;
-                                        primNums = precioBsString.slice(0, longitud);
-                                        ultNums = Number(ultNums);
-                                        if (ultNums > 500) {
-                                            primNums = (Number(primNums) + 1).toString();
-                                            precioFinalToGo = Number(primNums + "000");
-                                        }
-                                        else {
-                                            precioFinalToGo = Number(primNums + "000");
-                                        }
-                                    }
-                                }
-                            }
-                            else if (producto.to_go === 0) {
-                                precioFinalToGo = 0;
-                            }
-                            const precio = {
-                                precio1: precioFinal1,
-                                to_go: precioFinalToGo,
-                            };
-                            // modificar precio de productos
-                            axios_1.default
-                                .put(`https://ssl.pidespeed.com/api/productos/${producto.id}`, precio, { headers: { Authorization: `Bearer ${this.token}` } })
-                                .then((producto) => {
-                                if (index === productos.data.length - 1) {
-                                    const data = {
-                                        tasa: tasaBCV,
-                                    };
-                                    axios_1.default.put(`https://ssl.pidespeed.com/api/empresas/${empresa.id}`, data, {
-                                        headers: {
-                                            Authorization: `Bearer ${this.token}`,
-                                        },
-                                    });
-                                }
-                            });
-                        });
-                        // forech de productos
-                    });
-                    // busqueda de productos
+                    this.actualizarAdicionales(tasaBCV, empresa);
+                    this.actualizarProductos(tasaBCV, empresa);
+                    yield Empresa_1.default.findOneAndUpdate({ _id: empresa._id }, { tasa: tasaBCV }, { lean: true });
                 }
-            });
+            }));
             // map de empresas
+            // busqueda de empresas
         });
-        // busqueda de empresas
+    }
+    // ACTUALIZAR ADICIONALES
+    actualizarAdicionales(tasa, empresa) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // buscar adicionales
+            const adicionales = yield Adicional_1.default.find({ empresa: empresa._id }).lean();
+            // recorrer adicionales
+            adicionales.forEach((adicional, index) => __awaiter(this, void 0, void 0, function* () {
+                let precioFinal1 = 0;
+                if (adicional.precio$ !== 0) {
+                    let precioBs = Math.round(tasa * adicional.precio$);
+                    if (empresa.porcent_mas !== 0) {
+                        precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
+                    }
+                    precioFinal1 = precioBs;
+                    if (empresa.redondear_precio === 1)
+                        precioFinal1 = this.redondearPrecio(precioBs);
+                }
+                if (precioFinal1 !== 0) {
+                    // actualizar precio de adicional
+                    yield Adicional_1.default.findOneAndUpdate({ _id: adicional._id }, { precio: precioFinal1 }, { lean: true });
+                }
+            }));
+            // foreach de adicionales
+        });
+    }
+    actualizarProductos(tasa, empresa) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // busqueda de productos
+            const productos = yield Producto_1.default.find({ empresa: empresa._id }).lean();
+            // recorrer productos
+            productos.forEach((producto, index) => __awaiter(this, void 0, void 0, function* () {
+                let precioFinal1 = 0;
+                let precioFinalToGo = 1;
+                if (producto.precio1_dl !== 0) {
+                    let precioBs = Math.round(tasa * producto.precio1_dl);
+                    if (empresa.porcent_mas !== 0) {
+                        precioBs = Math.round(precioBs + (precioBs * empresa.porcent_mas) / 100);
+                    }
+                    precioFinal1 = precioBs;
+                    if (empresa.redondear_precio === 1)
+                        precioFinal1 = this.redondearPrecio(precioBs);
+                }
+                if (producto.to_go > 1) {
+                    const precioBs = Math.round(tasa * producto.to_go$);
+                    precioFinalToGo = precioBs;
+                    if (empresa.redondear_precio === 1)
+                        precioFinalToGo = this.redondearPrecio(precioBs);
+                }
+                else if (producto.to_go === 0) {
+                    precioFinalToGo = 0;
+                }
+                // modificar precio de productos
+                yield Producto_1.default.findOneAndUpdate({ _id: producto._id }, { precio1: precioFinal1, to_go: precioFinalToGo }, { lean: true });
+            }));
+            // forech de productos
+        });
+    }
+    redondearPrecio(precioBs) {
+        const precioBsString = precioBs.toString();
+        let ultNums = precioBsString.substr(-3);
+        let primNums = "";
+        if (ultNums === "500") {
+            return precioBs;
+        }
+        else {
+            const longitud = precioBsString.length - 3;
+            primNums = precioBsString.slice(0, longitud);
+            ultNums = Number(ultNums);
+            if (ultNums > 500) {
+                primNums = (Number(primNums) + 1).toString();
+                return Number(primNums + "000");
+            }
+            else {
+                return Number(primNums + "000");
+            }
+        }
     }
 }
 const tasaFunc = new TasaFunc();

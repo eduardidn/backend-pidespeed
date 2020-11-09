@@ -4,10 +4,10 @@
   "description": "pidespeed backend ",
   "main": "index.js",
   "scripts": {
-    "start": "export PORT=8080 ENV=PRODUCTON && node dist/main.js",
+    "start": "export PORT=8080 ENV=PRODUCTON && node build/main.js",
     "dev": "nodemon --watch \"src/\" --exec \"ts-node src/main\" -e ts",
     "build": "npm run build:clean && tsc",
-    "build:clean": "rimraf dist",
+    "build:clean": "rimraf build",
     "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },

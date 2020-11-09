@@ -13,6 +13,7 @@ const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const http_1 = __importDefault(require("http"));
 const logger_1 = __importDefault(require("./logger"));
 const Socket_1 = __importDefault(require("./Socket"));
+const TasaFunctions_1 = __importDefault(require("./TasaFunctions"));
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
 app
@@ -42,6 +43,7 @@ app
 }))
     .set("trust proxy", true);
 Socket_1.default(httpServer);
+TasaFunctions_1.default.start();
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger_1.default.info(`Running on port ${port}`));
 exports.default = app;
