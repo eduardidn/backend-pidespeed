@@ -28,12 +28,7 @@ const schema = new mongoose_1.Schema({
         ref: "empresa",
         required: [true, "empresa is required"],
     },
-    productos: [
-        {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "producto",
-        },
-    ],
+    acomps: Array,
     consulta: {
         type: Number,
         required: [true, "consulta is required"],

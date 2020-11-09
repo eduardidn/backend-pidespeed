@@ -3,7 +3,7 @@ import { Socket } from "@utils";
 
 export async function list({ usuarioId }) {
   let favoritos = await Favorito.find({ usuario: usuarioId })
-    .populate("empresa", null, { publish: 1 })
+    .populate("empresa", null, { publish: 1 }, { populate: "img logo" })
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -20,7 +20,7 @@ export async function list({ usuarioId }) {
 export async function listEsp({ usuarioId, ruta }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
   let favoritos = await Favorito.findOne({ usuario: usuarioId, categoria })
-    .populate("empresa", null, { publish: 1 })
+    .populate("empresa", null, { publish: 1 }, { populate: "img logo" })
     .populate("categoria")
     .lean()
     .then((data) => {
@@ -34,7 +34,7 @@ export async function listEsp({ usuarioId, ruta }) {
 
 export async function listAll() {
   return Favorito.find({})
-    .populate("empresa")
+    .populate("empresa", { populate: "img logo" })
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -49,7 +49,7 @@ export async function listAll() {
 
 export async function listOne({ usuarioId, empresaId }) {
   return Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
-    .populate("empresa")
+    .populate("empresa", { populate: "img, logo" })
     .populate("categoria")
     .lean()
     .then((data) => {

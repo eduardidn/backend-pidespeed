@@ -30,10 +30,12 @@ const schema = new mongoose_1.Schema({
     logo: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "file",
+        default: "5fa5b4bdb6dac50570af1a1b",
     },
     img: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "file",
+        default: "5fa5b438e8a25c36c0fe1f52",
     },
     descripcion: {
         type: String,
