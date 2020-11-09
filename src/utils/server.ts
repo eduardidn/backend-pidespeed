@@ -13,6 +13,7 @@ import http from "http";
 
 import logger from "./logger";
 import socket from "./Socket";
+import tasaFunc from "./TasaFunctions";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -53,6 +54,7 @@ app
   .set("trust proxy", true);
 
 socket(httpServer);
+tasaFunc.start();
 
 const port = process.env.PORT || 5000;
 httpServer.listen(port, () => logger.info(`Running on port ${port}`));
