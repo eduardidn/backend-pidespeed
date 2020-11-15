@@ -158,7 +158,7 @@ export async function listUserByField({ field, value }) {
 export async function addUser(value) {
   const { password } = value;
   value.password = await PasswordHelper.encryptPassword(password);
-  return Usuario.create({ value });
+  return Usuario.create(value);
 }
 
 export async function updateUser({ value, usuarioId }) {

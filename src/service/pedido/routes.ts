@@ -5,7 +5,7 @@ export default express
   .Router()
   .get("/", CatchErrors(controller.list))
   .get("/:estado", CatchErrors(controller.listByEstado))
-  .get("/list/byUsuario/usuarioId", CatchErrors(controller.listByUsuario))
+  .get("/list/byUsuario/:usuarioId", CatchErrors(controller.listByUsuario))
   .get("/list/one/:pedidoIid", CatchErrors(controller.listOne))
   .get("/byDatos/:codigo/:precio", CatchErrors(controller.listOneByDatos))
   .get("/list/byPago/:ids", CatchErrors(controller.listByIds))

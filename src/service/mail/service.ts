@@ -90,7 +90,7 @@ export async function mailPedidoListo(val) {
     html: templates.mailPedidoListo({ codigo, nombreEmpresa, coordenadas }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
@@ -118,7 +118,7 @@ export async function mailNuevoPedido(val) {
     html: templates.mailNuevoPedido({ nombre, codigo }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
@@ -150,7 +150,7 @@ export async function mailBienvenido(val) {
     html: templates.mailBienvenido({ nombre }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
@@ -159,7 +159,6 @@ export async function mailBienvenido(val) {
 
 export async function mailRecuperarPass(val) {
   const { nombre, email, codigo } = val;
-
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: "465",
@@ -177,7 +176,7 @@ export async function mailRecuperarPass(val) {
     html: templates.mailRecuperarPass({ nombre, codigo }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
@@ -205,7 +204,7 @@ export async function mailVerificacion(val) {
     html: templates.mailVerificacion({ nombre, link }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
@@ -233,7 +232,7 @@ export async function mailPromocion(val) {
     html: templates.mailPromocion({ nombre }),
   };
   try {
-    const info = await transporter.sendMail(message);
+    await transporter.sendMail(message);
     return { message: "ok" };
   } catch (err) {
     return err;
