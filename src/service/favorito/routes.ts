@@ -7,7 +7,7 @@ export default express
   .get("/list/all", CatchErrors(controller.listAll))
   .get("/list-one/:usuarioId/:empresaId", CatchErrors(controller.listOne))
   .get("/verify/:usuarioId/:empresaId", CatchErrors(controller.verifyFavorito))
-  .get("/listByRuta/:usuarioId/:ruta", CatchErrors(controller.listEsp))
+  .get("/list-by-ruta/:usuarioId/:ruta", CatchErrors(controller.listEsp))
   .post("/", CatchErrors(controller.addFavorito))
   .delete("/:favoritoId", CatchErrors(controller.deleteFavorito))
   .delete(

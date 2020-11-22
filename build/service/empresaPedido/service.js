@@ -66,7 +66,11 @@ exports.listByEmpresa = listByEmpresa;
 function listAllPendientes() {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.EmpresaPedido.find({ terminado: 0, entregado: 0 })
-            .populate("empresa", "nombre email telefono logo")
+            .populate({
+            path: "empresa",
+            select: "nombre email telefono logo",
+            populate: { path: "logo", select: "url" },
+        })
             .sort({ date: 1 })
             .lean()
             .then((datos) => datos.map((data) => {
@@ -79,7 +83,11 @@ exports.listAllPendientes = listAllPendientes;
 function listAllTerminados() {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.EmpresaPedido.find({ terminado: 1, entregado: 0 })
-            .populate("empresa", "nombre email telefono logo")
+            .populate({
+            path: "empresa",
+            select: "nombre email telefono logo",
+            populate: { path: "logo", select: "url" },
+        })
             .sort({ date: 1 })
             .lean()
             .then((datos) => datos.map((data) => {

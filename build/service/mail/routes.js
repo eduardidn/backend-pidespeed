@@ -28,10 +28,10 @@ const _utils_1 = require("@utils");
 exports.default = express_1.default
     .Router()
     .post("/cambio", _utils_1.CatchErrors(controller.mailCambio))
-    .post("/estadoPedido", _utils_1.CatchErrors(controller.mailEstadoPedido))
-    .post("/pedidoTerminado", _utils_1.CatchErrors(controller.mailPedidoListo))
-    .post("/nuevoPedido", _utils_1.CatchErrors(controller.mailNuevoPedido))
+    .post("/estado-pedido", _utils_1.CatchErrors(controller.mailEstadoPedido))
+    .post("/pedido-terminado", _utils_1.CatchErrors(controller.mailPedidoListo))
+    .post("/nuevo-pedido", _utils_1.CatchErrors(controller.mailNuevoPedido))
     .post("/bienvenido/public", _utils_1.CatchErrors(controller.mailBienvenido))
     .post("/verificar/public", _utils_1.CatchErrors(controller.mailVerificacion))
-    .post("/recuperarPass/public", _utils_1.CatchErrors(controller.mailRecuperarPass))
+    .post("/recuperar-pass/public", _utils_1.CatchErrors(controller.mailRecuperarPass))
     .post("/promocion/public", _utils_1.CatchErrors(controller.mailPromocion));
