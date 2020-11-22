@@ -2,4 +2,4 @@ import express from "express";
 
 import routes from "./routes";
 
-export default express.Router().use("/tipoBebida", routes);
+export default express.Router().use("/tipo-bebida", routes);

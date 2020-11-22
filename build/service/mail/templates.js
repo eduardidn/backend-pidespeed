@@ -1,27 +1,17 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mailPromocion = exports.mailVerificacion = exports.mailRecuperarPass = exports.mailBienvenido = exports.mailNuevoPedido = exports.mailPedidoListo = exports.mailEstadoPedido = exports.mailCambio = void 0;
 function mailCambio({ text, nombre, codigo }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
             <div style="max-width: 600px;
             margin:  0 auto;">
             <div style="text-align: center; margin-top: 1.5rem;">
-            <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
             <h1 style="color: #333;">Hola! ${nombre}</h1>
             <p>${text}</p>
             </div>
             <div style="display: flex; justify-content: space-around; text-align: center; padding: 3rem 0; margin-top: 1rem;">
-            <img src="https://ssl.pidespeed.com/correos/confirmed.png" width="200px height:100%">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" width="200px height:100%">
             <div>
             <p style=" font-size: 1.25rem; font-weight: 400;
             color: #ff414d;">Tu código de confirmación es:</p>
@@ -38,19 +28,17 @@ function mailCambio({ text, nombre, codigo }) {
             </div>
             </div>
             </body>`;
-    });
 }
 exports.mailCambio = mailCambio;
 function mailEstadoPedido({ codigo, contenido }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
             <div style="max-width: 600px;
             margin:  0 auto;">
             <div style="text-align: center; margin-top: 1.5rem;">
-            <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
             </div>
             <div style="text-align: center; padding: 3rem 0; margin-top: 1rem;">
-            <img src="https://ssl.pidespeed.com/correos/confirmed.png" width="200px height:100%">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" width="200px height:100%">
             <div>
             <p style="font-size: 1.5rem; font-weight: 400;
             color: #ff414d;">El estado de tu pedido <span class="gridMovilText"
@@ -71,20 +59,18 @@ function mailEstadoPedido({ codigo, contenido }) {
             </div>
             </div>
             </body>`;
-    });
 }
 exports.mailEstadoPedido = mailEstadoPedido;
 function mailPedidoListo({ nombreEmpresa, coordenadas, codigo }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (coordenadas !== "no") {
-            return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    if (coordenadas !== "no") {
+        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
         <div style="max-width: 600px;
         margin:  0 auto;">
         <div style="text-align: center; margin-top: 1.5rem;">
-        <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+        <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
         </div>
         <div style="text-align: center; padding: 3rem 0; margin-top: 1rem;">
-        <img src="https://ssl.pidespeed.com/correos/confirmed.png" width="200px height:100%">
+        <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" width="200px height:100%">
         <div>
         <p style="font-size: 1.5rem; font-weight: 400;"> Tu pedido <span class="gridMovilText"
         style="border-bottom:
@@ -128,16 +114,16 @@ function mailPedidoListo({ nombreEmpresa, coordenadas, codigo }) {
         </div>
         </div>
         </body>`;
-        }
-        else {
-            return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    }
+    else {
+        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
         <div style="max-width: 600px;
         margin:  0 auto;">
         <div style="text-align: center; margin-top: 1.5rem;">
-        <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+        <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
         </div>
         <div style="text-align: center; padding: 3rem 0; margin-top: 1rem;">
-        <img src="https://ssl.pidespeed.com/correos/confirmed.png" width="200px height:100%">
+        <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" width="200px height:100%">
         <div>
         <p style="font-size: 1.5rem; font-weight: 400;"> Tu pedido <span class="gridMovilText"
         style="border-bottom:
@@ -157,22 +143,20 @@ function mailPedidoListo({ nombreEmpresa, coordenadas, codigo }) {
         </div>
         </div>
         </body>`;
-        }
-    });
+    }
 }
 exports.mailPedidoListo = mailPedidoListo;
 function mailNuevoPedido({ nombre, codigo }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
             <div style="max-width: 600px;
             margin:  0 auto;">
             <div style="text-align: center; margin-top: 1.5rem;">
-            <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
             <h1 style="color: #333;">${nombre}</h1>
             <p>Tienes un nuevo pedido</p>
             </div>
             <div style="display: flex; justify-content: space-around; text-align: center; padding: 3rem 0; margin-top: 1rem;">
-            <img src="https://ssl.pidespeed.com/correos/confirmed.png" style="width: 12rem; height: 100%;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" style="width: 12rem; height: 100%;">
             <div>
             <p style=" font-size: 1.25rem; font-weight: 400;
             color: #ff414d;">El código de pedido es:</p>
@@ -192,12 +176,10 @@ function mailNuevoPedido({ nombre, codigo }) {
             </div>
             </div>
             </body>`;
-    });
 }
 exports.mailNuevoPedido = mailNuevoPedido;
 function mailBienvenido({ nombre }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<head>
+    return `<head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Bienvenido a Pidespeed</title>
@@ -206,7 +188,7 @@ function mailBienvenido({ nombre }) {
             <div style="max-width: 600px;
             margin:  0 auto;">
             <div style="text-align: center; margin-top: 1.5rem;">
-            <img src="https://ssl.pidespeed.com/correos/logo.png" style="width:50%; height: 100%">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" style="width:50%; height: 100%">
             </div>
             <div style="text-align: center; padding-top: 3rem;">
             <h1>Te damos la bienvenida a Pidespeed</h1>
@@ -214,19 +196,19 @@ function mailBienvenido({ nombre }) {
             </div>
             <div style="text-align: center; display: flex; justify-content: center; padding-top: 3rem;">
             <div style="margin-top: .5rem;">
-            <img src="https://ssl.pidespeed.com/correos/compra.png" style="width: 100%; margin-bottom: 1rem;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/compra.png" style="width: 100%; margin-bottom: 1rem;">
             <h3 style="font-size:1rem; font-weight: 400; margin: 0;">
             Tus locales favoritos
             </h3>
             </div>
             <div style="margin-top: .5rem;">
-            <img src="https://ssl.pidespeed.com/correos/delivery.png" style="width: 90%; margin-bottom: .5rem;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/delivery.png" style="width: 90%; margin-bottom: .5rem;">
             <h3 style="font-size:1rem; font-weight: 400; margin: 0;">
             Pedidos en tu puerta o pasas a recogerlo.
             </h3>
             </div>
             <div style="margin-top: .5rem;">
-            <img src="https://ssl.pidespeed.com/correos/promotion.png" style="width: 100%; margin-bottom: 1rem;">
+            <img src="https://storage.googleapis.com/pidespeed-storage/correos/promotion.png" style="width: 100%; margin-bottom: 1rem;">
             <h3 style="font-size:1rem; font-weight: 400; margin: 0;">
             Mejores promociones
             </h3>
@@ -264,34 +246,32 @@ function mailBienvenido({ nombre }) {
             <p style="padding: 0 .5rem;">Explora la ciudad directamente desde nuestra plataforma! Encontrarás variedad de restaurantes o tiendas que van desde postres, bebidas y comidas hasta cocinas específicas o minoristas. Escoge el de tu preferencia y haz tus pedidos desde la comodidad de tu casa, oficina o donde quiera que te encuentres!</p>
             </div>
             </div>
-            <div style="text-align: center; padding: 3rem 0; color: #fff; background-image: url(https://ssl.pidespeed.com/correos/meeting.jpg);">
+            <div style="text-align: center; padding: 3rem 0; color: #fff; background-image: url(https://storage.googleapis.com/pidespeed-storage/correos/meeting.jpg);">
             <h4 style="font-size:1.25rem;">Síguenos en nuestras redes sociales</h1>
             <div style="display: flex; justify-content: center; margin-top: 1rem;">
             <a href="https://www.instagram.com/pidespeed/" style="padding: 0 3rem;">
-            <img style="max-width: 125px; height: 100%; width: 100%;" src="https://ssl.pidespeed.com/correos/white-instagram-icon-png.png">
+            <img style="max-width: 125px; height: 100%; width: 100%;" src="https://storage.googleapis.com/pidespeed-storage/correos/white-instagram-icon-png.png">
             </a>
             <a href="https://www.facebook.com/pidespeed/" style="padding: 0 3rem;">
-            <img style="max-width: 80px; height: 100%; width: 100%;" src="https://ssl.pidespeed.com/correos/png-facebook-icon-3.png">
+            <img style="max-width: 80px; height: 100%; width: 100%;" src="https://storage.googleapis.com/pidespeed-storage/correos/png-facebook-icon-3.png">
             </a>
             </div>
             </div>
             </div>
             </body>`;
-    });
 }
 exports.mailBienvenido = mailBienvenido;
 function mailRecuperarPass({ nombre, codigo }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
     <div style="max-width: 600px;
     margin:  0 auto;">
     <div style="text-align: center; margin-top: 1.5rem;">
-    <img src="https://ssl.pidespeed.com/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
+    <img src="https://storage.googleapis.com/pidespeed-storage/correos/logo.png" alt="Pidespeed Logo" style="height: 100%; width: 50%;">
     <h1 style="color: #333;">Hola! ${nombre}</h1>
     <p>Acabas de solicitar la recuperación de tu contraseña, intoduce el siguiente código para actualizarla!</p>
     </div>
     <div style="display: flex; justify-content: space-around; text-align: center; padding: 3rem 0; margin-top: 1rem;">
-    <img src="https://ssl.pidespeed.com/correos/confirmed.png" width="200px height:100%">
+    <img src="https://storage.googleapis.com/pidespeed-storage/correos/confirmed.png" width="200px height:100%">
     <div>
     <p style=" font-size: 1.25rem; font-weight: 400;
     color: #ff414d;">Tu código de confirmación es:</p>
@@ -308,12 +288,10 @@ function mailRecuperarPass({ nombre, codigo }) {
     </div>
     </div>
     </body>`;
-    });
 }
 exports.mailRecuperarPass = mailRecuperarPass;
 function mailVerificacion({ nombre, link }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
     <div style="max-width: 600px;
     margin:  0 auto;">
     <div style="text-align: center; margin-top: 1.5rem;">
@@ -360,16 +338,14 @@ function mailVerificacion({ nombre, link }) {
     </div>
     </div>
     </body>`;
-    });
 }
 exports.mailVerificacion = mailVerificacion;
 function mailPromocion({ nombre }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
+    return `<body style="font-family: 'Roboto', sans-serif;  margin:  0 auto;">
     <div style="max-width: 600px; margin: 0 auto;">
     <div style="text-align: left;">
     <div style="margin-bottom: 1rem;">
-    <img src="https://ssl.pidespeed.com/web/promocion-cuadrada.jpeg" style="width: 100%; height: auto;">
+    <img src="https://storage.googleapis.com/pidespeed-storage/web/promocion-cuadrada.jpeg" style="width: 100%; height: auto;">
     </div>
     <div style="margin-top: 1rem; padding: 0 2rem;">
     <p style="color: #ff414d; letter-spacing: -0.08px; font-size: 20px; line-height: 28px; margin-bottom: 2rem; font-weight: bold;">¡Hola ${nombre}!</p>        
@@ -417,6 +393,5 @@ function mailPromocion({ nombre }) {
     </div>
     </div>
     </body>`;
-    });
 }
 exports.mailPromocion = mailPromocion;

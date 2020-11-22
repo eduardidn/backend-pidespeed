@@ -3,20 +3,20 @@ import * as controller from "./controller";
 import { CatchErrors } from "@utils";
 export default express
   .Router()
-  .put("/setPasswordEmpresa", CatchErrors(controller.updatePasswordEmpresa))
-  .post("/createUser", CatchErrors(controller.addUser))
-  .post("/buscarUserField", CatchErrors(controller.listUserByField))
-  .post("/buscarEmpresaField", CatchErrors(controller.listEmpresaByField))
-  .put("/recuperarPassword", CatchErrors(controller.updatePasswordUser))
+  .put("/set-password-empresa", CatchErrors(controller.updatePasswordEmpresa))
+  .post("/create-user", CatchErrors(controller.addUser))
+  .post("/buscar-user-field", CatchErrors(controller.listUserByField))
+  .post("/buscar-empresa-field", CatchErrors(controller.listEmpresaByField))
+  .put("/recuperar-password", CatchErrors(controller.updatePasswordUser))
   .put(
-    "/recuperarPasswordEmpresa",
+    "/recuperar-password-empresa",
     CatchErrors(controller.updatePasswordEmpresa),
   )
-  .put("/recuperarPasswordAdmin", CatchErrors(controller.updatePasswordAdmin))
-  .put("/setPasswordEmpresa", CatchErrors(controller.updatePasswordEmpresa))
-  .post("/loginUser/", CatchErrors(controller.loginUser))
-  .post("/loginEmpresa", CatchErrors(controller.loginEmpresa))
-  .post("/loginAdmin", CatchErrors(controller.loginAdmin));
+  .put("/recuperar-password-admin", CatchErrors(controller.updatePasswordAdmin))
+  .put("/set-password-empresa", CatchErrors(controller.updatePasswordEmpresa))
+  .post("/login-user/", CatchErrors(controller.loginUser))
+  .post("/login-empresa", CatchErrors(controller.loginEmpresa))
+  .post("/login-admin", CatchErrors(controller.loginAdmin));
 
 /**
  * @@deprecated

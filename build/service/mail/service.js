@@ -125,7 +125,7 @@ function mailPedidoListo(val) {
             html: templates.mailPedidoListo({ codigo, nombreEmpresa, coordenadas }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {
@@ -155,7 +155,7 @@ function mailNuevoPedido(val) {
             html: templates.mailNuevoPedido({ nombre, codigo }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {
@@ -188,7 +188,7 @@ function mailBienvenido(val) {
             html: templates.mailBienvenido({ nombre }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {
@@ -217,7 +217,7 @@ function mailRecuperarPass(val) {
             html: templates.mailRecuperarPass({ nombre, codigo }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {
@@ -247,7 +247,7 @@ function mailVerificacion(val) {
             html: templates.mailVerificacion({ nombre, link }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {
@@ -277,7 +277,7 @@ function mailPromocion(val) {
             html: templates.mailPromocion({ nombre }),
         };
         try {
-            const info = yield transporter.sendMail(message);
+            yield transporter.sendMail(message);
             return { message: "ok" };
         }
         catch (err) {

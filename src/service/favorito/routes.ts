@@ -5,7 +5,7 @@ export default express
   .Router()
   .get("/:usuarioId", CatchErrors(controller.list))
   .get("/list/all", CatchErrors(controller.listAll))
-  .get("/listOne/:usuarioId/:empresaId", CatchErrors(controller.listOne))
+  .get("/list-one/:usuarioId/:empresaId", CatchErrors(controller.listOne))
   .get("/verify/:usuarioId/:empresaId", CatchErrors(controller.verifyFavorito))
   .get("/listByRuta/:usuarioId/:ruta", CatchErrors(controller.listEsp))
   .post("/", CatchErrors(controller.addFavorito))

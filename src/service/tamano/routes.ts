@@ -6,7 +6,7 @@ export default express
   .get("/:ids/:tipo/public", CatchErrors(controller.list))
   .get("/list/all/public", CatchErrors(controller.listAll))
   .get(
-    "/list/byEmpresa/:empresaId/public",
+    "/list/by-empresa/:empresaId/public",
     CatchErrors(controller.listByEmpresa),
   )
   .get("/list/one/:tamanoId/public", CatchErrors(controller.listOne))

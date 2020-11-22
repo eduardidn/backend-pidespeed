@@ -18,7 +18,7 @@ export async function list() {
 
 export async function listByEstado({ estado }) {
   let query: any = {};
-  if (estado === "porAprobar") query = { ...query, aprobado: 0, cancelado: 0 };
+  if (estado === "por-aprobar") query = { ...query, aprobado: 0, cancelado: 0 };
   if (estado === "terminados")
     query = { ...query, aprobado: 0, terminado: 0, cancelado: 0 };
   if (estado === "cancelados") query = { ...query, cancelado: 1 };

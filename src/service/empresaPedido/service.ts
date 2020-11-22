@@ -55,7 +55,11 @@ export async function listByEmpresa({ empresaId }) {
 
 export async function listAllPendientes() {
   return EmpresaPedido.find({ terminado: 0, entregado: 0 })
-    .populate("empresa", "nombre email telefono logo")
+    .populate({
+      path: "empresa",
+      select: "nombre email telefono logo",
+      populate: { path: "logo", select: "url" },
+    })
     .sort({ date: 1 })
     .lean()
     .then((datos) =>
@@ -68,7 +72,11 @@ export async function listAllPendientes() {
 
 export async function listAllTerminados() {
   return EmpresaPedido.find({ terminado: 1, entregado: 0 })
-    .populate("empresa", "nombre email telefono logo")
+    .populate({
+      path: "empresa",
+      select: "nombre email telefono logo",
+      populate: { path: "logo", select: "url" },
+    })
     .sort({ date: 1 })
     .lean()
     .then((datos) =>

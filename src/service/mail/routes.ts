@@ -4,10 +4,10 @@ import { CatchErrors } from "@utils";
 export default express
   .Router()
   .post("/cambio", CatchErrors(controller.mailCambio))
-  .post("/estadoPedido", CatchErrors(controller.mailEstadoPedido))
-  .post("/pedidoTerminado", CatchErrors(controller.mailPedidoListo))
-  .post("/nuevoPedido", CatchErrors(controller.mailNuevoPedido))
+  .post("/estado-pedido", CatchErrors(controller.mailEstadoPedido))
+  .post("/pedido-terminado", CatchErrors(controller.mailPedidoListo))
+  .post("/nuevo-pedido", CatchErrors(controller.mailNuevoPedido))
   .post("/bienvenido/public", CatchErrors(controller.mailBienvenido))
   .post("/verificar/public", CatchErrors(controller.mailVerificacion))
-  .post("/recuperarPass/public", CatchErrors(controller.mailRecuperarPass))
+  .post("/recuperar-pass/public", CatchErrors(controller.mailRecuperarPass))
   .post("/promocion/public", CatchErrors(controller.mailPromocion));

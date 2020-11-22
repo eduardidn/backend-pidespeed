@@ -6,15 +6,15 @@ export default express
   .get("/:ruta/:tipo/public", CatchErrors(controller.list))
   .get("/list/one/:productoId/public", CatchErrors(controller.listOne))
   .get(
-    "/list/byDatos/:nombre/:descripcion",
+    "/list/by-datos/:nombre/:descripcion",
     CatchErrors(controller.listOneByDatos),
   )
   .get(
-    "/restarCantidad/:productoId/:cantidad",
+    "/restar-cantidad/:productoId/:cantidad",
     CatchErrors(controller.restarCantidad),
   )
   .get(
-    "/list/categoriasEsp/:ruta/:tipo/public",
+    "/list/categorias-esp/:ruta/:tipo/public",
     CatchErrors(controller.listCatEsp),
   )
   .post("/", CatchErrors(controller.addProducto))
