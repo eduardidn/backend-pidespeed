@@ -1,0 +1,175 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteEmpresa = exports.updateEmpresa = exports.addEmpresa = exports.addVenta = exports.addVisita = exports.listOne = exports.listSucursales = exports.listHome = exports.listAllInfo = exports.listAll = exports.list = void 0;
+const _models_1 = require("@models");
+function list({ ruta, ciudadId }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
+        let query = { publish: 1, es_sucursal: 0, categoria };
+        if (ciudadId)
+            query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
+        return _models_1.Empresa.find(query)
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .lean()
+            .then((datos) => datos.map((data) => {
+            data.id = data._id;
+            return data;
+        }));
+    });
+}
+exports.list = list;
+function listAll() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.find({})
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .lean()
+            .then((datos) => datos.map((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        }));
+    });
+}
+exports.listAll = listAll;
+function listAllInfo({ empresaId, ciudadId }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let query = { _id: empresaId };
+        if (ciudadId)
+            query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
+        return _models_1.Empresa.find(query)
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .lean()
+            .then((datos) => datos.map((data) => {
+            data.id = data._id;
+            return data;
+        }));
+    });
+}
+exports.listAllInfo = listAllInfo;
+function listHome({ tipo, ciudadId, sort }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        tipo = Number(tipo) === 1 ? 1 : 0;
+        let query = { es_sucursal: 0 };
+        if (tipo === 3)
+            query = Object.assign(Object.assign({}, query), { prueba: 1 });
+        if (tipo === 1)
+            query = Object.assign(Object.assign({}, query), { publish: 1 });
+        if (ciudadId)
+            query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
+        return _models_1.Empresa.find(query)
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .sort({ [sort]: -1 })
+            .lean()
+            .then((datos) => datos.map((data) => {
+            data.id = data._id;
+            return data;
+        }));
+    });
+}
+exports.listHome = listHome;
+function listSucursales({ empresaId }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.findOne({ empresa: empresaId })
+            .select("_id nombre principal")
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.listSucursales = listSucursales;
+function listOne({ field, value }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.findOne({ [field]: value })
+            .lean()
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.listOne = listOne;
+function addVisita({ ruta }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const empresa = yield _models_1.Empresa.findOne({ ruta }).select("visitas").exec();
+        empresa.visitas = empresa.visitas + 1;
+        empresa.save();
+    });
+}
+exports.addVisita = addVisita;
+function addVenta({ ruta }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const empresa = yield _models_1.Empresa.findOne({ ruta }).select("ventas").exec();
+        empresa.ventas = empresa.ventas + 1;
+        empresa.save();
+    });
+}
+exports.addVenta = addVenta;
+function addEmpresa(value) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.create(value);
+    });
+}
+exports.addEmpresa = addEmpresa;
+function updateEmpresa({ empresaId, value }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.findOneAndUpdate({ _id: empresaId }, value, {
+            new: true,
+            lean: true,
+        })
+            .populate("categoria", "ruta")
+            .populate("logo", "url")
+            .populate("img", "url")
+            .populate("ciudad", "nombre")
+            .populate("estado", "nombre")
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.updateEmpresa = updateEmpresa;
+function deleteEmpresa(empresaId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Empresa.findOneAndDelete({ _id: empresaId });
+    });
+}
+exports.deleteEmpresa = deleteEmpresa;
