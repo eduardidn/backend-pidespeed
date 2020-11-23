@@ -34,5 +34,5 @@ exports.default = express_1.default
     .get("/by-datos/:codigo/:precio", _utils_1.CatchErrors(controller.listOneByDatos))
     .get("/list/by-pago/:ids", _utils_1.CatchErrors(controller.listByIds))
     .post("/", _utils_1.CatchErrors(controller.addPedido))
-    .put("/:id", _utils_1.CatchErrors(controller.updatePedido))
-    .delete("/:id", _utils_1.CatchErrors(controller.deletePedido));
+    .put("/:pedidoId", _utils_1.CatchErrors(controller.updatePedido))
+    .delete("/:pedidoId", _utils_1.CatchErrors(controller.deletePedido));

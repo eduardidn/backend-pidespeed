@@ -10,5 +10,5 @@ export default express
   .get("/by-datos/:codigo/:precio", CatchErrors(controller.listOneByDatos))
   .get("/list/by-pago/:ids", CatchErrors(controller.listByIds))
   .post("/", CatchErrors(controller.addPedido))
-  .put("/:id", CatchErrors(controller.updatePedido))
-  .delete("/:id", CatchErrors(controller.deletePedido));
+  .put("/:pedidoId", CatchErrors(controller.updatePedido))
+  .delete("/:pedidoId", CatchErrors(controller.deletePedido));
