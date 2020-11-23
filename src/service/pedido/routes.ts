@@ -6,7 +6,7 @@ export default express
   .get("/", CatchErrors(controller.list))
   .get("/:estado", CatchErrors(controller.listByEstado))
   .get("/list/by-usuario/:usuarioId", CatchErrors(controller.listByUsuario))
-  .get("/list/one/:pedidoIid", CatchErrors(controller.listOne))
+  .get("/list/one/:pedidoId", CatchErrors(controller.listOne))
   .get("/by-datos/:codigo/:precio", CatchErrors(controller.listOneByDatos))
   .get("/list/by-pago/:ids", CatchErrors(controller.listByIds))
   .post("/", CatchErrors(controller.addPedido))
