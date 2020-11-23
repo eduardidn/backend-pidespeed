@@ -47,23 +47,23 @@ const schema = new Schema(
     },
     cancelado: {
       type: Number,
-      required: [true, "cancelado is required"],
+      default: 0,
     },
     aprobado: {
       type: Number,
-      required: [true, "aprobado is required"],
+      default: 0,
     },
     terminado: {
       type: Number,
-      required: [true, "terminado is required"],
+      default: 0,
     },
     entregado: {
       type: Number,
-      required: [true, "entrgado is required"],
+      default: 0,
     },
     promo: {
       type: Number,
-      required: [true, "promo is required"],
+      default: 0,
     },
     prev_id: Number,
   },
