@@ -29,7 +29,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePedido = exports.updatePedido = exports.addPedido = exports.listOne = exports.listByIds = exports.listOneByDatos = exports.listByUsuario = exports.listByEstado = exports.list = void 0;
-const _utils_1 = require("@utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -76,8 +75,7 @@ function listOne(req, res) {
 exports.listOne = listOne;
 function addPedido(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre } = _utils_1.Validator.validate(req.body, "nombre");
-        return service.addPedido({ nombre }).then((data) => res.json(data));
+        return service.addPedido(req.body).then((data) => res.json(data));
     });
 }
 exports.addPedido = addPedido;
