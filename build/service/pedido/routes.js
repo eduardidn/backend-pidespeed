@@ -30,7 +30,7 @@ exports.default = express_1.default
     .get("/", _utils_1.CatchErrors(controller.list))
     .get("/:estado", _utils_1.CatchErrors(controller.listByEstado))
     .get("/list/by-usuario/:usuarioId", _utils_1.CatchErrors(controller.listByUsuario))
-    .get("/list/one/:pedidoIid", _utils_1.CatchErrors(controller.listOne))
+    .get("/list/one/:pedidoId", _utils_1.CatchErrors(controller.listOne))
     .get("/by-datos/:codigo/:precio", _utils_1.CatchErrors(controller.listOneByDatos))
     .get("/list/by-pago/:ids", _utils_1.CatchErrors(controller.listByIds))
     .post("/", _utils_1.CatchErrors(controller.addPedido))
