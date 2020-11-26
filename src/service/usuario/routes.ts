@@ -7,5 +7,6 @@ export default express
   .get("/one", CatchErrors(controller.listOne))
   .get("/list/one/:usuarioId", CatchErrors(controller.listOneById))
   .put("/", CatchErrors(controller.updateUsuario))
+  .put("/public", CatchErrors(controller.updateUsuario))
   .put("/password", CatchErrors(controller.updatePassword))
   .delete("/", CatchErrors(controller.deleteUsuario));
