@@ -77,7 +77,12 @@ function validateToken({ token }) {
 }
 function needValidate(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        const whitelist = ["/api/login", "/api/empresa/public", "/api/favorito"];
+        const whitelist = [
+            "/api/login",
+            "/api/empresa/public",
+            "/api/favorito",
+            "api/usuario/password",
+        ];
         const whiteListEndsWidth = ["/public"];
         for (const wlUrl of whiteListEndsWidth)
             if (url.endsWith(wlUrl))

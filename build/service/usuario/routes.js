@@ -31,5 +31,6 @@ exports.default = express_1.default
     .get("/one", _utils_1.CatchErrors(controller.listOne))
     .get("/list/one/:usuarioId", _utils_1.CatchErrors(controller.listOneById))
     .put("/", _utils_1.CatchErrors(controller.updateUsuario))
+    .put("/public", _utils_1.CatchErrors(controller.updateUsuario))
     .put("/password", _utils_1.CatchErrors(controller.updatePassword))
     .delete("/", _utils_1.CatchErrors(controller.deleteUsuario));
