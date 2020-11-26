@@ -23,6 +23,14 @@ export async function updateUsuario(req, res) {
     .then((data) => res.json(data));
 }
 
+export async function updateUsuarioPublic(req, res) {
+  const { email } = req.params;
+  const value = req.body;
+  return service
+    .updateUsuarioPublic({ email, value })
+    .then((data) => res.json(data));
+}
+
 export async function updatePassword(res, req) {
   const { usuarioId } = req.user;
   const { password } = Validator.validate(req.body, "password");

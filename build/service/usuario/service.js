@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.updatePassword = exports.updateUsuario = exports.listOne = exports.list = void 0;
+exports.deleteUsuario = exports.updatePassword = exports.updateUsuarioPublic = exports.updateUsuario = exports.listOne = exports.list = void 0;
 const _models_1 = require("@models");
 const _utils_1 = require("@utils");
 function list() {
@@ -52,6 +52,20 @@ function updateUsuario({ usuarioId, value }) {
     });
 }
 exports.updateUsuario = updateUsuario;
+function updateUsuarioPublic({ email, value }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.Usuario.findOneAndUpdate({ email }, value, {
+            new: true,
+            lean: true,
+        }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.updateUsuarioPublic = updateUsuarioPublic;
 function updatePassword({ usuarioId, password }) {
     return __awaiter(this, void 0, void 0, function* () {
         const hashPassword = yield _utils_1.PasswordHelper.encryptPassword(password);

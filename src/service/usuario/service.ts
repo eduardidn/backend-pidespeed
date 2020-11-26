@@ -37,6 +37,18 @@ export async function updateUsuario({ usuarioId, value }) {
   });
 }
 
+export async function updateUsuarioPublic({ email, value }) {
+  return Usuario.findOneAndUpdate({ email }, value, {
+    new: true,
+    lean: true,
+  }).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
+}
+
 export async function updatePassword({ usuarioId, password }) {
   const hashPassword = await PasswordHelper.encryptPassword(password);
   return Usuario.findOneAndUpdate(

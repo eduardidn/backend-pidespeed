@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.updatePassword = exports.updateUsuario = exports.listOneById = exports.listOne = exports.list = void 0;
+exports.deleteUsuario = exports.updatePassword = exports.updateUsuarioPublic = exports.updateUsuario = exports.listOneById = exports.listOne = exports.list = void 0;
 const _utils_1 = require("@utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
@@ -61,6 +61,16 @@ function updateUsuario(req, res) {
     });
 }
 exports.updateUsuario = updateUsuario;
+function updateUsuarioPublic(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email } = req.params;
+        const value = req.body;
+        return service
+            .updateUsuarioPublic({ email, value })
+            .then((data) => res.json(data));
+    });
+}
+exports.updateUsuarioPublic = updateUsuarioPublic;
 function updatePassword(res, req) {
     return __awaiter(this, void 0, void 0, function* () {
         const { usuarioId } = req.user;
