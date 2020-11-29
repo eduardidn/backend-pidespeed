@@ -31,9 +31,8 @@ export async function updateUsuarioPublic(req, res) {
     .then((data) => res.json(data));
 }
 
-export async function updatePassword(res, req) {
-  const { usuarioId } = req.user;
-  const { password } = Validator.validate(req.body, "password");
+export async function updatePassword(req, res) {
+  const { password, usuarioId } = Validator.validate(req.body, "password");
   return service
     .updatePassword({ usuarioId, password })
     .then((data) => res.json(data));

@@ -22,7 +22,6 @@ export default async function (req, res, next) {
     token: authorization,
   });
   if (!valid) return invalid(expired);
-
   req.user = data;
   return next();
 }
