@@ -44,6 +44,8 @@ var DetallePedido_1 = require("./DetallePedido");
 Object.defineProperty(exports, "DetallePedido", { enumerable: true, get: function () { return DetallePedido_1.default; } });
 var Empresa_1 = require("./Empresa");
 Object.defineProperty(exports, "Empresa", { enumerable: true, get: function () { return Empresa_1.default; } });
+var EmpresaDelivery_1 = require("./EmpresaDelivery");
+Object.defineProperty(exports, "EmpresaDelivery", { enumerable: true, get: function () { return EmpresaDelivery_1.default; } });
 var EmpresaPedido_1 = require("./EmpresaPedido");
 Object.defineProperty(exports, "EmpresaPedido", { enumerable: true, get: function () { return EmpresaPedido_1.default; } });
 var Estado_1 = require("./Estado");

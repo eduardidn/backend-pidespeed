@@ -25,6 +25,7 @@ const config_1 = __importDefault(require("./service/config"));
 const cuenta_1 = __importDefault(require("./service/cuenta"));
 const detallePedido_1 = __importDefault(require("./service/detallePedido"));
 const empresa_1 = __importDefault(require("./service/empresa"));
+const empresaDelivery_1 = __importDefault(require("./service/empresaDelivery"));
 const empresaPedido_1 = __importDefault(require("./service/empresaPedido"));
 const estado_1 = __importDefault(require("./service/estado"));
 const faq_1 = __importDefault(require("./service/faq"));
@@ -41,6 +42,7 @@ const tamano_1 = __importDefault(require("./service/tamano"));
 const tipoBebida_1 = __importDefault(require("./service/tipoBebida"));
 const topping_1 = __importDefault(require("./service/topping"));
 const usuario_1 = __importDefault(require("./service/usuario"));
+const usuarioEmpresa_1 = __importDefault(require("./service/usuarioEmpresa"));
 const venta_1 = __importDefault(require("./service/venta"));
 const zona_1 = __importDefault(require("./service/zona"));
 function default_1(app) {
@@ -57,6 +59,7 @@ function default_1(app) {
             .use(cuenta_1.default)
             .use(detallePedido_1.default)
             .use(empresa_1.default)
+            .use(empresaDelivery_1.default)
             .use(empresaPedido_1.default)
             .use(estado_1.default)
             .use(faq_1.default)
@@ -73,6 +76,7 @@ function default_1(app) {
             .use(tipoBebida_1.default)
             .use(topping_1.default)
             .use(usuario_1.default)
+            .use(usuarioEmpresa_1.default)
             .use(venta_1.default)
             .use(zona_1.default)
             .use(module_base_1.default);

@@ -13,10 +13,25 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "email is required"],
     },
-    cedula: {
-        type: String,
+    cedula: String,
+    img: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
+        default: "5fa5b4bdb6dac50570af1a1b",
     },
-    img: String,
+    vehicle: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    status: {
+        type: String,
+        enum: ["disponible", "ocupado", "offline"],
+        default: "offline",
+    },
     username: {
         type: String,
         required: [true, "username is required"],
@@ -33,8 +48,16 @@ const schema = new mongoose_1.Schema({
     type: {
         type: String,
         required: [true, "type is required"],
+        enum: ["delivery", "empresa"],
     },
-    prev_id: Number,
+    empresa: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "empresa",
+    },
+    empresaDelivery: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "empresaDelivery",
+    },
 }, {
     timestamps: true,
     minimize: false,

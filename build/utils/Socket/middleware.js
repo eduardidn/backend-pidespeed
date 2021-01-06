@@ -12,20 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.io = exports.emitSocket = void 0;
-const socket_io_1 = __importDefault(require("socket.io"));
-const TokenUtils_1 = __importDefault(require("./TokenUtils"));
-let io;
-exports.io = io;
-function default_1(httpServer) {
-    exports.io = io = socket_io_1.default(httpServer, {
-        pingInterval: 20000,
-        pingTimeout: 10000,
-    });
-    io.use(middleware);
-    return io;
-}
-exports.default = default_1;
+exports.adminMiddleware = exports.middleware = void 0;
+const TokenUtils_1 = __importDefault(require("../TokenUtils"));
 function middleware(socket, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const invalidSession = () => {
@@ -40,14 +28,37 @@ function middleware(socket, next) {
         });
         if (!valid)
             return invalidSession();
-        socket.emit("Joined with success");
-        socket.join(`/user/${data.userId}`);
+        if (data.empresa !== true) {
+            setTimeout(() => socket.emit("Joined with success"), 1000);
+            socket.join(`/user/${data.userId}`);
+        }
+        else {
+            setTimeout(() => socket.emit("Joined with success"), 1000);
+            socket.join(`/empresa/${data.userId}`);
+            socket.join(`/empresa/${data.adminId}`);
+        }
         return next();
     });
 }
-function emitSocket(userId, event, data) {
+exports.middleware = middleware;
+function adminMiddleware(socket, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        io.to(`/user/${userId}`).emit(event, data);
+        const invalidSession = () => {
+            socket.disconnect();
+            return next(new Error("Not authorized."));
+        };
+        const { authorization } = socket.handshake.query;
+        if (!authorization)
+            return invalidSession();
+        const { valid, data } = yield TokenUtils_1.default.validateToken({
+            token: authorization,
+        });
+        if (!valid || data.admin !== true)
+            return invalidSession();
+        setTimeout(() => socket.emit("Joined with success"), 1000);
+        socket.join(`/admin/${data.userId}`);
+        socket.join(`/admin/${data.adminId}`);
+        return next();
     });
 }
-exports.emitSocket = emitSocket;
+exports.adminMiddleware = adminMiddleware;

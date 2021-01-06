@@ -115,13 +115,6 @@ const schema = new mongoose_1.Schema({
     },
     mensaje_carrito: String,
     orden: Array,
-    usuario: [
-        {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "usuarioEmpresa",
-            required: [true, "usuario is required"],
-        },
-    ],
     prev_id: Number,
 }, {
     timestamps: true,

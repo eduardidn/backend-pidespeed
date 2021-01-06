@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.addUser = exports.listUserByField = exports.updatePasswordAdmin = exports.updatePasswordEmpresa = exports.updatePasswordUser = exports.listEmpresaByField = exports.loginAdmin = exports.loginEmpresa = exports.loginUser = void 0;
+exports.updateUser = exports.addUser = exports.listUserByField = exports.updatePasswordAdmin = exports.updatePasswordEmpresaDelivery = exports.updatePasswordEmpresa = exports.updatePasswordUser = exports.listEmpresaByField = exports.loginAdmin = exports.loginEmpresaDelivery = exports.loginEmpresa = exports.loginUser = void 0;
 const _utils_1 = require("@utils");
 const service = __importStar(require("./service"));
 function loginUser(req, res) {
@@ -47,6 +47,15 @@ function loginEmpresa(req, res) {
     });
 }
 exports.loginEmpresa = loginEmpresa;
+function loginEmpresaDelivery(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { user, password } = _utils_1.Validator.validate(req.body, "user password");
+        return service
+            .loginEmpresaDelivery({ user, password })
+            .then((data) => res.json(data));
+    });
+}
+exports.loginEmpresaDelivery = loginEmpresaDelivery;
 function loginAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { user, password } = _utils_1.Validator.validate(req.body, "user password");
@@ -84,6 +93,15 @@ function updatePasswordEmpresa(req, res) {
     });
 }
 exports.updatePasswordEmpresa = updatePasswordEmpresa;
+function updatePasswordEmpresaDelivery(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { password, field, value } = _utils_1.Validator.validate(req.body, "password");
+        return service
+            .updatePasswordEmpresaDelivery({ field, value, password })
+            .then((data) => res.json(data));
+    });
+}
+exports.updatePasswordEmpresaDelivery = updatePasswordEmpresaDelivery;
 function updatePasswordAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { password, adminId } = _utils_1.Validator.validate(req.body, "password");

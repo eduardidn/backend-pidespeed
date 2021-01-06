@@ -16,10 +16,10 @@ export async function middleware(socket, next) {
   if (data.empresa !== true) {
     setTimeout(() => socket.emit("Joined with success"), 1000);
     socket.join(`/user/${data.userId}`);
-  }else{
+  } else {
     setTimeout(() => socket.emit("Joined with success"), 1000);
     socket.join(`/empresa/${data.userId}`);
-    socket.join(`/empresa/${data.adminId}`)
+    socket.join(`/empresa/${data.adminId}`);
   }
   return next();
 }
@@ -41,6 +41,6 @@ export async function adminMiddleware(socket, next) {
   setTimeout(() => socket.emit("Joined with success"), 1000);
 
   socket.join(`/admin/${data.userId}`);
-  socket.join(`/admin/${data.adminId}`)
+  socket.join(`/admin/${data.adminId}`);
   return next();
 }

@@ -43,11 +43,16 @@ function createAdminToken({ id }) {
         });
     });
 }
-function createUserToken({ usuarioId }) {
+function createUserToken({ usuarioId, admin, empresa, delivery, }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _createToken(usuarioId, {
-            usuarioId,
-        });
+        const data = { usuarioId };
+        if (admin)
+            data.admin = admin;
+        if (empresa)
+            data.empresa = empresa;
+        if (delivery)
+            data.delivery = delivery;
+        return _createToken(usuarioId, data);
     });
 }
 function validateToken({ token }) {

@@ -23,14 +23,14 @@ export function checkNotifications() {
 }
 
 export function deleteNotification(type, data) {
-    if(type === "user")
-      notificationsUser[data.userId] = {
-        event: "",
-      }
-    else
-      this.notificationsEmpresas[data.id] = {
-        event: "",
-      }
+  if (type === "user")
+    notificationsUser[data.userId] = {
+      event: "",
+    };
+  else
+    this.notificationsEmpresas[data.id] = {
+      event: "",
+    };
 }
 
 export async function pedido(type, data) {
@@ -38,8 +38,9 @@ export async function pedido(type, data) {
     actualizado: PActualizado,
     nuevoEmpresa: PNuevoEmpresa,
     nuevo: (data) => emitToAdmin("nuevo", data),
-    'actualizar:pedidos': (data) => emitToAdmin("actualizar:pedidos", data),
-    'actualizar:pedidosEmpresa': (data) => emitSocket('empresa', data.id, "actualizar:pedidosEmpresa", data),
+    "actualizar:pedidos": (data) => emitToAdmin("actualizar:pedidos", data),
+    "actualizar:pedidosEmpresa": (data) =>
+      emitSocket("empresa", data.id, "actualizar:pedidosEmpresa", data),
   };
   emitPedidioNotification[type](data);
 }
@@ -53,9 +54,9 @@ function PActualizado(data) {
 }
 
 function PNuevoEmpresa(data) {
-  emitSocket("empresa", data.id, "pedido:nuevoEmpresa", data)
-    notificationsEmpresa[data.id] = {
-      event: "pedido:actualizado",
-      data,
-    };
+  emitSocket("empresa", data.id, "pedido:nuevoEmpresa", data);
+  notificationsEmpresa[data.id] = {
+    event: "pedido:actualizado",
+    data,
+  };
 }

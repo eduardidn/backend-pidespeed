@@ -18,7 +18,7 @@ function list({ ruta, ciudadId }) {
         let query = { publish: 1, es_sucursal: 0, categoria };
         if (ciudadId)
             query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
-        return _models_1.Empresa.find(query)
+        return _models_1.EmpresaDelivery.find(query)
             .populate("categoria", "ruta")
             .populate("logo", "url")
             .populate("img", "url")
@@ -34,7 +34,7 @@ function list({ ruta, ciudadId }) {
 exports.list = list;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.find({})
+        return _models_1.EmpresaDelivery.find({})
             .populate("categoria", "ruta")
             .populate("logo", "url")
             .populate("img", "url")
@@ -55,7 +55,7 @@ function listAllInfo({ empresaId, ciudadId }) {
         let query = { _id: empresaId };
         if (ciudadId)
             query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
-        return _models_1.Empresa.find(query)
+        return _models_1.EmpresaDelivery.find(query)
             .populate("categoria", "ruta")
             .populate("logo", "url")
             .populate("img", "url")
@@ -79,7 +79,7 @@ function listHome({ tipo, ciudadId, sort }) {
             query = Object.assign(Object.assign({}, query), { publish: 1 });
         if (ciudadId)
             query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
-        return _models_1.Empresa.find(query)
+        return _models_1.EmpresaDelivery.find(query)
             .populate("categoria", "ruta")
             .populate("logo", "url")
             .populate("img", "url")
@@ -96,7 +96,7 @@ function listHome({ tipo, ciudadId, sort }) {
 exports.listHome = listHome;
 function listSucursales({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.findOne({ empresa: empresaId })
+        return _models_1.EmpresaDelivery.findOne({ empresa: empresaId })
             .select("_id nombre principal")
             .lean()
             .then((data) => {
@@ -110,7 +110,7 @@ function listSucursales({ empresaId }) {
 exports.listSucursales = listSucursales;
 function listOne({ field, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.findOne({ [field]: value })
+        return _models_1.EmpresaDelivery.findOne({ [field]: value })
             .lean()
             .populate("categoria", "ruta")
             .populate("logo", "url")
@@ -128,7 +128,9 @@ function listOne({ field, value }) {
 exports.listOne = listOne;
 function addVisita({ ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const empresa = yield _models_1.Empresa.findOne({ ruta }).select("visitas").exec();
+        const empresa = yield _models_1.EmpresaDelivery.findOne({ ruta })
+            .select("visitas")
+            .exec();
         empresa.visitas = empresa.visitas + 1;
         empresa.save();
     });
@@ -136,7 +138,9 @@ function addVisita({ ruta }) {
 exports.addVisita = addVisita;
 function addVenta({ ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const empresa = yield _models_1.Empresa.findOne({ ruta }).select("ventas").exec();
+        const empresa = yield _models_1.EmpresaDelivery.findOne({ ruta })
+            .select("ventas")
+            .exec();
         empresa.ventas = empresa.ventas + 1;
         empresa.save();
     });
@@ -144,15 +148,17 @@ function addVenta({ ruta }) {
 exports.addVenta = addVenta;
 function addEmpresa(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        const empresa = yield _models_1.Empresa.create(value);
-        const { username, telefono, password, email } = value;
+        const empresa = yield _models_1.EmpresaDelivery.create(value);
+        const { username, telefono, password, email, nombreUsuario, apellidoUsuario, } = value;
         const user = {
-            empresa: empresa._id,
+            empresaDelivery: empresa._id,
             username,
             password,
             telefono,
             email,
-            type: "empresa",
+            type: "delivery",
+            nombre: nombreUsuario,
+            apellido: apellidoUsuario,
         };
         const usuario = yield service_1.addUsuario(user);
         return { empresa, usuario };
@@ -161,7 +167,7 @@ function addEmpresa(value) {
 exports.addEmpresa = addEmpresa;
 function updateEmpresa({ empresaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.findOneAndUpdate({ _id: empresaId }, value, {
+        return _models_1.EmpresaDelivery.findOneAndUpdate({ _id: empresaId }, value, {
             new: true,
             lean: true,
         })
@@ -181,7 +187,7 @@ function updateEmpresa({ empresaId, value }) {
 exports.updateEmpresa = updateEmpresa;
 function deleteEmpresa(empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.findOneAndDelete({ _id: empresaId });
+        return _models_1.EmpresaDelivery.findOneAndDelete({ _id: empresaId });
     });
 }
 exports.deleteEmpresa = deleteEmpresa;

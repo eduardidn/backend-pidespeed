@@ -33,10 +33,12 @@ exports.default = express_1.default
     .post("/buscar-empresa-field", _utils_1.CatchErrors(controller.listEmpresaByField))
     .put("/recuperar-password", _utils_1.CatchErrors(controller.updatePasswordUser))
     .put("/recuperar-password-empresa", _utils_1.CatchErrors(controller.updatePasswordEmpresa))
+    .put("/recuperar-password-empresa-delivery", _utils_1.CatchErrors(controller.updatePasswordEmpresaDelivery))
     .put("/recuperar-password-admin", _utils_1.CatchErrors(controller.updatePasswordAdmin))
     .put("/set-password-empresa", _utils_1.CatchErrors(controller.updatePasswordEmpresa))
     .post("/login-user/", _utils_1.CatchErrors(controller.loginUser))
     .post("/login-empresa", _utils_1.CatchErrors(controller.loginEmpresa))
+    .post("/login-empresa-delivery", _utils_1.CatchErrors(controller.loginEmpresaDelivery))
     .post("/login-admin", _utils_1.CatchErrors(controller.loginAdmin));
 /**
  * @@deprecated

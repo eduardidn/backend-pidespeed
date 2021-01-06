@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.addUser = exports.listUserByField = exports.updatePasswordAdmin = exports.updatePasswordEmpresa = exports.updatePasswordUser = exports.listEmpresaByField = exports.loginAdmin = exports.loginEmpresa = exports.loginUser = void 0;
+exports.updateUser = exports.addUser = exports.listUserByField = exports.updatePasswordAdmin = exports.updatePasswordEmpresaDelivery = exports.updatePasswordEmpresa = exports.updatePasswordUser = exports.listEmpresaByField = exports.loginAdmin = exports.loginEmpresaDelivery = exports.loginEmpresa = exports.loginUser = void 0;
 const _models_1 = require("@models");
 const _utils_1 = require("@utils");
 /**
@@ -42,6 +42,7 @@ function loginEmpresa({ password, user }) {
     return __awaiter(this, void 0, void 0, function* () {
         const usuario = yield _models_1.UsuarioEmpresa.findOne({
             $or: [{ username: user }, { email: user }],
+            type: "empresa",
         })
             .lean()
             .then((data) => {
@@ -56,13 +57,17 @@ function loginEmpresa({ password, user }) {
         const match = yield _utils_1.PasswordHelper.compare({ password, hash: savedPassword });
         if (!match)
             throw new _utils_1.HTTP400Error("Usuario o contraseña incorrectos");
-        const empresa = yield _models_1.Empresa.findOne({ usuario: usuario._id })
+        const empresa = yield _models_1.Empresa.findOne({ _id: usuario.empresa })
             .populate("categoria")
             .populate("logo")
             .populate("img")
             .populate("ciudad")
             .populate("estado");
-        const token = yield _utils_1.TokenUtils.createUserToken({ usuarioId: usuario._id });
+        const token = yield _utils_1.TokenUtils.createUserToken({
+            usuarioId: usuario._id,
+            empresa: true,
+            delivery: false,
+        });
         const tokenEmpresa = yield _utils_1.TokenUtils.createBusinessToken({
             id: usuario._id,
         });
@@ -76,6 +81,49 @@ function loginEmpresa({ password, user }) {
     });
 }
 exports.loginEmpresa = loginEmpresa;
+function loginEmpresaDelivery({ password, user }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const usuario = yield _models_1.UsuarioEmpresa.findOne({
+            $or: [{ username: user }, { email: user }],
+            type: "delivery",
+        })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+        if (!usuario)
+            throw new _utils_1.HTTP400Error("Usuario o contraseña incorrectos");
+        const { password: savedPassword } = usuario;
+        const match = yield _utils_1.PasswordHelper.compare({ password, hash: savedPassword });
+        if (!match)
+            throw new _utils_1.HTTP400Error("Usuario o contraseña incorrectos");
+        const empresa = yield _models_1.EmpresaDelivery.findOne({
+            _id: usuario.empresaDelivery,
+        })
+            .populate("logo")
+            .populate("ciudad")
+            .populate("estado");
+        const token = yield _utils_1.TokenUtils.createUserToken({
+            usuarioId: usuario._id,
+            empresa: true,
+            delivery: true,
+        });
+        const tokenEmpresa = yield _utils_1.TokenUtils.createBusinessToken({
+            id: usuario._id,
+        });
+        return {
+            message: "ok",
+            token,
+            tokenAdmin: tokenEmpresa,
+            user: usuario,
+            empresa,
+        };
+    });
+}
+exports.loginEmpresaDelivery = loginEmpresaDelivery;
 function loginAdmin({ password, user }) {
     return __awaiter(this, void 0, void 0, function* () {
         const admin = yield _models_1.Admin.findOne({
@@ -95,7 +143,10 @@ function loginAdmin({ password, user }) {
         const match = yield _utils_1.PasswordHelper.compare({ password, hash: savedPassword });
         if (!match)
             throw new _utils_1.HTTP400Error("Usuario o contraseña incorrectos");
-        const token = yield _utils_1.TokenUtils.createUserToken({ usuarioId: admin._id });
+        const token = yield _utils_1.TokenUtils.createUserToken({
+            usuarioId: admin._id,
+            admin: true,
+        });
         const tokenAdmin = yield _utils_1.TokenUtils.createAdminToken({ id: admin._id });
         return { message: "ok", token, tokenAdmin, user: admin };
     });
@@ -132,7 +183,7 @@ exports.updatePasswordUser = updatePasswordUser;
 function updatePasswordEmpresa({ field, value, password }) {
     return __awaiter(this, void 0, void 0, function* () {
         const hashPassword = yield _utils_1.PasswordHelper.hash(password);
-        return _models_1.UsuarioEmpresa.findOneAndUpdate({ [field]: value }, { password: hashPassword }, { new: true, lean: true }).then((data) => {
+        return _models_1.UsuarioEmpresa.findOneAndUpdate({ [field]: value, type: "empresa" }, { password: hashPassword }, { new: true, lean: true }).then((data) => {
             if (data) {
                 data.id = data._id;
                 return data;
@@ -141,6 +192,18 @@ function updatePasswordEmpresa({ field, value, password }) {
     });
 }
 exports.updatePasswordEmpresa = updatePasswordEmpresa;
+function updatePasswordEmpresaDelivery({ field, value, password, }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const hashPassword = yield _utils_1.PasswordHelper.hash(password);
+        return _models_1.UsuarioEmpresa.findOneAndUpdate({ [field]: value, type: "delivery" }, { password: hashPassword }, { new: true, lean: true }).then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.updatePasswordEmpresaDelivery = updatePasswordEmpresaDelivery;
 function updatePasswordAdmin({ adminId, password }) {
     return __awaiter(this, void 0, void 0, function* () {
         const hashPassword = yield _utils_1.PasswordHelper.hash(password);
