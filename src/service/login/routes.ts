@@ -12,10 +12,15 @@ export default express
     "/recuperar-password-empresa",
     CatchErrors(controller.updatePasswordEmpresa),
   )
+  .put(
+    "/recuperar-password-empresa-delivery",
+    CatchErrors(controller.updatePasswordEmpresaDelivery),
+  )
   .put("/recuperar-password-admin", CatchErrors(controller.updatePasswordAdmin))
   .put("/set-password-empresa", CatchErrors(controller.updatePasswordEmpresa))
   .post("/login-user/", CatchErrors(controller.loginUser))
   .post("/login-empresa", CatchErrors(controller.loginEmpresa))
+  .post("/login-empresa-delivery", CatchErrors(controller.loginEmpresaDelivery))
   .post("/login-admin", CatchErrors(controller.loginAdmin));
 
 /**

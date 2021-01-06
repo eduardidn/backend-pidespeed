@@ -13,6 +13,7 @@ import config from "./service/config";
 import cuenta from "./service/cuenta";
 import detallePedido from "./service/detallePedido";
 import empresa from "./service/empresa";
+import empresaDelivery from "./service/empresaDelivery";
 import empresaPedido from "./service/empresaPedido";
 import estado from "./service/estado";
 import faq from "./service/faq";
@@ -29,6 +30,7 @@ import tamano from "./service/tamano";
 import tipoBebida from "./service/tipoBebida";
 import topping from "./service/topping";
 import usuario from "./service/usuario";
+import usuarioEmpresa from "./service/usuarioEmpresa";
 import venta from "./service/venta";
 import zona from "./service/zona";
 
@@ -45,6 +47,7 @@ export default async function (app) {
     .use(cuenta)
     .use(detallePedido)
     .use(empresa)
+    .use(empresaDelivery)
     .use(empresaPedido)
     .use(estado)
     .use(faq)
@@ -61,6 +64,7 @@ export default async function (app) {
     .use(tipoBebida)
     .use(topping)
     .use(usuario)
+    .use(usuarioEmpresa)
     .use(venta)
     .use(zona)
     .use(exampleRoutes);

@@ -115,13 +115,6 @@ const schema = new Schema(
     },
     mensaje_carrito: String,
     orden: Array,
-    usuario: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "usuarioEmpresa",
-        required: [true, "usuario is required"],
-      },
-    ],
     prev_id: Number,
   },
   {

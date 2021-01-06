@@ -71,10 +71,9 @@ function updateUsuarioPublic(req, res) {
     });
 }
 exports.updateUsuarioPublic = updateUsuarioPublic;
-function updatePassword(res, req) {
+function updatePassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuarioId } = req.user;
-        const { password } = _utils_1.Validator.validate(req.body, "password");
+        const { password, usuarioId } = _utils_1.Validator.validate(req.body, "password");
         return service
             .updatePassword({ usuarioId, password })
             .then((data) => res.json(data));

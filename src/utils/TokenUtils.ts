@@ -36,10 +36,22 @@ async function createAdminToken({ id }) {
   });
 }
 
-async function createUserToken({ usuarioId }) {
-  return _createToken(usuarioId, {
-    usuarioId,
-  });
+async function createUserToken({
+  usuarioId,
+  admin,
+  empresa,
+  delivery,
+}: {
+  usuarioId;
+  admin?;
+  empresa?;
+  delivery?;
+}) {
+  const data: any = { usuarioId };
+  if (admin) data.admin = admin;
+  if (empresa) data.empresa = empresa;
+  if (delivery) data.delivery = delivery;
+  return _createToken(usuarioId, data);
 }
 
 async function validateToken({ token }) {

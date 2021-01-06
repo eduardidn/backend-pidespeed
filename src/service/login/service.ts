@@ -1,4 +1,10 @@
-import { Admin, Empresa, Usuario, UsuarioEmpresa } from "@models";
+import {
+  Admin,
+  Empresa,
+  EmpresaDelivery,
+  Usuario,
+  UsuarioEmpresa,
+} from "@models";
 import { HTTP400Error, PasswordHelper, TokenUtils } from "@utils";
 
 /**
@@ -28,6 +34,7 @@ export async function loginUser({ password, user }) {
 export async function loginEmpresa({ password, user }) {
   const usuario = await UsuarioEmpresa.findOne({
     $or: [{ username: user }, { email: user }],
+    type: "empresa",
   })
     .lean()
     .then((data) => {
@@ -37,17 +44,59 @@ export async function loginEmpresa({ password, user }) {
       }
     });
   if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
-
   const { password: savedPassword } = usuario;
   const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
-  const empresa = await Empresa.findOne({ usuario: usuario._id })
+  const empresa = await Empresa.findOne({ _id: usuario.empresa })
     .populate("categoria")
     .populate("logo")
     .populate("img")
     .populate("ciudad")
     .populate("estado");
-  const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
+  const token = await TokenUtils.createUserToken({
+    usuarioId: usuario._id,
+    empresa: true,
+    delivery: false,
+  });
+  const tokenEmpresa = await TokenUtils.createBusinessToken({
+    id: usuario._id,
+  });
+  return {
+    message: "ok",
+    token,
+    tokenAdmin: tokenEmpresa,
+    user: usuario,
+    empresa,
+  };
+}
+
+export async function loginEmpresaDelivery({ password, user }) {
+  const usuario = await UsuarioEmpresa.findOne({
+    $or: [{ username: user }, { email: user }],
+    type: "delivery",
+  })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
+  if (!usuario) throw new HTTP400Error("Usuario o contraseña incorrectos");
+  const { password: savedPassword } = usuario;
+  const match = await PasswordHelper.compare({ password, hash: savedPassword });
+  if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
+  const empresa = await EmpresaDelivery.findOne({
+    _id: usuario.empresaDelivery,
+  })
+    .populate("logo")
+    .populate("ciudad")
+    .populate("estado");
+  const token = await TokenUtils.createUserToken({
+    usuarioId: usuario._id,
+    empresa: true,
+    delivery: true,
+  });
   const tokenEmpresa = await TokenUtils.createBusinessToken({
     id: usuario._id,
   });
@@ -78,7 +127,10 @@ export async function loginAdmin({ password, user }) {
   const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
-  const token = await TokenUtils.createUserToken({ usuarioId: admin._id });
+  const token = await TokenUtils.createUserToken({
+    usuarioId: admin._id,
+    admin: true,
+  });
   const tokenAdmin = await TokenUtils.createAdminToken({ id: admin._id });
   return { message: "ok", token, tokenAdmin, user: admin };
 }
@@ -115,7 +167,25 @@ export async function updatePasswordUser({ email, password }) {
 export async function updatePasswordEmpresa({ field, value, password }) {
   const hashPassword = await PasswordHelper.hash(password);
   return UsuarioEmpresa.findOneAndUpdate(
-    { [field]: value },
+    { [field]: value, type: "empresa" },
+    { password: hashPassword },
+    { new: true, lean: true },
+  ).then((data) => {
+    if (data) {
+      data.id = data._id;
+      return data;
+    }
+  });
+}
+
+export async function updatePasswordEmpresaDelivery({
+  field,
+  value,
+  password,
+}) {
+  const hashPassword = await PasswordHelper.hash(password);
+  return UsuarioEmpresa.findOneAndUpdate(
+    { [field]: value, type: "delivery" },
     { password: hashPassword },
     { new: true, lean: true },
   ).then((data) => {

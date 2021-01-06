@@ -1,11 +1,11 @@
-import { Empresa, Categoria } from "@models";
+import { EmpresaDelivery, Categoria } from "@models";
 import { addUsuario } from "../usuarioEmpresa/service";
 
 export async function list({ ruta, ciudadId }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
   let query: any = { publish: 1, es_sucursal: 0, categoria };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  return EmpresaDelivery.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -21,7 +21,7 @@ export async function list({ ruta, ciudadId }) {
 }
 
 export async function listAll() {
-  return Empresa.find({})
+  return EmpresaDelivery.find({})
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -41,7 +41,7 @@ export async function listAll() {
 export async function listAllInfo({ empresaId, ciudadId }) {
   let query: any = { _id: empresaId };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  return EmpresaDelivery.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -62,7 +62,7 @@ export async function listHome({ tipo, ciudadId, sort }) {
   if (tipo === 3) query = { ...query, prueba: 1 };
   if (tipo === 1) query = { ...query, publish: 1 };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  return EmpresaDelivery.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -79,7 +79,7 @@ export async function listHome({ tipo, ciudadId, sort }) {
 }
 
 export async function listSucursales({ empresaId }) {
-  return Empresa.findOne({ empresa: empresaId })
+  return EmpresaDelivery.findOne({ empresa: empresaId })
     .select("_id nombre principal")
     .lean()
     .then((data) => {
@@ -91,7 +91,7 @@ export async function listSucursales({ empresaId }) {
 }
 
 export async function listOne({ field, value }) {
-  return Empresa.findOne({ [field]: value })
+  return EmpresaDelivery.findOne({ [field]: value })
     .lean()
     .populate("categoria", "ruta")
     .populate("logo", "url")
@@ -107,34 +107,47 @@ export async function listOne({ field, value }) {
 }
 
 export async function addVisita({ ruta }) {
-  const empresa = await Empresa.findOne({ ruta }).select("visitas").exec();
+  const empresa = await EmpresaDelivery.findOne({ ruta })
+    .select("visitas")
+    .exec();
   empresa.visitas = empresa.visitas + 1;
   empresa.save();
 }
 
 export async function addVenta({ ruta }) {
-  const empresa = await Empresa.findOne({ ruta }).select("ventas").exec();
+  const empresa = await EmpresaDelivery.findOne({ ruta })
+    .select("ventas")
+    .exec();
   empresa.ventas = empresa.ventas + 1;
   empresa.save();
 }
 
 export async function addEmpresa(value) {
-  const empresa = await Empresa.create(value);
-  const { username, telefono, password, email } = value;
+  const empresa = await EmpresaDelivery.create(value);
+  const {
+    username,
+    telefono,
+    password,
+    email,
+    nombreUsuario,
+    apellidoUsuario,
+  } = value;
   const user = {
-    empresa: empresa._id,
+    empresaDelivery: empresa._id,
     username,
     password,
     telefono,
     email,
-    type: "empresa",
+    type: "delivery",
+    nombre: nombreUsuario,
+    apellido: apellidoUsuario,
   };
   const usuario = await addUsuario(user);
   return { empresa, usuario };
 }
 
 export async function updateEmpresa({ empresaId, value }) {
-  return Empresa.findOneAndUpdate({ _id: empresaId }, value, {
+  return EmpresaDelivery.findOneAndUpdate({ _id: empresaId }, value, {
     new: true,
     lean: true,
   })
@@ -152,5 +165,5 @@ export async function updateEmpresa({ empresaId, value }) {
 }
 
 export async function deleteEmpresa(empresaId) {
-  return Empresa.findOneAndDelete({ _id: empresaId });
+  return EmpresaDelivery.findOneAndDelete({ _id: empresaId });
 }

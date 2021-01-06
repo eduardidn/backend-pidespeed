@@ -13,6 +13,13 @@ export async function loginEmpresa(req, res) {
     .then((data) => res.json(data));
 }
 
+export async function loginEmpresaDelivery(req, res) {
+  const { user, password } = Validator.validate(req.body, "user password");
+  return service
+    .loginEmpresaDelivery({ user, password })
+    .then((data) => res.json(data));
+}
+
 export async function loginAdmin(req, res) {
   const { user, password } = Validator.validate(req.body, "user password");
   return service.loginAdmin({ user, password }).then((data) => res.json(data));
@@ -40,6 +47,13 @@ export async function updatePasswordEmpresa(req, res) {
   const { password, field, value } = Validator.validate(req.body, "password");
   return service
     .updatePasswordEmpresa({ field, value, password })
+    .then((data) => res.json(data));
+}
+
+export async function updatePasswordEmpresaDelivery(req, res) {
+  const { password, field, value } = Validator.validate(req.body, "password");
+  return service
+    .updatePasswordEmpresaDelivery({ field, value, password })
     .then((data) => res.json(data));
 }
 
