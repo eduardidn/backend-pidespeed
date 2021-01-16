@@ -16,7 +16,7 @@ const schema = new mongoose_1.Schema({
         default: "",
     },
     publish: {
-        type: Number,
+        type: Boolean,
         required: [true, "publish is required"],
     },
 }, {

@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteImage = exports.listFiles = exports.uploadTest = exports.uploadBase64 = void 0;
+exports.getImgData = exports.deleteImage = exports.listFiles = exports.uploadTest = exports.uploadBase64 = void 0;
 const GoogleStorage = __importStar(require("./GoogleStorage"));
 const _models_1 = require("@models");
 const crypto_1 = __importDefault(require("crypto"));
@@ -104,3 +104,15 @@ function deleteImage(id) {
     });
 }
 exports.deleteImage = deleteImage;
+function getImgData(data) {
+    const value = data.image.split(",")[1];
+    const type = data.image.split(",")[0].split(";")[0].split("/")[1];
+    const filename = `${data.Afiliado}-${data.empresa}`;
+    const image = Buffer.from(value, "base64");
+    const imageBuffer = {
+        type,
+        image,
+    };
+    return { imageBuffer, filename };
+}
+exports.getImgData = getImgData;

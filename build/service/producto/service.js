@@ -15,11 +15,11 @@ const _utils_1 = require("@utils");
 function list({ tipo, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         let query = {
             empresa,
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Producto.find(query)
             .populate("file", "url")
@@ -36,11 +36,11 @@ exports.list = list;
 function listCatEsp({ tipo, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         let query = {
             empresa,
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         let categorias = yield _models_1.Producto.find(query)
             .select("categoria_product")
@@ -63,12 +63,12 @@ function listCatEsp({ tipo, ruta }) {
 exports.listCatEsp = listCatEsp;
 function listByIds({ tipo, ids }) {
     return __awaiter(this, void 0, void 0, function* () {
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         ids = ids.split(",");
         let query = {
             _id: { $in: ids },
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Producto.find(query)
             .lean()

@@ -13,9 +13,9 @@ exports.deleteCategoria = exports.updateCategoria = exports.addCategoria = expor
 const _models_1 = require("@models");
 function list(tipo) {
     return __awaiter(this, void 0, void 0, function* () {
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         let query;
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Categoria.find(query)
             .lean()

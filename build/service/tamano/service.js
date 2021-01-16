@@ -17,7 +17,7 @@ function list({ ids, tipo }) {
         let query = {
             _id: { $in: ids },
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Tamano.find(query)
             .lean()

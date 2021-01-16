@@ -13,11 +13,11 @@ exports.deleteSirope = exports.updateByIds = exports.updateSirope = exports.addS
 const _models_1 = require("@models");
 function list(tipo, empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         let query = {
             empresa: empresaId,
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Sirope.find(query)
             .lean()
@@ -32,12 +32,12 @@ function list(tipo, empresaId) {
 exports.list = list;
 function listByIds(tipo, ids) {
     return __awaiter(this, void 0, void 0, function* () {
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         ids = ids.split(",");
         let query = {
             _id: { $in: ids },
         };
-        if (tipo === 1)
+        if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
         return _models_1.Sirope.find(query)
             .lean()

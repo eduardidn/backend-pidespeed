@@ -17,6 +17,7 @@ const _middlewares_1 = require("@middlewares");
 const module_base_1 = __importDefault(require("./service/module_base"));
 const acomp_1 = __importDefault(require("./service/acomp"));
 const adicional_1 = __importDefault(require("./service/adicional"));
+const afiliadoDelivery_1 = __importDefault(require("./service/afiliadoDelivery"));
 const bebida_1 = __importDefault(require("./service/bebida"));
 const categoriaProducto_1 = __importDefault(require("./service/categoriaProducto"));
 const categoria_1 = __importDefault(require("./service/categoria"));
@@ -51,6 +52,7 @@ function default_1(app) {
             .Router()
             .use(acomp_1.default)
             .use(adicional_1.default)
+            .use(afiliadoDelivery_1.default)
             .use(bebida_1.default)
             .use(categoriaProducto_1.default)
             .use(categoria_1.default)

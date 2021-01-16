@@ -14,7 +14,7 @@ const _models_1 = require("@models");
 function list({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
         let favoritos = yield _models_1.Favorito.find({ usuario: usuarioId })
-            .populate("empresa", null, { publish: 1 }, { populate: "img logo" })
+            .populate("empresa", null, { publish: true }, { populate: "img logo" })
             .populate("categoria")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -30,7 +30,7 @@ function listEsp({ usuarioId, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
         let favoritos = yield _models_1.Favorito.findOne({ usuario: usuarioId, categoria })
-            .populate("empresa", null, { publish: 1 }, { populate: "img logo" })
+            .populate("empresa", null, { publish: true }, { populate: "img logo" })
             .populate("categoria")
             .lean()
             .then((data) => {

@@ -1,0 +1,48 @@
+name: Deploy Develop
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+
+      - name: Setup SSH
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Setup ssh hosts
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        run: ssh-keyscan -t rsa ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deleting github folder
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        run: rm -rf .git
+
+      - name: Compress Project
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        run: zip -r archive.zip .
+
+      - name: Sync Project
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        run: rsync -a archive.zip ubuntu@${{ secrets.REMOTE_HOST }}:/${{ github.event.repository.name }}/archive.zip
+
+      - name: Remote Deploy
+        if: "contains(github.event.commits.*.message, 'ci: skip') != true"
+        run: |
+          ssh -tt ubuntu@${{ secrets.REMOTE_HOST }} "
+            cd /${{ github.event.repository.name }};
+            unzip -u -o archive.zip;
+            yarn install --production=true;
+            yarn build;
+            pm2 restart all;
+            pm2 save;
+          "

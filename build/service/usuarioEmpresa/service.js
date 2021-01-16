@@ -47,7 +47,7 @@ function addUsuario(data) {
         const { password } = data;
         data.password = yield _utils_1.PasswordHelper.hash(password);
         if (data.image) {
-            const { imageBuffer, filename } = _getImgData(data);
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(data);
             const { _id: imageId } = yield service_1.uploadImage({
                 imageBuffer,
                 folder: "usuariosEmpresa",
@@ -68,7 +68,7 @@ exports.addUsuario = addUsuario;
 function updateUsuario({ usuarioId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (value.image) {
-            const { imageBuffer, filename } = _getImgData(value);
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value);
             if (value.img === "5fa5b4bdb6dac50570af1a1b") {
                 const { _id: imageId } = yield service_1.uploadImage({
                     imageBuffer,
@@ -107,14 +107,3 @@ function deleteUsuario(usuarioId) {
     });
 }
 exports.deleteUsuario = deleteUsuario;
-function _getImgData(data) {
-    const value = data.image.split(",")[1];
-    const type = data.image.split(",")[0].split(";")[0].split("/")[1];
-    const filename = `${data.usuario}-${data.empresa}`;
-    const image = Buffer.from(value, "base64");
-    const imageBuffer = {
-        type,
-        image,
-    };
-    return { imageBuffer, filename };
-}

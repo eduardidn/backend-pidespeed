@@ -28,6 +28,8 @@ var Adicional_1 = require("./Adicional");
 Object.defineProperty(exports, "Adicional", { enumerable: true, get: function () { return Adicional_1.default; } });
 var Admin_1 = require("./Admin");
 Object.defineProperty(exports, "Admin", { enumerable: true, get: function () { return Admin_1.default; } });
+var AfiliadoDelivery_1 = require("./AfiliadoDelivery");
+Object.defineProperty(exports, "AfiliadoDelivery", { enumerable: true, get: function () { return AfiliadoDelivery_1.default; } });
 var Bebida_1 = require("./Bebida");
 Object.defineProperty(exports, "Bebida", { enumerable: true, get: function () { return Bebida_1.default; } });
 var Categoria_1 = require("./Categoria");

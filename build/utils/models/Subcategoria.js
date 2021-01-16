@@ -12,7 +12,7 @@ const schema = new mongoose_1.Schema({
         required: [true, "ruta is required"],
     },
     publish: {
-        type: Number,
+        type: Boolean,
         required: [true, "publish is required"],
     },
     categoria: {

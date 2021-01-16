@@ -15,7 +15,7 @@ const service_1 = require("../usuarioEmpresa/service");
 function list({ ruta, ciudadId }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
-        let query = { publish: 1, es_sucursal: 0, categoria };
+        let query = { publish: true, es_sucursal: 0, categoria };
         if (ciudadId)
             query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
         return _models_1.EmpresaDelivery.find(query)
@@ -71,12 +71,12 @@ function listAllInfo({ empresaId, ciudadId }) {
 exports.listAllInfo = listAllInfo;
 function listHome({ tipo, ciudadId, sort }) {
     return __awaiter(this, void 0, void 0, function* () {
-        tipo = Number(tipo) === 1 ? 1 : 0;
+        tipo = Number(tipo) === 1 ? true : false;
         let query = { es_sucursal: 0 };
         if (tipo === 3)
             query = Object.assign(Object.assign({}, query), { prueba: 1 });
-        if (tipo === 1)
-            query = Object.assign(Object.assign({}, query), { publish: 1 });
+        if (tipo)
+            query = Object.assign(Object.assign({}, query), { publish: tipo });
         if (ciudadId)
             query = Object.assign(Object.assign({}, query), { ciudad: ciudadId });
         return _models_1.EmpresaDelivery.find(query)

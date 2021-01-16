@@ -25,6 +25,11 @@ const schema = new mongoose_1.Schema({
         ref: "estado",
         required: [true, "estado is required"],
     },
+    img: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
+        default: "5fa5b438e8a25c36c0fe1f52",
+    },
     logo: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "file",

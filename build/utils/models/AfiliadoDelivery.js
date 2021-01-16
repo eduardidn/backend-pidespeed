@@ -7,39 +7,35 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "nombre is required"],
     },
-    precio$: {
+    descripcion: {
         type: String,
-        default: 0,
+        required: [true, "descripcion is required"],
     },
-    precio: {
+    coordenadas: {
         type: String,
-        required: [true, "precio is required"],
+        required: [true, "coordenadas is required"],
     },
-    cantidad: {
+    direccion: {
+        type: String,
+        required: [true, "direccion is required"],
+    },
+    img: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "file",
+        required: [true, "img is required"],
+    },
+    ventas: {
         type: Number,
-        required: [true, "cantidad is required"],
+        default: 0,
     },
     publish: {
         type: Boolean,
         required: [true, "publish is required"],
     },
-    empresa: {
+    empresaDelivery: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "empresa",
-        required: [true, "empresa is required"],
-    },
-    acomps: Array,
-    consulta: {
-        type: Number,
-        required: [true, "consulta is required"],
-    },
-    acomp: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "acomp",
-    },
-    tipo_acomp: {
-        type: String,
-        default: "",
+        ref: "empresaDelivery",
+        required: [true, "empresaDelivery is required"],
     },
 }, {
     timestamps: true,
@@ -53,4 +49,4 @@ const schema = new mongoose_1.Schema({
         virtuals: true,
     },
 });
-exports.default = mongoose_1.model("adicional", _1.Utils.prepare(schema));
+exports.default = mongoose_1.model("afiliadoDelivery", _1.Utils.prepare(schema));
