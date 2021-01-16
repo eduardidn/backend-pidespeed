@@ -2,9 +2,9 @@ import { Categoria, CategoriaProducto, Empresa } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any;
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return CategoriaProducto.find(query)
     .populate("categoria", "icono")
     .lean()
@@ -22,11 +22,11 @@ export async function listByRuta({ tipo, rutaCategoria }) {
   const { _id: categoria } = await Categoria.findOne({
     ruta: rutaCategoria,
   }).lean();
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = {
     categoria,
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return CategoriaProducto.find(query)
     .lean()
     .then((datos) =>

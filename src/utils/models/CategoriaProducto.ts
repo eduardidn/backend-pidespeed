@@ -8,7 +8,7 @@ const schema = new Schema(
       required: [true, "nombre is required"],
     },
     publish: {
-      type: Number,
+      type: Boolean,
       required: [true, "publish is required"],
     },
     categoria: {

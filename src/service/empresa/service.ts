@@ -1,9 +1,9 @@
-import { Empresa, Categoria } from "@models";
+import { Empresa, Categoria, UsuarioEmpresa } from "@models";
 import { addUsuario } from "../usuarioEmpresa/service";
 
 export async function list({ ruta, ciudadId }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
-  let query: any = { publish: 1, es_sucursal: 0, categoria };
+  let query: any = { publish: true, es_sucursal: 0, categoria };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return Empresa.find(query)
     .populate("categoria", "ruta")
@@ -21,6 +21,15 @@ export async function list({ ruta, ciudadId }) {
 }
 
 export async function listAll() {
+  const empresas = await Empresa.find({}).skip(1).limit(25).lean();
+  for (const empresa of empresas) {
+    UsuarioEmpresa.findOneAndUpdate(
+      { _id: empresa.usuario },
+      {
+        empresa: empresa._id,
+      },
+    ).exec();
+  }
   return Empresa.find({})
     .populate("categoria", "ruta")
     .populate("logo", "url")
@@ -57,10 +66,10 @@ export async function listAllInfo({ empresaId, ciudadId }) {
 }
 
 export async function listHome({ tipo, ciudadId, sort }) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = { es_sucursal: 0 };
   if (tipo === 3) query = { ...query, prueba: 1 };
-  if (tipo === 1) query = { ...query, publish: 1 };
+  if (tipo) query = { ...query, publish: tipo };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return Empresa.find(query)
     .populate("categoria", "ruta")

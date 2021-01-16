@@ -6,7 +6,7 @@ export async function list({ ids, tipo }) {
   let query: any = {
     _id: { $in: ids },
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Tamano.find(query)
     .lean()
     .then((datos) =>

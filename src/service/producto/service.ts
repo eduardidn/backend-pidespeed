@@ -3,11 +3,11 @@ import { Socket, UploadImage } from "@utils";
 
 export async function list({ tipo, ruta }) {
   const { _id: empresa } = await Empresa.findOne({ ruta }).lean();
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = {
     empresa,
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Producto.find(query)
     .populate("file", "url")
     .lean()
@@ -23,11 +23,11 @@ export async function list({ tipo, ruta }) {
 
 export async function listCatEsp({ tipo, ruta }) {
   const { _id: empresa } = await Empresa.findOne({ ruta }).lean();
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = {
     empresa,
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   let categorias = await Producto.find(query)
     .select("categoria_product")
     .populate("categoria_product", "nombre")
@@ -47,12 +47,12 @@ export async function listCatEsp({ tipo, ruta }) {
 }
 
 export async function listByIds({ tipo, ids }) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   ids = ids.split(",");
   let query: any = {
     _id: { $in: ids },
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Producto.find(query)
     .lean()
     .then((datos) =>

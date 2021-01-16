@@ -2,11 +2,11 @@ import { Sirope } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo, empresaId) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = {
     empresa: empresaId,
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Sirope.find(query)
     .lean()
     .then((datos) =>
@@ -20,12 +20,12 @@ export async function list(tipo, empresaId) {
 }
 
 export async function listByIds(tipo, ids) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   ids = ids.split(",");
   let query: any = {
     _id: { $in: ids },
   };
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Sirope.find(query)
     .lean()
     .then((datos) =>

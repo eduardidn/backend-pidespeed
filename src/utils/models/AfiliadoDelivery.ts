@@ -7,39 +7,35 @@ const schema = new Schema(
       type: String,
       required: [true, "nombre is required"],
     },
-    precio$: {
+    descripcion: {
       type: String,
-      default: 0,
+      required: [true, "descripcion is required"],
     },
-    precio: {
+    coordenadas: {
       type: String,
-      required: [true, "precio is required"],
+      required: [true, "coordenadas is required"],
     },
-    cantidad: {
+    direccion: {
+      type: String,
+      required: [true, "direccion is required"],
+    },
+    img: {
+      type: Schema.Types.ObjectId,
+      ref: "file",
+      required: [true, "img is required"],
+    },
+    ventas: {
       type: Number,
-      required: [true, "cantidad is required"],
+      default: 0,
     },
     publish: {
       type: Boolean,
       required: [true, "publish is required"],
     },
-    empresa: {
+    empresaDelivery: {
       type: Schema.Types.ObjectId,
-      ref: "empresa",
-      required: [true, "empresa is required"],
-    },
-    acomps: Array,
-    consulta: {
-      type: Number,
-      required: [true, "consulta is required"],
-    },
-    acomp: {
-      type: Schema.Types.ObjectId,
-      ref: "acomp",
-    },
-    tipo_acomp: {
-      type: String,
-      default: "",
+      ref: "empresaDelivery",
+      required: [true, "empresaDelivery is required"],
     },
   },
   {
@@ -56,4 +52,4 @@ const schema = new Schema(
   },
 );
 
-export default model("adicional", Utils.prepare(schema));
+export default model("afiliadoDelivery", Utils.prepare(schema));

@@ -25,6 +25,11 @@ const schema = new Schema(
       ref: "estado",
       required: [true, "estado is required"],
     },
+    img: {
+      type: Schema.Types.ObjectId,
+      ref: "file",
+      default: "5fa5b438e8a25c36c0fe1f52",
+    },
     logo: {
       type: Schema.Types.ObjectId,
       ref: "file",

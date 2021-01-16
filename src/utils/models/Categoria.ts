@@ -16,7 +16,7 @@ const schema = new Schema(
       default: "",
     },
     publish: {
-      type: Number,
+      type: Boolean,
       required: [true, "publish is required"],
     },
   },

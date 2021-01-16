@@ -4,6 +4,7 @@ export { Utils };
 export { default as Acomp } from "./Acomp";
 export { default as Adicional } from "./Adicional";
 export { default as Admin } from "./Admin";
+export { default as AfiliadoDelivery } from "./AfiliadoDelivery";
 export { default as Bebida } from "./Bebida";
 export { default as Categoria } from "./Categoria";
 export { default as CategoriaProducto } from "./CategoriaProducto";

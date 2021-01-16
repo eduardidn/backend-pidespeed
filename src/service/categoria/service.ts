@@ -2,9 +2,9 @@ import { Categoria } from "@models";
 import { Socket } from "@utils";
 
 export async function list(tipo) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any;
-  if (tipo === 1) query = { ...query, publish: tipo };
+  if (tipo) query = { ...query, publish: tipo };
   return Categoria.find(query)
     .lean()
     .then((datos) =>

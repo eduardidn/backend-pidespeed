@@ -89,7 +89,7 @@ const schema = new Schema(
       default: 0,
     },
     publish: {
-      type: Number,
+      type: Boolean,
       required: [true, "publish is required"],
     },
     empresa: {

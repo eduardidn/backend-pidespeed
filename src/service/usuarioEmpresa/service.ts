@@ -1,6 +1,6 @@
 import empresaDelivery from "@/utils/models/EmpresaDelivery";
 import { Usuario, UsuarioEmpresa, EmpresaDelivery, Empresa } from "@models";
-import { PasswordHelper, Socket } from "@utils";
+import { PasswordHelper, UploadImage, Socket } from "@utils";
 import { uploadImage } from "../file/service";
 
 export function listUsuarios({ empresaId, type }) {
@@ -36,7 +36,7 @@ export async function addUsuario(data) {
   const { password } = data;
   data.password = await PasswordHelper.hash(password);
   if (data.image) {
-    const { imageBuffer, filename } = _getImgData(data);
+    const { imageBuffer, filename } = UploadImage.getImgData(data);
     const { _id: imageId } = await uploadImage({
       imageBuffer,
       folder: "usuariosEmpresa",
@@ -55,7 +55,7 @@ export async function addUsuario(data) {
 
 export async function updateUsuario({ usuarioId, value }) {
   if (value.image) {
-    const { imageBuffer, filename } = _getImgData(value);
+    const { imageBuffer, filename } = UploadImage.getImgData(value);
     if (value.img === "5fa5b4bdb6dac50570af1a1b") {
       const { _id: imageId } = await uploadImage({
         imageBuffer,
@@ -88,16 +88,4 @@ export async function updateUsuario({ usuarioId, value }) {
 
 export async function deleteUsuario(usuarioId) {
   return Usuario.findOneAndDelete({ _id: usuarioId });
-}
-
-function _getImgData(data) {
-  const value = data.image.split(",")[1];
-  const type = data.image.split(",")[0].split(";")[0].split("/")[1];
-  const filename = `${data.usuario}-${data.empresa}`;
-  const image = Buffer.from(value, "base64");
-  const imageBuffer = {
-    type,
-    image,
-  };
-  return { imageBuffer, filename };
 }

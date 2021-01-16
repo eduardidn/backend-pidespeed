@@ -68,3 +68,15 @@ export async function deleteImage(id) {
   const file = await File.findOneAndDelete({ _id: id });
   return GoogleStorage.deleteFile(BUCKETNAME, file.url);
 }
+
+export function getImgData(data) {
+  const value = data.image.split(",")[1];
+  const type = data.image.split(",")[0].split(";")[0].split("/")[1];
+  const filename = `${data.Afiliado}-${data.empresa}`;
+  const image = Buffer.from(value, "base64");
+  const imageBuffer = {
+    type,
+    image,
+  };
+  return { imageBuffer, filename };
+}

@@ -3,7 +3,7 @@ import { addUsuario } from "../usuarioEmpresa/service";
 
 export async function list({ ruta, ciudadId }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
-  let query: any = { publish: 1, es_sucursal: 0, categoria };
+  let query: any = { publish: true, es_sucursal: 0, categoria };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return EmpresaDelivery.find(query)
     .populate("categoria", "ruta")
@@ -57,10 +57,10 @@ export async function listAllInfo({ empresaId, ciudadId }) {
 }
 
 export async function listHome({ tipo, ciudadId, sort }) {
-  tipo = Number(tipo) === 1 ? 1 : 0;
+  tipo = Number(tipo) === 1 ? true : false;
   let query: any = { es_sucursal: 0 };
   if (tipo === 3) query = { ...query, prueba: 1 };
-  if (tipo === 1) query = { ...query, publish: 1 };
+  if (tipo) query = { ...query, publish: tipo };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
   return EmpresaDelivery.find(query)
     .populate("categoria", "ruta")
