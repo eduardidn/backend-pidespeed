@@ -24,9 +24,9 @@ export async function listAll() {
   const empresas = await Empresa.find({}).skip(1).limit(25).lean();
   for (const empresa of empresas) {
     UsuarioEmpresa.findOneAndUpdate(
-      { _id: empresa.usuario },
+      { _id: (empresa as any).usuario },
       {
-        empresa: empresa._id,
+        empresa: (empresa as any)._id,
       },
     ).exec();
   }
@@ -117,13 +117,13 @@ export async function listOne({ field, value }) {
 
 export async function addVisita({ ruta }) {
   const empresa = await Empresa.findOne({ ruta }).select("visitas").exec();
-  empresa.visitas = empresa.visitas + 1;
+  (empresa as any).visitas = (empresa as any).visitas + 1;
   empresa.save();
 }
 
 export async function addVenta({ ruta }) {
   const empresa = await Empresa.findOne({ ruta }).select("ventas").exec();
-  empresa.ventas = empresa.ventas + 1;
+  (empresa as any).ventas = (empresa as any).ventas + 1;
   empresa.save();
 }
 
@@ -131,7 +131,7 @@ export async function addEmpresa(value) {
   const empresa = await Empresa.create(value);
   const { username, telefono, password, email } = value;
   const user = {
-    empresa: empresa._id,
+    empresa: (empresa as any)._id,
     username,
     password,
     telefono,

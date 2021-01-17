@@ -19,7 +19,7 @@ export async function list({ usuarioId }) {
 
 export async function listEsp({ usuarioId, ruta }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
-  let favoritos = await Favorito.findOne({ usuario: usuarioId, categoria })
+  let favoritos: any = await Favorito.findOne({ usuario: usuarioId, categoria })
     .populate("empresa", null, { publish: true }, { populate: "img logo" })
     .populate("categoria")
     .lean()
