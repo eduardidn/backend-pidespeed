@@ -45,7 +45,7 @@ jobs:
         if: "contains(github.event.commits.*.message, 'ci: skip') != true"
         run: |
           ssh -tt ubuntu@${{ secrets.REMOTE_HOST }} "
-            cd /${{ github.event.repository.name }};
+            cd /home/ubuntu/${{ github.event.repository.name }};
             unzip -u -o archive.zip;
             pm2 restart all;
             pm2 save;
