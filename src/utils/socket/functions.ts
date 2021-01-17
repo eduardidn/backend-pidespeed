@@ -37,7 +37,7 @@ export async function pedido(type, data) {
   const emitPedidioNotification = {
     actualizado: PActualizado,
     nuevoEmpresa: PNuevoEmpresa,
-    nuevo: (data) => emitToAdmin("nuevo", data),
+    nuevo: (data) => emitToAdmin("pedido:nuevo", data),
     "actualizar:pedidos": (data) => emitToAdmin("actualizar:pedidos", data),
     "actualizar:pedidosEmpresa": (data) =>
       emitSocket("empresa", data.id, "actualizar:pedidosEmpresa", data),
@@ -54,8 +54,8 @@ function PActualizado(data) {
 }
 
 function PNuevoEmpresa(data) {
-  emitSocket("empresa", data.id, "pedido:nuevoEmpresa", data);
-  notificationsEmpresa[data.id] = {
+  emitSocket("empresa", data.empresaId, "pedido:nuevoEmpresa", data);
+  notificationsEmpresa[data.empresaId] = {
     event: "pedido:actualizado",
     data,
   };
