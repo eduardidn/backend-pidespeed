@@ -27,13 +27,19 @@ jobs:
         if: "contains(github.event.commits.*.message, 'ci: skip') != true"
         run: rm -rf .git
 
+      - name: Instal dependencies
+        run: yarn install
+
+      - name: build
+        run: yarn build
+
       - name: Compress Project
         if: "contains(github.event.commits.*.message, 'ci: skip') != true"
         run: zip -r archive.zip .
 
       - name: Sync Project
         if: "contains(github.event.commits.*.message, 'ci: skip') != true"
-        run: rsync -a archive.zip ubuntu@${{ secrets.REMOTE_HOST }}:/${{ github.event.repository.name }}/archive.zip
+        run: rsync -a archive.zip ubuntu@${{ secrets.REMOTE_HOST }}:/home/ubuntu/${{ github.event.repository.name }}/archive.zip
 
       - name: Remote Deploy
         if: "contains(github.event.commits.*.message, 'ci: skip') != true"
@@ -41,8 +47,6 @@ jobs:
           ssh -tt ubuntu@${{ secrets.REMOTE_HOST }} "
             cd /${{ github.event.repository.name }};
             unzip -u -o archive.zip;
-            yarn install --production=true;
-            yarn build;
             pm2 restart all;
             pm2 save;
           "
