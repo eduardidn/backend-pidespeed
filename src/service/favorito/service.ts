@@ -3,7 +3,7 @@ import { Socket } from "@utils";
 
 export async function list({ usuarioId }) {
   let favoritos: any = await Favorito.find({ usuario: usuarioId })
-    .populate("empresa", null, { publish: true }, { populate: "img logo" })
+    .populate("empresa")
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -13,14 +13,14 @@ export async function list({ usuarioId }) {
       }),
     );
 
-  favoritos = favoritos.filter((favorito: any) => favorito.empresa);
+  favoritos = favoritos.filter((favorito: any) => favorito.empresa.publish);
   return favoritos;
 }
 
 export async function listEsp({ usuarioId, ruta }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
   let favoritos: any = await Favorito.findOne({ usuario: usuarioId, categoria })
-    .populate("empresa", null, { publish: true }, { populate: "img logo" })
+    .populate("empresa")
     .populate("categoria")
     .lean()
     .then((data) => {
@@ -28,13 +28,13 @@ export async function listEsp({ usuarioId, ruta }) {
       return data;
     });
 
-  favoritos = favoritos.filter((favorito) => favorito.empresa);
+  favoritos = favoritos.filter((favorito) => favorito.empresa.publish);
   return favoritos;
 }
 
 export async function listAll() {
   return Favorito.find({})
-    .populate("empresa", { populate: "img logo" })
+    .populate("empresa")
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -49,7 +49,7 @@ export async function listAll() {
 
 export async function listOne({ usuarioId, empresaId }) {
   return Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
-    .populate("empresa", { populate: "img, logo" })
+    .populate("empresa")
     .populate("categoria")
     .lean()
     .then((data) => {

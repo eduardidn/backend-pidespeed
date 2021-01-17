@@ -85,7 +85,7 @@ const schema = new Schema(
     },
     publish: {
       type: Boolean,
-      default: 0,
+      default: false,
     },
     prueba: {
       type: Number,
