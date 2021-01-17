@@ -6,7 +6,7 @@
   "scripts": {
     "start": "export PORT=8080 ENV=PRODUCTON && node build/main.js",
     "dev": "nodemon --watch \"src/\" --exec \"ts-node src/main\" -e ts",
-    "build": "npm run build:clean && tsc",
+    "build": "yarn build:clean && tsc",
     "build:clean": "rimraf build",
     "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
@@ -14,8 +14,8 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint && npm run build"
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn lint && yarn build"
     }
   },
   "commitlint": {
