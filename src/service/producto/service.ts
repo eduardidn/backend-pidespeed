@@ -28,12 +28,12 @@ export async function listCatEsp({ tipo, ruta }) {
     empresa,
   };
   if (tipo) query = { ...query, publish: tipo };
-  let categorias = await Producto.find(query)
+  let categorias: any = await Producto.find(query)
     .select("categoria_product")
     .populate("categoria_product", "nombre")
     .sort({ categoria_product: 1 })
     .lean();
-  categorias = categorias.map((categoria) => {
+  categorias = categorias.map((categoria: any) => {
     categoria.categoria_product.id = categoria.categoria_product._id;
     return categoria.categoria_product;
   });
@@ -76,7 +76,7 @@ export async function listOneByDatos({ nombre, descripcion }) {
 }
 
 export async function restarCantidad({ productoId, cantidad }) {
-  const producto = await Producto.findOne({ _id: productoId })
+  const producto: any = await Producto.findOne({ _id: productoId })
     .select("cantidad")
     .exec();
   producto.cantidad = producto.cantidad - Number(cantidad);
@@ -115,7 +115,7 @@ export async function updateProducto({ productoId, value }) {
 }
 
 export async function deleteProducto(productoId) {
-  const producto = await Producto.findOneAndDelete({ _id: productoId });
+  const producto: any = await Producto.findOneAndDelete({ _id: productoId });
   await UploadImage.deleteImage(producto.file);
   return producto;
 }

@@ -2,7 +2,7 @@ import { Favorito, Categoria } from "@models";
 import { Socket } from "@utils";
 
 export async function list({ usuarioId }) {
-  let favoritos = await Favorito.find({ usuario: usuarioId })
+  let favoritos: any = await Favorito.find({ usuario: usuarioId })
     .populate("empresa", null, { publish: true }, { populate: "img logo" })
     .populate("categoria")
     .lean()
@@ -13,7 +13,7 @@ export async function list({ usuarioId }) {
       }),
     );
 
-  favoritos = favoritos.filter((favorito) => favorito.empresa);
+  favoritos = favoritos.filter((favorito: any) => favorito.empresa);
   return favoritos;
 }
 

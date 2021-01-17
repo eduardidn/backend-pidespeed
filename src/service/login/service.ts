@@ -11,7 +11,7 @@ import { HTTP400Error, PasswordHelper, TokenUtils } from "@utils";
  * LOGINS
  */
 export async function loginUser({ password, user }) {
-  const usuario = await Usuario.findOne({
+  const usuario: any = await Usuario.findOne({
     $or: [{ username: user }, { email: user }],
   })
     .lean()
@@ -32,7 +32,7 @@ export async function loginUser({ password, user }) {
 }
 
 export async function loginEmpresa({ password, user }) {
-  const usuario = await UsuarioEmpresa.findOne({
+  const usuario: any = await UsuarioEmpresa.findOne({
     $or: [{ username: user }, { email: user }],
     type: "empresa",
   })
@@ -71,7 +71,7 @@ export async function loginEmpresa({ password, user }) {
 }
 
 export async function loginEmpresaDelivery({ password, user }) {
-  const usuario = await UsuarioEmpresa.findOne({
+  const usuario: any = await UsuarioEmpresa.findOne({
     $or: [{ username: user }, { email: user }],
     type: "delivery",
   })
@@ -110,7 +110,7 @@ export async function loginEmpresaDelivery({ password, user }) {
 }
 
 export async function loginAdmin({ password, user }) {
-  const admin = await Admin.findOne({
+  const admin: any = await Admin.findOne({
     $or: [{ username: user }, { email: user }],
   })
     .lean()

@@ -12,7 +12,7 @@ import fileUpload from "express-fileupload";
 import http from "http";
 
 import logger from "./logger";
-import { io as socket } from "./Socket";
+import socket from "./socket";
 import tasaFunc from "./TasaFunctions";
 
 const app = express();

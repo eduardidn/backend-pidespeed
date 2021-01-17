@@ -26,7 +26,7 @@ export async function uploadBase64({
   fs.unlink(filePath, () => ({}));
 
   if (update) {
-    const file = await getImage({ id });
+    const file: any = await getImage({ id });
     await GoogleStorage.deleteFile(BUCKETNAME, file.url);
     return updateImage({ id, url: imagesPath, type: folder });
   }
@@ -65,7 +65,7 @@ async function updateImage({ id, url, type }) {
 }
 
 export async function deleteImage(id) {
-  const file = await File.findOneAndDelete({ _id: id });
+  const file: any = await File.findOneAndDelete({ _id: id });
   return GoogleStorage.deleteFile(BUCKETNAME, file.url);
 }
 
