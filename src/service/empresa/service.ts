@@ -117,13 +117,13 @@ export async function listOne({ field, value }) {
 
 export async function addVisita({ ruta }) {
   const empresa: any = await Empresa.findOne({ ruta }).select("visitas").exec();
-  (empresa as any).visitas = (empresa as any).visitas + 1;
+  empresa.visitas = empresa.visitas + 1;
   empresa.save();
 }
 
 export async function addVenta({ ruta }) {
   const empresa: any = await Empresa.findOne({ ruta }).select("ventas").exec();
-  (empresa as any).ventas = (empresa as any).ventas + 1;
+  empresa.ventas = empresa.ventas + 1;
   empresa.save();
 }
 

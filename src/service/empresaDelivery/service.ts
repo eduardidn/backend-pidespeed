@@ -107,7 +107,7 @@ export async function listOne({ field, value }) {
 }
 
 export async function addVisita({ ruta }) {
-  const empresa = await EmpresaDelivery.findOne({ ruta })
+  const empresa: any = await EmpresaDelivery.findOne({ ruta })
     .select("visitas")
     .exec();
   empresa.visitas = empresa.visitas + 1;
@@ -115,7 +115,7 @@ export async function addVisita({ ruta }) {
 }
 
 export async function addVenta({ ruta }) {
-  const empresa = await EmpresaDelivery.findOne({ ruta })
+  const empresa: any = await EmpresaDelivery.findOne({ ruta })
     .select("ventas")
     .exec();
   empresa.ventas = empresa.ventas + 1;
