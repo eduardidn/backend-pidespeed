@@ -1,9 +1,13 @@
 import { Favorito, Categoria } from "@models";
 import { Socket } from "@utils";
+import empresa from "../empresa";
 
 export async function list({ usuarioId }) {
   let favoritos: any = await Favorito.find({ usuario: usuarioId })
-    .populate("empresa")
+    .populate({
+      path: "empresa",
+      populate: "img logo",
+    })
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -20,7 +24,10 @@ export async function list({ usuarioId }) {
 export async function listEsp({ usuarioId, ruta }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
   let favoritos: any = await Favorito.findOne({ usuario: usuarioId, categoria })
-    .populate("empresa")
+    .populate({
+      path: "empresa",
+      populate: "img logo",
+    })
     .populate("categoria")
     .lean()
     .then((data) => {
@@ -34,7 +41,10 @@ export async function listEsp({ usuarioId, ruta }) {
 
 export async function listAll() {
   return Favorito.find({})
-    .populate("empresa")
+    .populate({
+      path: "empresa",
+      populate: "img logo",
+    })
     .populate("categoria")
     .lean()
     .then((datos) =>
@@ -49,7 +59,10 @@ export async function listAll() {
 
 export async function listOne({ usuarioId, empresaId }) {
   return Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
-    .populate("empresa")
+    .populate({
+      path: "empresa",
+      populate: "img logo",
+    })
     .populate("categoria")
     .lean()
     .then((data) => {

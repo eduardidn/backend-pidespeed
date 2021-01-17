@@ -14,14 +14,14 @@ const _models_1 = require("@models");
 function list({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
         let favoritos = yield _models_1.Favorito.find({ usuario: usuarioId })
-            .populate("empresa", null, { publish: true }, { populate: "img logo" })
+            .populate("empresa")
             .populate("categoria")
             .lean()
             .then((datos) => datos.map((data) => {
             data.id = data._id;
             return data;
         }));
-        favoritos = favoritos.filter((favorito) => favorito.empresa);
+        favoritos = favoritos.filter((favorito) => favorito.empresa.publish);
         return favoritos;
     });
 }
@@ -30,14 +30,14 @@ function listEsp({ usuarioId, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
         let favoritos = yield _models_1.Favorito.findOne({ usuario: usuarioId, categoria })
-            .populate("empresa", null, { publish: true }, { populate: "img logo" })
+            .populate("empresa")
             .populate("categoria")
             .lean()
             .then((data) => {
             data.id = data._id;
             return data;
         });
-        favoritos = favoritos.filter((favorito) => favorito.empresa);
+        favoritos = favoritos.filter((favorito) => favorito.empresa.publish);
         return favoritos;
     });
 }
@@ -45,7 +45,7 @@ exports.listEsp = listEsp;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.Favorito.find({})
-            .populate("empresa", { populate: "img logo" })
+            .populate("empresa")
             .populate("categoria")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -60,7 +60,7 @@ exports.listAll = listAll;
 function listOne({ usuarioId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
-            .populate("empresa", { populate: "img, logo" })
+            .populate("empresa")
             .populate("categoria")
             .lean()
             .then((data) => {
