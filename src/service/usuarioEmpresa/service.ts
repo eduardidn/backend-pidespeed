@@ -96,7 +96,7 @@ export async function updateUsuario({ usuarioId, value }) {
 }
 
 export async function deleteUsuario(usuarioId) {
-  const userCompany = await UsuarioEmpresa.findOne({ _id: usuarioId });
+  const userCompany: any = await UsuarioEmpresa.findOne({ _id: usuarioId });
   if (userCompany.img !== "5fa5b4bdb6dac50570af1a1b")
     await UploadImage.deleteImage(userCompany.img);
   userCompany.delete();

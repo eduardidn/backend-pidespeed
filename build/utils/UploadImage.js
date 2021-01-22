@@ -48,7 +48,6 @@ function uploadBase64({ imageBuffer, filename, folder, update, id, }) {
         yield GoogleStorage.uploadFileFromPath(BUCKETNAME, filePath);
         yield GoogleStorage.move(BUCKETNAME, fileName, imagesPath);
         yield GoogleStorage.makePublic(BUCKETNAME, imagesPath);
-        fs_1.default.unlink(filePath, () => ({}));
         if (update) {
             const file = yield getImage({ id });
             yield GoogleStorage.deleteFile(BUCKETNAME, file.url);
@@ -107,7 +106,7 @@ exports.deleteImage = deleteImage;
 function getImgData(data) {
     const value = data.image.split(",")[1];
     const type = data.image.split(",")[0].split(";")[0].split("/")[1];
-    const filename = `${data.Afiliado}-${data.empresa}`;
+    const filename = `${data.cedula}-${data.empresa}`;
     const image = Buffer.from(value, "base64");
     const imageBuffer = {
         type,

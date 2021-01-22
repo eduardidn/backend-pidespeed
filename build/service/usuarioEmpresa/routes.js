@@ -30,5 +30,6 @@ exports.default = express_1.default
     .get("/:empresaId/:type", _utils_1.CatchErrors(controller.listUsuarios))
     .get("/list/one/:usuarioId/:type", _utils_1.CatchErrors(controller.listUsuario))
     .post("/", _utils_1.CatchErrors(controller.addUsuario))
+    .post("/search-user-field", _utils_1.CatchErrors(controller.listUserCompanyByField))
     .put("/", _utils_1.CatchErrors(controller.updateUsuario))
-    .delete("/", _utils_1.CatchErrors(controller.deleteUsuario));
+    .delete("/:usuarioId", _utils_1.CatchErrors(controller.deleteUsuario));

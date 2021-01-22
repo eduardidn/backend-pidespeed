@@ -9,10 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.updateUsuario = exports.addUsuario = exports.listUsuario = exports.listUsuarios = void 0;
+exports.deleteUsuario = exports.updateUsuario = exports.addUsuario = exports.listUserCompanyByField = exports.listUsuario = exports.listUsuarios = void 0;
 const _models_1 = require("@models");
 const _utils_1 = require("@utils");
-const service_1 = require("../file/service");
 function listUsuarios({ empresaId, type }) {
     return _models_1.UsuarioEmpresa.find({
         $or: [{ empresa: empresaId }, { empresaDelivery: empresaId }],
@@ -42,13 +41,26 @@ function listUsuario({ usuarioId, type }) {
     });
 }
 exports.listUsuario = listUsuario;
+function listUserCompanyByField({ field, value }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return _models_1.UsuarioEmpresa.findOne({ [field]: value })
+            .lean()
+            .then((data) => {
+            if (data) {
+                data.id = data._id;
+                return data;
+            }
+        });
+    });
+}
+exports.listUserCompanyByField = listUserCompanyByField;
 function addUsuario(data) {
     return __awaiter(this, void 0, void 0, function* () {
         const { password } = data;
         data.password = yield _utils_1.PasswordHelper.hash(password);
         if (data.image) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(data);
-            const { _id: imageId } = yield service_1.uploadImage({
+            const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                 imageBuffer,
                 folder: "usuariosEmpresa",
                 filename,
@@ -70,7 +82,7 @@ function updateUsuario({ usuarioId, value }) {
         if (value.image) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value);
             if (value.img === "5fa5b4bdb6dac50570af1a1b") {
-                const { _id: imageId } = yield service_1.uploadImage({
+                const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
                     filename,
@@ -80,7 +92,7 @@ function updateUsuario({ usuarioId, value }) {
                 value.img = imageId;
             }
             else {
-                yield service_1.uploadImage({
+                yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
                     filename,
@@ -103,7 +115,11 @@ function updateUsuario({ usuarioId, value }) {
 exports.updateUsuario = updateUsuario;
 function deleteUsuario(usuarioId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.findOneAndDelete({ _id: usuarioId });
+        const userCompany = yield _models_1.UsuarioEmpresa.findOne({ _id: usuarioId });
+        if (userCompany.img !== "5fa5b4bdb6dac50570af1a1b")
+            yield _utils_1.UploadImage.deleteImage(userCompany.img);
+        userCompany.delete();
+        return userCompany;
     });
 }
 exports.deleteUsuario = deleteUsuario;

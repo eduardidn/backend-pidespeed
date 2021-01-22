@@ -21,7 +21,6 @@ export async function emitSocket(room, objectId, event, data) {
 }
 
 export async function emitToAdmin(event, data) {
-  console.log(event, data)
   admin.emit(event, data);
 }
 
