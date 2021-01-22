@@ -1,3 +1,4 @@
+import { Validator } from "@utils";
 import * as service from "./service";
 
 export async function listUsuarios(req, res) {
@@ -6,6 +7,13 @@ export async function listUsuarios(req, res) {
 
 export async function listUsuario(req, res) {
   return service.listUsuario(req.params).then((data) => res.json(data));
+}
+
+export async function listUserCompanyByField(req, res) {
+  const { field, value } = Validator.validate(req.body, "field value");
+  return service
+    .listUserCompanyByField({ field, value })
+    .then((data) => res.json(data));
 }
 
 export async function addUsuario(req, res) {
@@ -21,6 +29,6 @@ export async function updateUsuario(req, res) {
 }
 
 export async function deleteUsuario(req, res) {
-  const { usuarioId } = req.body;
+  const { usuarioId } = req.params;
   return service.deleteUsuario(usuarioId).then((data) => res.json(data));
 }

@@ -23,8 +23,6 @@ export async function uploadBase64({
   await GoogleStorage.move(BUCKETNAME, fileName, imagesPath);
   await GoogleStorage.makePublic(BUCKETNAME, imagesPath);
 
-  fs.unlink(filePath, () => ({}));
-
   if (update) {
     const file: any = await getImage({ id });
     await GoogleStorage.deleteFile(BUCKETNAME, file.url);
@@ -72,7 +70,7 @@ export async function deleteImage(id) {
 export function getImgData(data) {
   const value = data.image.split(",")[1];
   const type = data.image.split(",")[0].split(";")[0].split("/")[1];
-  const filename = `${data.Afiliado}-${data.empresa}`;
+  const filename = `${data.cedula}-${data.empresa}`;
   const image = Buffer.from(value, "base64");
   const imageBuffer = {
     type,

@@ -19,10 +19,11 @@ const schema = new Schema(
       ref: "file",
       default: "5fa5b4bdb6dac50570af1a1b",
     },
-    vehicle: {
+    vehicle_image: {
       type: Schema.Types.ObjectId,
       ref: "file",
     },
+    vehicle_type: String,
     disabled: {
       type: Boolean,
       default: false,

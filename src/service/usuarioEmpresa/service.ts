@@ -1,7 +1,5 @@
-import empresaDelivery from "@/utils/models/EmpresaDelivery";
-import { Usuario, UsuarioEmpresa, EmpresaDelivery, Empresa } from "@models";
+import { UsuarioEmpresa } from "@models";
 import { PasswordHelper, UploadImage, Socket } from "@utils";
-import { uploadImage } from "../file/service";
 
 export function listUsuarios({ empresaId, type }) {
   return UsuarioEmpresa.find({
@@ -32,12 +30,23 @@ export async function listUsuario({ usuarioId, type }) {
     });
 }
 
+export async function listUserCompanyByField({ field, value }) {
+  return UsuarioEmpresa.findOne({ [field]: value })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
+}
+
 export async function addUsuario(data) {
   const { password } = data;
   data.password = await PasswordHelper.hash(password);
   if (data.image) {
     const { imageBuffer, filename } = UploadImage.getImgData(data);
-    const { _id: imageId } = await uploadImage({
+    const { _id: imageId } = await UploadImage.uploadBase64({
       imageBuffer,
       folder: "usuariosEmpresa",
       filename,
@@ -57,7 +66,7 @@ export async function updateUsuario({ usuarioId, value }) {
   if (value.image) {
     const { imageBuffer, filename } = UploadImage.getImgData(value);
     if (value.img === "5fa5b4bdb6dac50570af1a1b") {
-      const { _id: imageId } = await uploadImage({
+      const { _id: imageId } = await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
         filename,
@@ -66,7 +75,7 @@ export async function updateUsuario({ usuarioId, value }) {
       });
       value.img = imageId;
     } else {
-      await uploadImage({
+      await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
         filename,
@@ -87,5 +96,9 @@ export async function updateUsuario({ usuarioId, value }) {
 }
 
 export async function deleteUsuario(usuarioId) {
-  return Usuario.findOneAndDelete({ _id: usuarioId });
+  const userCompany = await UsuarioEmpresa.findOne({ _id: usuarioId });
+  if (userCompany.img !== "5fa5b4bdb6dac50570af1a1b")
+    await UploadImage.deleteImage(userCompany.img);
+  userCompany.delete();
+  return userCompany;
 }

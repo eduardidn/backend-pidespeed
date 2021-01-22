@@ -7,7 +7,7 @@ function onConnect(socket, io) {
     functions_1.checkNotifications();
     // socket de pedidos
     socket.on("pedido:actualizado", (data) => functions_1.pedido("actualizado", data));
-    socket.on("pedido:nuevoEmpresa", (data) => functions_1.pedido("actualizado", data));
+    socket.on("pedido:nuevoEmpresa", (data) => functions_1.pedido("nuevoEmpresa", data));
     socket.on("pedido:nuevo", (data) => functions_1.pedido("nuevo", data));
     socket.on("actualizar:pedidos", (data) => functions_1.pedido("actualizar:pedidos", data));
     socket.on("actualizar:pedidosEmpresa", (data) => functions_1.pedido("actualizar:pedidosEmpresa", data));

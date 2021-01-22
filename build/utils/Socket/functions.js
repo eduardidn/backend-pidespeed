@@ -50,7 +50,7 @@ function pedido(type, data) {
         const emitPedidioNotification = {
             actualizado: PActualizado,
             nuevoEmpresa: PNuevoEmpresa,
-            nuevo: (data) => index_1.emitToAdmin("nuevo", data),
+            nuevo: (data) => index_1.emitToAdmin("pedido:nuevo", data),
             "actualizar:pedidos": (data) => index_1.emitToAdmin("actualizar:pedidos", data),
             "actualizar:pedidosEmpresa": (data) => index_1.emitSocket("empresa", data.id, "actualizar:pedidosEmpresa", data),
         };
@@ -66,8 +66,8 @@ function PActualizado(data) {
     };
 }
 function PNuevoEmpresa(data) {
-    index_1.emitSocket("empresa", data.id, "pedido:nuevoEmpresa", data);
-    notificationsEmpresa[data.id] = {
+    index_1.emitSocket("empresa", data.empresaId, "pedido:nuevoEmpresa", data);
+    notificationsEmpresa[data.empresaId] = {
         event: "pedido:actualizado",
         data,
     };
