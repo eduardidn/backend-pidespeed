@@ -3,28 +3,28 @@ import { Utils } from ".";
 
 const schema = new Schema(
   {
-    nombre: {
+    name: {
       type: String,
-      required: [true, "nombre is required"],
+      required: [true, "name is required"],
     },
-    descripcion: {
+    description: {
       type: String,
-      required: [true, "descripcion is required"],
+      required: [true, "description is required"],
     },
-    coordenadas: {
+    coordinates: {
       type: String,
-      required: [true, "coordenadas is required"],
+      required: [true, "coordinates is required"],
     },
-    direccion: {
+    addresss: {
       type: String,
-      required: [true, "direccion is required"],
+      required: [true, "addresss is required"],
     },
     img: {
       type: Schema.Types.ObjectId,
       ref: "file",
       required: [true, "img is required"],
     },
-    ventas: {
+    sales: {
       type: Number,
       default: 0,
     },
@@ -32,7 +32,7 @@ const schema = new Schema(
       type: Boolean,
       required: [true, "publish is required"],
     },
-    empresaDelivery: {
+    deliveryCompany: {
       type: Schema.Types.ObjectId,
       ref: "empresaDelivery",
       required: [true, "empresaDelivery is required"],
@@ -52,4 +52,4 @@ const schema = new Schema(
   },
 );
 
-export default model("afiliadoDelivery", Utils.prepare(schema));
+export default model("companyPartner", Utils.prepare(schema));

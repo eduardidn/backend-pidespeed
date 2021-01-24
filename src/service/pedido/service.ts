@@ -1,5 +1,5 @@
 import { Pedido } from "@models";
-import { Socket } from "@utils";
+import { Socket, UploadImage } from "@utils";
 
 export async function list() {
   return Pedido.find()
@@ -103,5 +103,8 @@ export async function updatePedido({ pedidoId, value }) {
 }
 
 export async function deletePedido(pedidoId) {
-  return Pedido.findOneAndDelete({ _id: pedidoId });
+  const pedido = await Pedido.findOneAndDelete({ _id: pedidoId });
+  if (pedido.file) await UploadImage.deleteImage(pedido.img);
+  pedido.delete();
+  return pedido;
 }

@@ -1,10 +1,10 @@
 import empresaDelivery from "@/utils/models/EmpresaDelivery";
-import { Usuario, AfiliadoDelivery } from "@models";
+import { Usuario, CompanyPartner } from "@models";
 import { HTTP400Error, UploadImage, Socket } from "@utils";
 import { uploadImage } from "../file/service";
 
-export function listAfiliados({ empresaId }) {
-  return AfiliadoDelivery.find({
+export function listPartners({ empresaId }) {
+  return CompanyPartner.find({
     empresaDelivery: empresaId,
     public: { $ne: false },
   })
@@ -20,8 +20,8 @@ export function listAfiliados({ empresaId }) {
     );
 }
 
-export async function listAfiliado({ AfiliadoId }) {
-  return AfiliadoDelivery.findOne({ _id: AfiliadoId })
+export async function listPartner({ partnerId }) {
+  return CompanyPartner.findOne({ _id: partnerId })
     .populate("img")
     .lean()
     .then((data) => {
@@ -32,7 +32,7 @@ export async function listAfiliado({ AfiliadoId }) {
     });
 }
 
-export async function addAfiliado(data) {
+export async function addPartner(data) {
   if (!data.image) throw new HTTP400Error("Image is required");
   const { imageBuffer, filename } = UploadImage.getImgData(data);
   const { _id: imageId } = await uploadImage({
@@ -43,10 +43,10 @@ export async function addAfiliado(data) {
     id: null,
   });
   data.img = imageId;
-  return AfiliadoDelivery.create(data);
+  return CompanyPartner.create(data);
 }
 
-export async function updateAfiliado({ AfiliadoId, value }) {
+export async function updatePartner({ partnerId, value }) {
   if (value.image) {
     const { imageBuffer, filename } = UploadImage.getImgData(value);
     await uploadImage({
@@ -57,7 +57,7 @@ export async function updateAfiliado({ AfiliadoId, value }) {
       id: value.img,
     });
   }
-  return AfiliadoDelivery.findOneAndUpdate({ _id: AfiliadoId }, value, {
+  return CompanyPartner.findOneAndUpdate({ _id: partnerId }, value, {
     new: true,
     lean: true,
   }).then((data) => {
@@ -68,6 +68,11 @@ export async function updateAfiliado({ AfiliadoId, value }) {
   });
 }
 
-export async function deleteAfiliado(AfiliadoId) {
-  return AfiliadoDelivery.findOneAndDelete({ _id: AfiliadoId });
+export async function deletePartner(partnerId) {
+  const companyPartner = await CompanyPartner.findOneAndDelete({
+    _id: partnerId,
+  });
+  if (companyPartner.file) await UploadImage.deleteImage(companyPartner.img);
+  companyPartner.delete();
+  return companyPartner;
 }

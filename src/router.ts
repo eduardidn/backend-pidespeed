@@ -5,7 +5,7 @@ import { ErrorHandle } from "@middlewares";
 import exampleRoutes from "./service/module_base";
 import acomp from "./service/acomp";
 import adicional from "./service/adicional";
-import afiliadoDelivery from "./service/afiliadoDelivery";
+import companyPartner from "./service/companyPartner";
 import bebida from "./service/bebida";
 import categoriaProducto from "./service/categoriaProducto";
 import categoria from "./service/categoria";
@@ -40,7 +40,7 @@ export default async function (app) {
     .Router()
     .use(acomp)
     .use(adicional)
-    .use(afiliadoDelivery)
+    .use(companyPartner)
     .use(bebida)
     .use(categoriaProducto)
     .use(categoria)
