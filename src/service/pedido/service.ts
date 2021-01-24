@@ -103,7 +103,7 @@ export async function updatePedido({ pedidoId, value }) {
 }
 
 export async function deletePedido(pedidoId) {
-  const pedido = await Pedido.findOneAndDelete({ _id: pedidoId });
+  const pedido: any = await Pedido.findOneAndDelete({ _id: pedidoId });
   if (pedido.file) await UploadImage.deleteImage(pedido.img);
   pedido.delete();
   return pedido;

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmpresa = exports.updateEmpresa = exports.addEmpresa = exports.addVenta = exports.addVisita = exports.listOne = exports.listSucursales = exports.listHome = exports.listAllInfo = exports.listAll = exports.list = void 0;
 const _models_1 = require("@models");
 const service_1 = require("../usuarioEmpresa/service");
+const _utils_1 = require("@utils");
 function list({ ruta, ciudadId }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
@@ -187,7 +188,15 @@ function updateEmpresa({ empresaId, value }) {
 exports.updateEmpresa = updateEmpresa;
 function deleteEmpresa(empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaDelivery.findOneAndDelete({ _id: empresaId });
+        const DeliveryCompany = yield _models_1.EmpresaDelivery.findOneAndDelete({
+            _id: empresaId,
+        });
+        if (DeliveryCompany.logo !== "5fa5b4bdb6dac50570af1a1b")
+            yield _utils_1.UploadImage.deleteImage(DeliveryCompany.img);
+        if (DeliveryCompany.logo !== "5fa5b438e8a25c36c0fe1f52")
+            yield _utils_1.UploadImage.deleteImage(DeliveryCompany.img);
+        DeliveryCompany.delete();
+        return DeliveryCompany;
     });
 }
 exports.deleteEmpresa = deleteEmpresa;

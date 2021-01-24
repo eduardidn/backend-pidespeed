@@ -59,7 +59,28 @@ function addUsuario(data) {
         const { password } = data;
         data.password = yield _utils_1.PasswordHelper.hash(password);
         if (data.image) {
-            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(data);
+            const { filetype: type, filename, value } = data.image;
+            const image = Buffer.from(value, "base64");
+            const imageBuffer = {
+                type,
+                image,
+            };
+            const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
+                imageBuffer,
+                folder: "usuariosEmpresa",
+                filename,
+                update: false,
+                id: null,
+            });
+            data.img = imageId;
+        }
+        if (data.vehicle_image) {
+            const { filetype: type, filename, value } = data.vehicle_image;
+            const image = Buffer.from(value, "base64");
+            const imageBuffer = {
+                type,
+                image,
+            };
             const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                 imageBuffer,
                 folder: "usuariosEmpresa",

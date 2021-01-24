@@ -166,7 +166,7 @@ export async function updateEmpresa({ empresaId, value }) {
 }
 
 export async function deleteEmpresa(empresaId) {
-  const DeliveryCompany = await EmpresaDelivery.findOneAndDelete({
+  const DeliveryCompany: any = await EmpresaDelivery.findOneAndDelete({
     _id: empresaId,
   });
   if (DeliveryCompany.logo !== "5fa5b4bdb6dac50570af1a1b")

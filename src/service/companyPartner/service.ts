@@ -69,7 +69,7 @@ export async function updatePartner({ partnerId, value }) {
 }
 
 export async function deletePartner(partnerId) {
-  const companyPartner = await CompanyPartner.findOneAndDelete({
+  const companyPartner: any = await CompanyPartner.findOneAndDelete({
     _id: partnerId,
   });
   if (companyPartner.file) await UploadImage.deleteImage(companyPartner.img);

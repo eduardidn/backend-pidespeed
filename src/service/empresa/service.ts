@@ -162,7 +162,7 @@ export async function updateEmpresa({ empresaId, value }) {
 }
 
 export async function deleteEmpresa(empresaId) {
-  const empresa = await Empresa.findOneAndDelete({ _id: empresaId });
+  const empresa: any = await Empresa.findOneAndDelete({ _id: empresaId });
   if (empresa.logo !== "5fa5b4bdb6dac50570af1a1b")
     await UploadImage.deleteImage(empresa.img);
   if (empresa.logo !== "5fa5b438e8a25c36c0fe1f52")

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePedido = exports.updatePedido = exports.addPedido = exports.listOne = exports.listOneByDatos = exports.listByIds = exports.listByUsuario = exports.listByEstado = exports.list = void 0;
 const _models_1 = require("@models");
+const _utils_1 = require("@utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
         return _models_1.Pedido.find()
@@ -122,7 +123,11 @@ function updatePedido({ pedidoId, value }) {
 exports.updatePedido = updatePedido;
 function deletePedido(pedidoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.findOneAndDelete({ _id: pedidoId });
+        const pedido = yield _models_1.Pedido.findOneAndDelete({ _id: pedidoId });
+        if (pedido.file)
+            yield _utils_1.UploadImage.deleteImage(pedido.img);
+        pedido.delete();
+        return pedido;
     });
 }
 exports.deletePedido = deletePedido;

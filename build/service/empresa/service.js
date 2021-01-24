@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmpresa = exports.updateEmpresa = exports.addEmpresa = exports.addVenta = exports.addVisita = exports.listOne = exports.listSucursales = exports.listHome = exports.listAllInfo = exports.listAll = exports.list = void 0;
 const _models_1 = require("@models");
+const _utils_1 = require("@utils");
 const service_1 = require("../usuarioEmpresa/service");
 function list({ ruta, ciudadId }) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -187,7 +188,13 @@ function updateEmpresa({ empresaId, value }) {
 exports.updateEmpresa = updateEmpresa;
 function deleteEmpresa(empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Empresa.findOneAndDelete({ _id: empresaId });
+        const empresa = yield _models_1.Empresa.findOneAndDelete({ _id: empresaId });
+        if (empresa.logo !== "5fa5b4bdb6dac50570af1a1b")
+            yield _utils_1.UploadImage.deleteImage(empresa.img);
+        if (empresa.logo !== "5fa5b438e8a25c36c0fe1f52")
+            yield _utils_1.UploadImage.deleteImage(empresa.img);
+        empresa.delete();
+        return empresa;
     });
 }
 exports.deleteEmpresa = deleteEmpresa;
