@@ -81,14 +81,14 @@ export async function addUsuario(data) {
   return UsuarioEmpresa.create(data);
 }
 
-export async function updateUsuario({ usuarioId, value }) {
+export async function updateUsuario({ value }) {
   if (value.password) {
     const { password } = value;
     value.password = await PasswordHelper.hash(password);
   }
-  if (value.image) {
+  if (value.image.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(value.image);
-    if (value.image === "600f85ce3ba83247a488ecad") {
+    if (value.image.id === "600f85ce3ba83247a488ecad") {
       const { _id: imageId } = await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
@@ -96,17 +96,19 @@ export async function updateUsuario({ usuarioId, value }) {
         update: false,
         id: null,
       });
-      value.img = imageId;
-    } else
+      value.image = imageId;
+    } else {
       await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
         filename,
         update: true,
-        id: value.img,
+        id: value.image.id,
       });
+      delete value.image;
+    }
   }
-  if (value.vehicle_image) {
+  if (value.vehicle_image.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(
       value.vehicle_image,
     );
@@ -115,7 +117,7 @@ export async function updateUsuario({ usuarioId, value }) {
         "600f87f33ba83247a488ecae",
         "600f88333ba83247a488ecaf",
         "600f88423ba83247a488ecb0",
-      ].includes(value.vehicle_image)
+      ].includes(value.vehicle_image.id)
     ) {
       const { _id: imageId } = await UploadImage.uploadBase64({
         imageBuffer,
@@ -124,17 +126,19 @@ export async function updateUsuario({ usuarioId, value }) {
         update: false,
         id: null,
       });
-      value.img = imageId;
-    } else
+      value.vehicle_image = imageId;
+    } else {
       await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
         filename,
         update: true,
-        id: value.img,
+        id: value.vehicle_image.id,
       });
-  }
-  return UsuarioEmpresa.findOneAndUpdate({ _id: usuarioId }, value, {
+      delete value.vehicle_image;
+    }
+  } else value.vehicle_image = types[value.vehicle_type];
+  return UsuarioEmpresa.findOneAndUpdate({ _id: value._id }, value, {
     new: true,
     lean: true,
   }).then((data) => {

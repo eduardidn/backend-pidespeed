@@ -103,15 +103,13 @@ function deleteImage(id) {
     });
 }
 exports.deleteImage = deleteImage;
-function getImgData(data) {
-    const value = data.image.split(",")[1];
-    const type = data.image.split(",")[0].split(";")[0].split("/")[1];
-    const filename = `${data.cedula}-${data.empresa}`;
-    const image = Buffer.from(value, "base64");
+function getImgData(image) {
+    const { filetype: type, filename, value } = image;
+    const data = Buffer.from(value, "base64");
     const imageBuffer = {
         type,
-        image,
+        data,
     };
-    return { imageBuffer, filename };
+    return { filename, imageBuffer };
 }
 exports.getImgData = getImgData;

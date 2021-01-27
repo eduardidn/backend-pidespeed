@@ -12,6 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsuario = exports.updateUsuario = exports.addUsuario = exports.listUserCompanyByField = exports.listUsuario = exports.listUsuarios = void 0;
 const _models_1 = require("@models");
 const _utils_1 = require("@utils");
+const types = {
+    car: "600f87f33ba83247a488ecae",
+    motorcycle: "600f88333ba83247a488ecaf",
+    bike: "600f88423ba83247a488ecb0",
+};
 function listUsuarios({ empresaId, type }) {
     return _models_1.UsuarioEmpresa.find({
         $or: [{ empresa: empresaId }, { empresaDelivery: empresaId }],
@@ -59,28 +64,18 @@ function addUsuario(data) {
         const { password } = data;
         data.password = yield _utils_1.PasswordHelper.hash(password);
         if (data.image) {
-            const { filetype: type, filename, value } = data.image;
-            const image = Buffer.from(value, "base64");
-            const imageBuffer = {
-                type,
-                image,
-            };
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(data.image);
             const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                 imageBuffer,
-                folder: "usuariosEmpresa",
                 filename,
+                folder: "usuariosEmpresa",
                 update: false,
                 id: null,
             });
             data.img = imageId;
         }
         if (data.vehicle_image) {
-            const { filetype: type, filename, value } = data.vehicle_image;
-            const image = Buffer.from(value, "base64");
-            const imageBuffer = {
-                type,
-                image,
-            };
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(data.vehicle_image);
             const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                 imageBuffer,
                 folder: "usuariosEmpresa",
@@ -90,6 +85,8 @@ function addUsuario(data) {
             });
             data.img = imageId;
         }
+        else
+            data.vehicle_image = types[data.vehicle_type];
         if (data.type === "delivery") {
             data.empresaDelivery = data.empresa;
             delete data.empresa;
@@ -100,9 +97,13 @@ function addUsuario(data) {
 exports.addUsuario = addUsuario;
 function updateUsuario({ usuarioId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (value.password) {
+            const { password } = value;
+            value.password = yield _utils_1.PasswordHelper.hash(password);
+        }
         if (value.image) {
-            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value);
-            if (value.img === "5fa5b4bdb6dac50570af1a1b") {
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.image);
+            if (value.image === "600f85ce3ba83247a488ecad") {
                 const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
@@ -112,7 +113,7 @@ function updateUsuario({ usuarioId, value }) {
                 });
                 value.img = imageId;
             }
-            else {
+            else
                 yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
@@ -120,7 +121,31 @@ function updateUsuario({ usuarioId, value }) {
                     update: true,
                     id: value.img,
                 });
+        }
+        if (value.vehicle_image) {
+            const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.vehicle_image);
+            if ([
+                "600f87f33ba83247a488ecae",
+                "600f88333ba83247a488ecaf",
+                "600f88423ba83247a488ecb0",
+            ].includes(value.vehicle_image)) {
+                const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
+                    imageBuffer,
+                    folder: "usuariosEmpresa",
+                    filename,
+                    update: false,
+                    id: null,
+                });
+                value.img = imageId;
             }
+            else
+                yield _utils_1.UploadImage.uploadBase64({
+                    imageBuffer,
+                    folder: "usuariosEmpresa",
+                    filename,
+                    update: true,
+                    id: value.img,
+                });
         }
         return _models_1.UsuarioEmpresa.findOneAndUpdate({ _id: usuarioId }, value, {
             new: true,
@@ -137,7 +162,7 @@ exports.updateUsuario = updateUsuario;
 function deleteUsuario(usuarioId) {
     return __awaiter(this, void 0, void 0, function* () {
         const userCompany = yield _models_1.UsuarioEmpresa.findOne({ _id: usuarioId });
-        if (userCompany.img !== "5fa5b4bdb6dac50570af1a1b")
+        if (userCompany.img !== "600f85ce3ba83247a488ecad")
             yield _utils_1.UploadImage.deleteImage(userCompany.img);
         userCompany.delete();
         return userCompany;

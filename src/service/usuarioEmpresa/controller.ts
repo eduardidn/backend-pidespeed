@@ -21,11 +21,8 @@ export async function addUsuario(req, res) {
 }
 
 export async function updateUsuario(req, res) {
-  const { usuarioId } = req.user;
   const value = req.body;
-  return service
-    .updateUsuario({ usuarioId, value })
-    .then((data) => res.json(data));
+  return service.updateUsuario({ value }).then((data) => res.json(data));
 }
 
 export async function deleteUsuario(req, res) {

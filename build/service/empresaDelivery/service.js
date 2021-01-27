@@ -193,7 +193,7 @@ function deleteEmpresa(empresaId) {
         });
         if (DeliveryCompany.logo !== "5fa5b4bdb6dac50570af1a1b")
             yield _utils_1.UploadImage.deleteImage(DeliveryCompany.img);
-        if (DeliveryCompany.logo !== "5fa5b438e8a25c36c0fe1f52")
+        if (DeliveryCompany.img !== "5fa5b438e8a25c36c0fe1f52")
             yield _utils_1.UploadImage.deleteImage(DeliveryCompany.img);
         DeliveryCompany.delete();
         return DeliveryCompany;

@@ -32,6 +32,17 @@ export async function listPartner({ partnerId }) {
     });
 }
 
+export async function listPartnerByField({ field, value }) {
+  return CompanyPartner.findOne({ [field]: value })
+    .lean()
+    .then((data) => {
+      if (data) {
+        data.id = data._id;
+        return data;
+      }
+    });
+}
+
 export async function addPartner(data) {
   if (!data.image) throw new HTTP400Error("Image is required");
   const { imageBuffer, filename } = UploadImage.getImgData(data);
@@ -46,18 +57,18 @@ export async function addPartner(data) {
   return CompanyPartner.create(data);
 }
 
-export async function updatePartner({ partnerId, value }) {
-  if (value.image) {
+export async function updatePartner({ value }) {
+  if (value.img.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(value);
     await uploadImage({
       imageBuffer,
       folder: "AfiliadosEmpresa",
       filename,
       update: true,
-      id: value.img,
+      id: value.img.id,
     });
   }
-  return CompanyPartner.findOneAndUpdate({ _id: partnerId }, value, {
+  return CompanyPartner.findOneAndUpdate({ _id: value._id }, value, {
     new: true,
     lean: true,
   }).then((data) => {
