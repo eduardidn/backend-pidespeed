@@ -60,11 +60,8 @@ function addUsuario(req, res) {
 exports.addUsuario = addUsuario;
 function updateUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuarioId } = req.user;
         const value = req.body;
-        return service
-            .updateUsuario({ usuarioId, value })
-            .then((data) => res.json(data));
+        return service.updateUsuario({ value }).then((data) => res.json(data));
     });
 }
 exports.updateUsuario = updateUsuario;

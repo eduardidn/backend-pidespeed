@@ -1,5 +1,5 @@
 import socketIo from "socket.io";
-import { onConnect } from "./connection";
+import { onConnect, onConnectAdmin } from "./connection";
 import * as middleware from "./middleware";
 let io;
 let admin;
@@ -12,6 +12,7 @@ export default function (httpServer) {
   io.use(middleware.middleware);
   admin = io.of("/admin");
   admin.use(middleware.adminMiddleware);
+  admin.on("connect", (socket) => onConnectAdmin(socket, admin));
   io.on("connect", (socket) => onConnect(socket, io));
   return io;
 }

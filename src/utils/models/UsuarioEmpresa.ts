@@ -17,7 +17,7 @@ const schema = new Schema(
     img: {
       type: Schema.Types.ObjectId,
       ref: "file",
-      default: "600f85ce3ba83247a488ecad",
+      default: "6018afec5ad8524648ca8216",
     },
     vehicle_image: {
       type: Schema.Types.ObjectId,

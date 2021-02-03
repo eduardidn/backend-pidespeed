@@ -1,5 +1,5 @@
 import { UsuarioEmpresa } from "@models";
-import { PasswordHelper, UploadImage, Socket } from "@utils";
+import { PasswordHelper, UploadImage, Socket, HTTP400Error } from "@utils";
 
 const types = {
   car: "600f87f33ba83247a488ecae",
@@ -82,11 +82,14 @@ export async function addUsuario(data) {
 }
 
 export async function updateUsuario({ value }) {
+  if (!value._id) throw new HTTP400Error("object need to have the _id");
+  const userId = value._id;
+  delete value._id;
   if (value.password) {
     const { password } = value;
     value.password = await PasswordHelper.hash(password);
   }
-  if (value.image.value) {
+  if (value.image?.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(value.image);
     if (value.image.id === "600f85ce3ba83247a488ecad") {
       const { _id: imageId } = await UploadImage.uploadBase64({
@@ -108,7 +111,7 @@ export async function updateUsuario({ value }) {
       delete value.image;
     }
   }
-  if (value.vehicle_image.value) {
+  if (value.vehicle_image?.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(
       value.vehicle_image,
     );
@@ -138,7 +141,7 @@ export async function updateUsuario({ value }) {
       delete value.vehicle_image;
     }
   } else value.vehicle_image = types[value.vehicle_type];
-  return UsuarioEmpresa.findOneAndUpdate({ _id: value._id }, value, {
+  return UsuarioEmpresa.findOneAndUpdate({ _id: userId }, value, {
     new: true,
     lean: true,
   }).then((data) => {
@@ -151,8 +154,16 @@ export async function updateUsuario({ value }) {
 
 export async function deleteUsuario(usuarioId) {
   const userCompany: any = await UsuarioEmpresa.findOne({ _id: usuarioId });
-  if (userCompany.img !== "600f85ce3ba83247a488ecad")
+  if (userCompany.img !== "6018afec5ad8524648ca8216")
     await UploadImage.deleteImage(userCompany.img);
+  if (
+    ![
+      "600f87f33ba83247a488ecae",
+      "600f88333ba83247a488ecaf",
+      "600f88423ba83247a488ecb0",
+    ].includes(userCompany.vehicle_image)
+  )
+    await UploadImage.deleteImage(userCompany.vehicle_image);
   userCompany.delete();
   return userCompany;
 }

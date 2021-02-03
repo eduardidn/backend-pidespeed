@@ -95,15 +95,15 @@ function addUsuario(data) {
     });
 }
 exports.addUsuario = addUsuario;
-function updateUsuario({ usuarioId, value }) {
+function updateUsuario({ value }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (value.password) {
             const { password } = value;
             value.password = yield _utils_1.PasswordHelper.hash(password);
         }
-        if (value.image) {
+        if (value.image.value) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.image);
-            if (value.image === "600f85ce3ba83247a488ecad") {
+            if (value.image.id === "600f85ce3ba83247a488ecad") {
                 const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
@@ -111,24 +111,26 @@ function updateUsuario({ usuarioId, value }) {
                     update: false,
                     id: null,
                 });
-                value.img = imageId;
+                value.image = imageId;
             }
-            else
+            else {
                 yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
                     filename,
                     update: true,
-                    id: value.img,
+                    id: value.image.id,
                 });
+                delete value.image;
+            }
         }
-        if (value.vehicle_image) {
+        if (value.vehicle_image.value) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.vehicle_image);
             if ([
                 "600f87f33ba83247a488ecae",
                 "600f88333ba83247a488ecaf",
                 "600f88423ba83247a488ecb0",
-            ].includes(value.vehicle_image)) {
+            ].includes(value.vehicle_image.id)) {
                 const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
@@ -136,18 +138,22 @@ function updateUsuario({ usuarioId, value }) {
                     update: false,
                     id: null,
                 });
-                value.img = imageId;
+                value.vehicle_image = imageId;
             }
-            else
+            else {
                 yield _utils_1.UploadImage.uploadBase64({
                     imageBuffer,
                     folder: "usuariosEmpresa",
                     filename,
                     update: true,
-                    id: value.img,
+                    id: value.vehicle_image.id,
                 });
+                delete value.vehicle_image;
+            }
         }
-        return _models_1.UsuarioEmpresa.findOneAndUpdate({ _id: usuarioId }, value, {
+        else
+            value.vehicle_image = types[value.vehicle_type];
+        return _models_1.UsuarioEmpresa.findOneAndUpdate({ _id: value._id }, value, {
             new: true,
             lean: true,
         }).then((data) => {

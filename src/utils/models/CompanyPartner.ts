@@ -19,10 +19,10 @@ const schema = new Schema(
       type: String,
       required: [true, "addresss is required"],
     },
-    img: {
+    image: {
       type: Schema.Types.ObjectId,
       ref: "file",
-      required: [true, "img is required"],
+      required: [true, "image is required"],
     },
     sales: {
       type: Number,

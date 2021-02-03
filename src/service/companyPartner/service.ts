@@ -45,7 +45,7 @@ export async function listPartnerByField({ field, value }) {
 
 export async function addPartner(data) {
   if (!data.image) throw new HTTP400Error("Image is required");
-  const { imageBuffer, filename } = UploadImage.getImgData(data);
+  const { imageBuffer, filename } = UploadImage.getImgData(data.image);
   const { _id: imageId } = await uploadImage({
     imageBuffer,
     folder: "AfiliadosEmpresa",
@@ -58,8 +58,11 @@ export async function addPartner(data) {
 }
 
 export async function updatePartner({ value }) {
-  if (value.img.value) {
-    const { imageBuffer, filename } = UploadImage.getImgData(value);
+  if (!value._id) throw new HTTP400Error("object need to have the _id");
+  const partnerId = value._id;
+  delete value._id;
+  if (value.img?.value) {
+    const { imageBuffer, filename } = UploadImage.getImgData(value.image);
     await uploadImage({
       imageBuffer,
       folder: "AfiliadosEmpresa",
@@ -68,7 +71,7 @@ export async function updatePartner({ value }) {
       id: value.img.id,
     });
   }
-  return CompanyPartner.findOneAndUpdate({ _id: value._id }, value, {
+  return CompanyPartner.findOneAndUpdate({ _id: partnerId }, value, {
     new: true,
     lean: true,
   }).then((data) => {
