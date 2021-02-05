@@ -29,7 +29,7 @@ class TasaFunc {
 
         // token para las consultas restringidas
         this.token = await TokenUtils.createUserToken({
-          usuarioId: { _id: 1234 },
+          userId: { _id: 1234 },
         });
         this.cambiarTasaBCV(tasaBCV);
         this.cambiarTasaDT(tasaDT);

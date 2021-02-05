@@ -96,12 +96,17 @@ function addUsuario(data) {
 }
 exports.addUsuario = addUsuario;
 function updateUsuario({ value }) {
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
+        if (!value._id)
+            throw new _utils_1.HTTP400Error("object need to have the _id");
+        const userId = value._id;
+        delete value._id;
         if (value.password) {
             const { password } = value;
             value.password = yield _utils_1.PasswordHelper.hash(password);
         }
-        if (value.image.value) {
+        if ((_a = value.image) === null || _a === void 0 ? void 0 : _a.value) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.image);
             if (value.image.id === "600f85ce3ba83247a488ecad") {
                 const { _id: imageId } = yield _utils_1.UploadImage.uploadBase64({
@@ -124,7 +129,7 @@ function updateUsuario({ value }) {
                 delete value.image;
             }
         }
-        if (value.vehicle_image.value) {
+        if ((_b = value.vehicle_image) === null || _b === void 0 ? void 0 : _b.value) {
             const { imageBuffer, filename } = _utils_1.UploadImage.getImgData(value.vehicle_image);
             if ([
                 "600f87f33ba83247a488ecae",
@@ -153,7 +158,7 @@ function updateUsuario({ value }) {
         }
         else
             value.vehicle_image = types[value.vehicle_type];
-        return _models_1.UsuarioEmpresa.findOneAndUpdate({ _id: value._id }, value, {
+        return _models_1.UsuarioEmpresa.findOneAndUpdate({ _id: userId }, value, {
             new: true,
             lean: true,
         }).then((data) => {
@@ -168,8 +173,14 @@ exports.updateUsuario = updateUsuario;
 function deleteUsuario(usuarioId) {
     return __awaiter(this, void 0, void 0, function* () {
         const userCompany = yield _models_1.UsuarioEmpresa.findOne({ _id: usuarioId });
-        if (userCompany.img !== "600f85ce3ba83247a488ecad")
+        if (userCompany.img !== "6018afec5ad8524648ca8216")
             yield _utils_1.UploadImage.deleteImage(userCompany.img);
+        if (![
+            "600f87f33ba83247a488ecae",
+            "600f88333ba83247a488ecaf",
+            "600f88423ba83247a488ecb0",
+        ].includes(userCompany.vehicle_image))
+            yield _utils_1.UploadImage.deleteImage(userCompany.vehicle_image);
         userCompany.delete();
         return userCompany;
     });

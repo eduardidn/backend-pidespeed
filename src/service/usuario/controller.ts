@@ -6,8 +6,8 @@ export async function list(req, res) {
 }
 
 export async function listOne(req, res) {
-  const { usuarioId } = req.user;
-  return service.listOne({ usuarioId }).then((data) => res.json(data));
+  const { userId } = req.user;
+  return service.listOne({ usuarioId: userId }).then((data) => res.json(data));
 }
 
 export async function listOneById(req, res) {
@@ -16,10 +16,10 @@ export async function listOneById(req, res) {
 }
 
 export async function updateUsuario(req, res) {
-  const { usuarioId } = req.user;
+  const { userId } = req.user;
   const value = req.body;
   return service
-    .updateUsuario({ usuarioId, value })
+    .updateUsuario({ usuarioId: userId, value })
     .then((data) => res.json(data));
 }
 
@@ -39,6 +39,6 @@ export async function updatePassword(req, res) {
 }
 
 export async function deleteUsuario(req, res) {
-  const { usuarioId } = req.user;
-  return service.deleteUsuario(usuarioId).then((data) => res.json(data));
+  const { userId } = req.user;
+  return service.deleteUsuario(userId).then((data) => res.json(data));
 }

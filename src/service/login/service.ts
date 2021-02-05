@@ -27,7 +27,7 @@ export async function loginUser({ password, user }) {
   const match = await PasswordHelper.matchPassword({ password, savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
-  const token = await TokenUtils.createUserToken({ usuarioId: usuario._id });
+  const token = await TokenUtils.createUserToken({ userId: usuario._id });
   return { message: "ok", token, user: usuario };
 }
 
@@ -54,7 +54,8 @@ export async function loginEmpresa({ password, user }) {
     .populate("ciudad")
     .populate("estado");
   const token = await TokenUtils.createUserToken({
-    usuarioId: usuario._id,
+    userId: usuario._id,
+    empresaId: empresa._id,
     empresa: true,
     delivery: false,
   });
@@ -93,7 +94,7 @@ export async function loginEmpresaDelivery({ password, user }) {
     .populate("ciudad")
     .populate("estado");
   const token = await TokenUtils.createUserToken({
-    usuarioId: usuario._id,
+    userId: usuario._id,
     empresa: true,
     delivery: true,
   });
@@ -128,7 +129,7 @@ export async function loginAdmin({ password, user }) {
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
 
   const token = await TokenUtils.createUserToken({
-    usuarioId: admin._id,
+    userId: admin._id,
     admin: true,
   });
   const tokenAdmin = await TokenUtils.createAdminToken({ id: admin._id });

@@ -47,6 +47,7 @@ function default_1(httpServer) {
     io.use(middleware.middleware);
     exports.admin = admin = io.of("/admin");
     admin.use(middleware.adminMiddleware);
+    admin.on("connect", (socket) => connection_1.onConnectAdmin(socket, admin));
     io.on("connect", (socket) => connection_1.onConnect(socket, io));
     return io;
 }

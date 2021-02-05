@@ -34,7 +34,6 @@ export function deleteNotification(type, data) {
 }
 
 export async function pedido(type, data) {
-  console.log(type);
   const emitPedidioNotification = {
     actualizado: PActualizado,
     nuevoEmpresa: PNuevoEmpresa,

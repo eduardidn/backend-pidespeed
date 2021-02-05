@@ -17,7 +17,7 @@ const schema = new mongoose_1.Schema({
     img: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "file",
-        default: "600f85ce3ba83247a488ecad",
+        default: "6018afec5ad8524648ca8216",
     },
     vehicle_image: {
         type: mongoose_1.Schema.Types.ObjectId,
