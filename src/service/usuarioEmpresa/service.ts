@@ -91,7 +91,7 @@ export async function updateUsuario({ value }) {
   }
   if (value.image?.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(value.image);
-    if (value.image.id === "600f85ce3ba83247a488ecad") {
+    if (value.image.id === "6018afec5ad8524648ca8216") {
       const { _id: imageId } = await UploadImage.uploadBase64({
         imageBuffer,
         folder: "usuariosEmpresa",
@@ -99,7 +99,7 @@ export async function updateUsuario({ value }) {
         update: false,
         id: null,
       });
-      value.image = imageId;
+      value.img = imageId;
     } else {
       await UploadImage.uploadBase64({
         imageBuffer,
@@ -108,8 +108,8 @@ export async function updateUsuario({ value }) {
         update: true,
         id: value.image.id,
       });
-      delete value.image;
     }
+    delete value.image;
   }
   if (value.vehicle_image?.value) {
     const { imageBuffer, filename } = UploadImage.getImgData(
@@ -154,14 +154,15 @@ export async function updateUsuario({ value }) {
 
 export async function deleteUsuario(usuarioId) {
   const userCompany: any = await UsuarioEmpresa.findOne({ _id: usuarioId });
-  if (userCompany.img !== "6018afec5ad8524648ca8216")
+  if (String(userCompany.img) !== "6018afec5ad8524648ca8216")
     await UploadImage.deleteImage(userCompany.img);
   if (
     ![
       "600f87f33ba83247a488ecae",
       "600f88333ba83247a488ecaf",
       "600f88423ba83247a488ecb0",
-    ].includes(userCompany.vehicle_image)
+    ].includes(String(userCompany.vehicle_image)) &&
+    userCompany.vehicle_image
   )
     await UploadImage.deleteImage(userCompany.vehicle_image);
   userCompany.delete();
