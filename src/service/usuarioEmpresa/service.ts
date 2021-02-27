@@ -1,5 +1,4 @@
-import { UsuarioEmpresa } from "@models";
-import { PasswordHelper, UploadImage, Socket, HTTP400Error } from "@utils";
+import { UsuarioEmpresa, PasswordHelper, UploadImage, Socket, HTTP400Error } from "../../utils";
 
 const types = {
   car: "600f87f33ba83247a488ecae",
@@ -143,7 +142,6 @@ export async function updateUsuario({ value }) {
   } else value.vehicle_image = types[value.vehicle_type];
   return UsuarioEmpresa.findOneAndUpdate({ _id: userId }, value, {
     new: true,
-    lean: true,
   }).then((data) => {
     if (data) {
       data.id = data._id;

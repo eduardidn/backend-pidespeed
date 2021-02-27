@@ -1,5 +1,4 @@
-import { Cuenta } from "@models";
-import { Socket } from "@utils";
+import { Cuenta } from "../../utils";
 
 export async function list() {
   return Cuenta.find({})
@@ -32,7 +31,7 @@ export async function addCuenta(value) {
 export async function updateCuenta({ cuentaId, value }) {
   return Cuenta.findOneAndUpdate({ _id: cuentaId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

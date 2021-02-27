@@ -1,6 +1,5 @@
-import { EmpresaDelivery, Categoria } from "@models";
 import { addUsuario } from "../usuarioEmpresa/service";
-import { UploadImage } from "@utils";
+import { UploadImage, EmpresaDelivery, Categoria  } from "../../utils";
 
 export async function list({ ruta, ciudadId }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
@@ -150,7 +149,7 @@ export async function addEmpresa(value) {
 export async function updateEmpresa({ empresaId, value }) {
   return EmpresaDelivery.findOneAndUpdate({ _id: empresaId }, value, {
     new: true,
-    lean: true,
+
   })
     .populate("categoria", "ruta")
     .populate("logo", "url")

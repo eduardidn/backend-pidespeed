@@ -1,5 +1,8 @@
 import * as Socket from "./socket";
 export * as UploadImage from "./UploadImage";
+export * from "./models";
+export * from "./middlewares";
+export * from "./socket";
 
 export { Socket };
 

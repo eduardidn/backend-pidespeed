@@ -1,5 +1,4 @@
-import { Usuario } from "@models";
-import { PasswordHelper, Socket } from "@utils";
+import { Usuario, PasswordHelper, Socket } from "../../utils";
 
 export async function list() {
   return Usuario.find({})
@@ -28,7 +27,6 @@ export async function listOne({ usuarioId }) {
 export async function updateUsuario({ usuarioId, value }) {
   return Usuario.findOneAndUpdate({ _id: usuarioId }, value, {
     new: true,
-    lean: true,
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -40,7 +38,6 @@ export async function updateUsuario({ usuarioId, value }) {
 export async function updateUsuarioPublic({ email, value }) {
   return Usuario.findOneAndUpdate({ email }, value, {
     new: true,
-    lean: true,
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -54,7 +51,7 @@ export async function updatePassword({ usuarioId, password }) {
   return Usuario.findOneAndUpdate(
     { _id: usuarioId },
     { password: hashPassword },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;

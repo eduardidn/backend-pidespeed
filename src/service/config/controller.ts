@@ -1,4 +1,4 @@
-import { Validator } from "@utils";
+import { Validator } from "../../utils";
 import * as service from "./service";
 
 export async function list(req, res) {

@@ -4,8 +4,10 @@ import {
   EmpresaDelivery,
   Usuario,
   UsuarioEmpresa,
-} from "@models";
-import { HTTP400Error, PasswordHelper, TokenUtils } from "@utils";
+  HTTP400Error,
+  PasswordHelper,
+  TokenUtils
+} from "../../utils";
 
 /**
  * LOGINS
@@ -156,7 +158,7 @@ export async function updatePasswordUser({ email, password }) {
   return Usuario.findOneAndUpdate(
     { email },
     { password: hashPassword },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;
@@ -170,7 +172,7 @@ export async function updatePasswordEmpresa({ field, value, password }) {
   return UsuarioEmpresa.findOneAndUpdate(
     { [field]: value, type: "empresa" },
     { password: hashPassword },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;
@@ -188,7 +190,7 @@ export async function updatePasswordEmpresaDelivery({
   return UsuarioEmpresa.findOneAndUpdate(
     { [field]: value, type: "delivery" },
     { password: hashPassword },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;
@@ -202,7 +204,7 @@ export async function updatePasswordAdmin({ adminId, password }) {
   return Admin.findOneAndUpdate(
     { _id: adminId },
     { password: hashPassword },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;
@@ -236,7 +238,7 @@ export async function updateUser({ value, usuarioId }) {
   return Usuario.findOneAndUpdate(
     { _id: usuarioId },
     { value },
-    { new: true, lean: true },
+    { new: true },
   ).then((data) => {
     if (data) {
       data.id = data._id;

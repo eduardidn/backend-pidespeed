@@ -36,7 +36,6 @@ class TasaFunc {
         await Config.findOneAndUpdate(
           {},
           { tasa_dt: tasaDT, tasa_bcv: tasaBCV },
-          { lean: true },
         );
       });
   }
@@ -50,11 +49,7 @@ class TasaFunc {
       if (empresa.tasa !== tasaDT) {
         this.actualizarAdicionales(tasaDT, empresa);
         this.actualizarProductos(tasaDT, empresa);
-        await Empresa.findOneAndUpdate(
-          { _id: empresa._id },
-          { tasa: tasaDT },
-          { lean: true },
-        );
+        await Empresa.findOneAndUpdate({ _id: empresa._id }, { tasa: tasaDT });
       }
     });
     // map de empresas
@@ -68,11 +63,7 @@ class TasaFunc {
       if (empresa.tasa !== tasaBCV) {
         this.actualizarAdicionales(tasaBCV, empresa);
         this.actualizarProductos(tasaBCV, empresa);
-        await Empresa.findOneAndUpdate(
-          { _id: empresa._id },
-          { tasa: tasaBCV },
-          { lean: true },
-        );
+        await Empresa.findOneAndUpdate({ _id: empresa._id }, { tasa: tasaBCV });
       }
     });
     // map de empresas
@@ -104,7 +95,6 @@ class TasaFunc {
         await Adicional.findOneAndUpdate(
           { _id: adicional._id },
           { precio: precioFinal1 },
-          { lean: true },
         );
       }
     });
@@ -144,7 +134,6 @@ class TasaFunc {
       await Producto.findOneAndUpdate(
         { _id: producto._id },
         { precio1: precioFinal1, to_go: precioFinalToGo },
-        { lean: true },
       );
     });
     // forech de productos

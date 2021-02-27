@@ -14,8 +14,8 @@ import {
   Usuario,
   UsuarioEmpresa,
   Zona,
-} from "@models";
-import { UploadImage } from "@utils";
+  UploadImage
+} from "../../utils";
 import fs from "fs";
 import Axios from "axios";
 import crypto from "crypto";
@@ -52,7 +52,7 @@ export async function importar() {
     let logo = '5fa5b4bdb6dac50570af1a1b';
     let img = '5fa5b438e8a25c36c0fe1f52';
     if (data.logo === 'web/6.png') {
-      await Empresa.findOneAndUpdate({ _id: data._id }, { logo, img }, { lean: true, new: true })
+      await Empresa.findOneAndUpdate({ _id: data._id }, { logo, img }, {  new: true })
     }
   } */
   // return datos;

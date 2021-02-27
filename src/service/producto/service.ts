@@ -1,5 +1,4 @@
-import { Empresa, File, Producto } from "@models";
-import { Socket, UploadImage } from "@utils";
+import { Empresa, File, Producto, UploadImage } from "../../utils";
 
 export async function list({ tipo, ruta }) {
   const { _id: empresa } = await Empresa.findOne({ ruta }).lean();
@@ -103,7 +102,7 @@ export async function addProducto(value) {
 export async function updateProducto({ productoId, value }) {
   return Producto.findOneAndUpdate({ _id: productoId }, value, {
     new: true,
-    lean: true,
+
   })
     .populate("file", "url")
     .then((data) => {

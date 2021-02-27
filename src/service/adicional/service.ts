@@ -1,5 +1,4 @@
-import { Adicional } from "@models";
-import { Socket } from "@utils";
+import { Adicional } from "../../utils";
 
 export async function list({ tipo, empresaId }) {
   tipo = Number(tipo) === 1 ? true : false;
@@ -56,7 +55,7 @@ export async function addAdicional(value) {
 export async function updateAdicional({ adicionalId, value }) {
   return Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

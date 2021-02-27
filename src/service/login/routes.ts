@@ -1,6 +1,6 @@
 import express from "express";
 import * as controller from "./controller";
-import { CatchErrors } from "@utils";
+import { CatchErrors } from "../../utils";
 export default express
   .Router()
   .put("/set-password-empresa", CatchErrors(controller.updatePasswordEmpresa))
@@ -24,7 +24,7 @@ export default express
   .post("/login-admin", CatchErrors(controller.loginAdmin));
 
 /**
- * @@deprecated
+ * ../../../../deprecated
  */
 /* .post('/buscarUserEmail/completo', CatchErrors(controller.buscarUserByEmail))
 .get('/buscarEmpresaEmail/:email', CatchErrors(controller.buscarEmpresaEmail))

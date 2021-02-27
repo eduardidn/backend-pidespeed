@@ -1,5 +1,4 @@
-import { Ciudad } from "@models";
-import { Socket } from "@utils";
+import { Ciudad } from "../../utils";
 
 export async function list() {
   return Ciudad.find({})
@@ -32,7 +31,7 @@ export async function addCiudad(value) {
 export async function updateCiudad({ ciudadId, value }) {
   return Ciudad.findOneAndUpdate({ _id: ciudadId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

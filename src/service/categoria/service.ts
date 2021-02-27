@@ -1,5 +1,4 @@
-import { Categoria } from "@models";
-import { Socket } from "@utils";
+import { Categoria } from "../../utils";
 
 export async function list(tipo) {
   tipo = Number(tipo) === 1 ? true : false;
@@ -35,7 +34,7 @@ export async function addCategoria(value) {
 export async function updateCategoria({ categoriaId, value }) {
   return Categoria.findOneAndUpdate({ _id: categoriaId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

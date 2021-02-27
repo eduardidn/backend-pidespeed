@@ -1,5 +1,4 @@
-import { EmpresaPedido } from "@models";
-import { Socket } from "@utils";
+import { EmpresaPedido } from "../../utils";
 
 export async function list() {
   return EmpresaPedido.find({})
@@ -170,7 +169,7 @@ export async function addEmpresaPedido(value) {
 export async function updateEmpresaPedido({ empresaPedidoId, value }) {
   return EmpresaPedido.findOneAndUpdate({ _id: empresaPedidoId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

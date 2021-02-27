@@ -1,6 +1,4 @@
-import { Favorito, Categoria } from "@models";
-import { Socket } from "@utils";
-import empresa from "../empresa";
+import { Favorito, Categoria } from "../../utils";
 
 export async function list({ usuarioId }) {
   let favoritos: any = await Favorito.find({ usuario: usuarioId })

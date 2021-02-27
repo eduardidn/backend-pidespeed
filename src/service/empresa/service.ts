@@ -1,5 +1,4 @@
-import { Empresa, Categoria, UsuarioEmpresa } from "@models";
-import { UploadImage } from "@utils";
+import { UploadImage, Empresa, Categoria, UsuarioEmpresa } from "../../utils";
 import { addUsuario } from "../usuarioEmpresa/service";
 
 export async function list({ ruta, ciudadId }) {
@@ -146,7 +145,7 @@ export async function addEmpresa(value) {
 export async function updateEmpresa({ empresaId, value }) {
   return Empresa.findOneAndUpdate({ _id: empresaId }, value, {
     new: true,
-    lean: true,
+
   })
     .populate("categoria", "ruta")
     .populate("logo", "url")

@@ -1,5 +1,4 @@
-import {} from "@models";
-import { UploadImage } from "@utils";
+import { UploadImage } from "../../utils";
 
 export async function uploadImage({
   imageBuffer,

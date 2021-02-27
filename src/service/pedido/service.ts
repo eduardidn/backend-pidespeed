@@ -1,5 +1,4 @@
-import { Pedido } from "@models";
-import { Socket, UploadImage } from "@utils";
+import { Pedido, UploadImage } from "../../utils";
 
 export async function list() {
   return Pedido.find()
@@ -93,7 +92,7 @@ export async function addPedido(value) {
 export async function updatePedido({ pedidoId, value }) {
   return Pedido.findOneAndUpdate({ _id: pedidoId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

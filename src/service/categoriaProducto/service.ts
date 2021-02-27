@@ -1,5 +1,4 @@
-import { Categoria, CategoriaProducto, Empresa } from "@models";
-import { Socket } from "@utils";
+import { Categoria, CategoriaProducto, Empresa } from "../../utils";
 
 export async function list(tipo) {
   tipo = Number(tipo) === 1 ? true : false;
@@ -60,7 +59,7 @@ export async function updateCategoriaProducto({ categoriaProductoId, value }) {
     value,
     {
       new: true,
-      lean: true,
+
     },
   ).then((data) => {
     if (data) {

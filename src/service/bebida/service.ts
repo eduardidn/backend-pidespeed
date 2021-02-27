@@ -1,5 +1,4 @@
-import { Bebida } from "@models";
-import { Socket } from "@utils";
+import { Bebida } from "../../utils";
 
 export async function list({ tipo, empresaId }) {
   tipo = Number(tipo) === 1 ? true : false;
@@ -56,7 +55,7 @@ export async function addBebida(value) {
 export async function updateBebida({ bebidaId, value }) {
   return Bebida.findOneAndUpdate({ _id: bebidaId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

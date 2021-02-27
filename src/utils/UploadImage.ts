@@ -1,5 +1,5 @@
 import * as GoogleStorage from "./GoogleStorage";
-import { File } from "@models";
+import { File } from "./index";
 import crypto from "crypto";
 
 import fs from "fs";

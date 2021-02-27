@@ -1,5 +1,4 @@
-import { Estado } from "@models";
-import { Socket } from "@utils";
+import { Estado } from "../../utils";
 
 export async function list() {
   return Estado.find({})
@@ -32,7 +31,7 @@ export async function addEstado(value) {
 export async function updateEstado({ estadoId, value }) {
   return Estado.findOneAndUpdate({ _id: estadoId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

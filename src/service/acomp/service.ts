@@ -1,5 +1,4 @@
-import { Acomp } from "@models";
-import { Socket } from "@utils";
+import { Acomp } from "../../utils";
 
 export async function list() {
   return Acomp.find({})
@@ -32,7 +31,7 @@ export async function addAcomp(value) {
 export async function updateAcomp({ acompId, value }) {
   return Acomp.findOneAndUpdate({ _id: acompId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

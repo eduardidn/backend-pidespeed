@@ -1,5 +1,4 @@
-import { Sirope } from "@models";
-import { Socket } from "@utils";
+import { Sirope } from "../../utils";
 
 export async function list(tipo, empresaId) {
   tipo = Number(tipo) === 1 ? true : false;
@@ -56,7 +55,7 @@ export async function addSirope(value) {
 export async function updateSirope({ siropeId, value }) {
   return Sirope.findOneAndUpdate({ _id: siropeId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -69,7 +68,7 @@ export async function updateByIds({ value, ids }) {
   ids = ids.split(",");
   return Sirope.updateMany({ _id: { $in: ids } }, value, {
     new: true,
-    lean: true,
+
   });
 }
 

@@ -1,4 +1,4 @@
-import { HTTP400Error } from "@utils";
+import { HTTP400Error } from "../../utils";
 import * as service from "./service";
 
 export async function uploadImage(req, res) {

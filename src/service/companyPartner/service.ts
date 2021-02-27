@@ -1,6 +1,4 @@
-import empresaDelivery from "@/utils/models/EmpresaDelivery";
-import { Usuario, CompanyPartner } from "@models";
-import { HTTP400Error, UploadImage, Socket } from "@utils";
+import { HTTP400Error, UploadImage, CompanyPartner } from "../../utils";
 import { uploadImage } from "../file/service";
 
 export function listPartners({ empresaId }) {
@@ -73,7 +71,6 @@ export async function updatePartner({ value }) {
   }
   return CompanyPartner.findOneAndUpdate({ _id: partnerId }, value, {
     new: true,
-    lean: true,
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -83,7 +80,7 @@ export async function updatePartner({ value }) {
 }
 
 export async function deletePartner(partnerId) {
-  const companyPartner: any = await CompanyPartner.findOneAndDelete({
+  const companyPartner: any = await CompanyPartner.findOne({
     _id: partnerId,
   });
   if (companyPartner.file) await UploadImage.deleteImage(companyPartner.img);

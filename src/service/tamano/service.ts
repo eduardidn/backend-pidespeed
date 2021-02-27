@@ -1,5 +1,4 @@
-import { Tamano } from "@models";
-import { Socket } from "@utils";
+import { Tamano } from "../../utils";
 
 export async function list({ ids, tipo }) {
   ids = ids.split(",");
@@ -63,7 +62,7 @@ export async function addTamano(value) {
 export async function updateTamano({ tamanoId, value }) {
   return Tamano.findOneAndUpdate({ _id: tamanoId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

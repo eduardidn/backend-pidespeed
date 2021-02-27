@@ -1,5 +1,3 @@
-import {} from "@models";
-import {} from "@utils";
 import * as templates from "./templates";
 import nodemailer from "nodemailer";
 

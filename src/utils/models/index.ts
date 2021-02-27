@@ -12,6 +12,7 @@ export { default as Ciudad } from "./Ciudad";
 export { default as Config } from "./Config";
 export { default as Cuenta } from "./Cuenta";
 export { default as DetallePedido } from "./DetallePedido";
+export { default as DeliveryOrder } from "./DeliveryOrder";
 export { default as Empresa } from "./Empresa";
 export { default as EmpresaDelivery } from "./EmpresaDelivery";
 export { default as EmpresaPedido } from "./EmpresaPedido";

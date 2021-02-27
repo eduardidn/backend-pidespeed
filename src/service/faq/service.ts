@@ -1,5 +1,4 @@
-import { Faq } from "@models";
-import { Socket } from "@utils";
+import { Faq } from "../../utils";
 
 export async function list() {
   return Faq.find({})
@@ -32,7 +31,7 @@ export async function addFaq(value) {
 export async function updateFaq({ faqId, value }) {
   return Faq.findOneAndUpdate({ _id: faqId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;

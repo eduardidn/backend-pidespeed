@@ -1,6 +1,6 @@
 import express from "express";
 
-import { ErrorHandle } from "@middlewares";
+import { ErrorHandle } from "./utils";
 
 import exampleRoutes from "./service/module_base";
 import acomp from "./service/acomp";

@@ -1,5 +1,4 @@
-import { Zona } from "@models";
-import { Socket } from "@utils";
+import { Zona } from "../../utils";
 
 export async function list({ ciudadId }) {
   return Zona.find({ ciudad: ciudadId })
@@ -60,7 +59,7 @@ export async function addZona(value) {
 export async function updateZona({ zonaId, value }) {
   return Zona.findOneAndUpdate({ _id: zonaId }, value, {
     new: true,
-    lean: true,
+
   }).then((data) => {
     if (data) {
       data.id = data._id;
