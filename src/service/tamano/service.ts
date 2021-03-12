@@ -62,7 +62,6 @@ export async function addTamano(value) {
 export async function updateTamano({ tamanoId, value }) {
   return Tamano.findOneAndUpdate({ _id: tamanoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

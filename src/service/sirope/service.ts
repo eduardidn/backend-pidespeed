@@ -55,7 +55,6 @@ export async function addSirope(value) {
 export async function updateSirope({ siropeId, value }) {
   return Sirope.findOneAndUpdate({ _id: siropeId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -68,7 +67,6 @@ export async function updateByIds({ value, ids }) {
   ids = ids.split(",");
   return Sirope.updateMany({ _id: { $in: ids } }, value, {
     new: true,
-
   });
 }
 

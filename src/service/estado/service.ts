@@ -31,7 +31,6 @@ export async function addEstado(value) {
 export async function updateEstado({ estadoId, value }) {
   return Estado.findOneAndUpdate({ _id: estadoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

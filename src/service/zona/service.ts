@@ -59,7 +59,6 @@ export async function addZona(value) {
 export async function updateZona({ zonaId, value }) {
   return Zona.findOneAndUpdate({ _id: zonaId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

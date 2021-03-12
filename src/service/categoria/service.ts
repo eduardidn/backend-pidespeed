@@ -34,7 +34,6 @@ export async function addCategoria(value) {
 export async function updateCategoria({ categoriaId, value }) {
   return Categoria.findOneAndUpdate({ _id: categoriaId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

@@ -169,7 +169,6 @@ export async function addEmpresaPedido(value) {
 export async function updateEmpresaPedido({ empresaPedidoId, value }) {
   return EmpresaPedido.findOneAndUpdate({ _id: empresaPedidoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

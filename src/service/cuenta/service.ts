@@ -31,7 +31,6 @@ export async function addCuenta(value) {
 export async function updateCuenta({ cuentaId, value }) {
   return Cuenta.findOneAndUpdate({ _id: cuentaId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

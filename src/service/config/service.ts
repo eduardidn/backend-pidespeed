@@ -32,7 +32,6 @@ export async function addConfig(value) {
 export async function updateConfig({ configId, value }) {
   return Config.findOneAndUpdate({ _id: configId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

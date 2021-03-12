@@ -59,7 +59,6 @@ export async function updateCategoriaProducto({ categoriaProductoId, value }) {
     value,
     {
       new: true,
-
     },
   ).then((data) => {
     if (data) {

@@ -31,7 +31,6 @@ export async function addAcomp(value) {
 export async function updateAcomp({ acompId, value }) {
   return Acomp.findOneAndUpdate({ _id: acompId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

@@ -55,7 +55,6 @@ export async function addTopping(value) {
 export async function updateTopping({ toppingId, value }) {
   return Topping.findOneAndUpdate({ _id: toppingId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -68,7 +67,6 @@ export async function updateByIds({ value, ids }) {
   ids = ids.split(",");
   return Topping.updateMany({ _id: { $in: ids } }, value, {
     new: true,
-
   });
 }
 

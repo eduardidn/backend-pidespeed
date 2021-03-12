@@ -31,7 +31,6 @@ export async function addTipoBebida(value) {
 export async function updateTipoBebida({ tipoBebidaId, value }) {
   return TipoBebida.findOneAndUpdate({ _id: tipoBebidaId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

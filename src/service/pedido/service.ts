@@ -92,7 +92,6 @@ export async function addPedido(value) {
 export async function updatePedido({ pedidoId, value }) {
   return Pedido.findOneAndUpdate({ _id: pedidoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

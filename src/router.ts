@@ -13,6 +13,7 @@ import ciudad from "./service/ciudad";
 import config from "./service/config";
 import cuenta from "./service/cuenta";
 import detallePedido from "./service/detallePedido";
+import deliveryOrder from "./service/deliveryOrder";
 import empresa from "./service/empresa";
 import empresaDelivery from "./service/empresaDelivery";
 import empresaPedido from "./service/empresaPedido";
@@ -48,6 +49,7 @@ export default async function (app) {
     .use(config)
     .use(cuenta)
     .use(detallePedido)
+    .use(deliveryOrder)
     .use(empresa)
     .use(empresaDelivery)
     .use(empresaPedido)

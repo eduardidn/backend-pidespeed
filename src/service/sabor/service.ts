@@ -55,7 +55,6 @@ export async function addSabor(value) {
 export async function updateSabor({ saborId, value }) {
   return Sabor.findOneAndUpdate({ _id: saborId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;
@@ -68,7 +67,6 @@ export async function updateByIds({ value, ids }) {
   ids = ids.split(",");
   return Sabor.updateMany({ _id: { $in: ids } }, value, {
     new: true,
-
   });
 }
 

@@ -3,17 +3,17 @@ import { Utils } from ".";
 
 const schema = new Schema(
   {
-    codigo: {
+    code: {
       type: String,
-      required: [true, "codigo is required"],
+      required: [true, "code is required"],
     },
-    moneda: {
+    currency: {
       type: String,
       default: "BSS",
     },
-    precio: {
+    price: {
       type: String,
-      required: [true, "precio is required"],
+      required: [true, "price is required"],
     },
     to_go: {
       type: Boolean,
@@ -23,32 +23,28 @@ const schema = new Schema(
       type: Object,
       required: [true, "precio is required"],
     },
-    precio_delivery: {
-      type: Number,
-      required: [true, "precio_delivery is required"],
-    },
-    terminado: {
+    finished: {
       type: Boolean,
-      required: [true, "terminado is required"],
+      required: [true, "finished is required"],
     },
-    entregado: {
+    delivered: {
       type: Boolean,
-      required: [true, "entregado is required"],
+      required: [true, "delivered is required"],
     },
-    usuario: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "usuario",
-      required: [true, "usuario is required"],
+      required: [true, "user is required"],
     },
     deliveryCompany: {
       type: Schema.Types.ObjectId,
-      ref: "empresaDelivery",
-      required: [true, "empresa is required"],
+      ref: "empresaDelivey",
+      default: "5fcd3afc64e32d421c2e579b",
     },
-    pedido: {
+    order: {
       type: Schema.Types.ObjectId,
       ref: "pedido",
-      required: [true, "pedido is required"],
+      required: [true, "order is required"],
     },
   },
   {

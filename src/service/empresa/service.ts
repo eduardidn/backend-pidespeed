@@ -1,11 +1,12 @@
 import { UploadImage, Empresa, Categoria, UsuarioEmpresa } from "../../utils";
 import { addUsuario } from "../usuarioEmpresa/service";
+import { Client } from "@googlemaps/google-maps-services-js";
 
 export async function list({ ruta, ciudadId }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
   let query: any = { publish: true, es_sucursal: 0, categoria };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  const empresas = await Empresa.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -18,6 +19,7 @@ export async function list({ ruta, ciudadId }) {
         return data;
       }),
     );
+  return empresas;
 }
 
 export async function listAll() {
@@ -145,7 +147,6 @@ export async function addEmpresa(value) {
 export async function updateEmpresa({ empresaId, value }) {
   return Empresa.findOneAndUpdate({ _id: empresaId }, value, {
     new: true,
-
   })
     .populate("categoria", "ruta")
     .populate("logo", "url")

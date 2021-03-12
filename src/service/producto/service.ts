@@ -102,7 +102,6 @@ export async function addProducto(value) {
 export async function updateProducto({ productoId, value }) {
   return Producto.findOneAndUpdate({ _id: productoId }, value, {
     new: true,
-
   })
     .populate("file", "url")
     .then((data) => {

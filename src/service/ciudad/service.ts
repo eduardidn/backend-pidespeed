@@ -31,7 +31,6 @@ export async function addCiudad(value) {
 export async function updateCiudad({ ciudadId, value }) {
   return Ciudad.findOneAndUpdate({ _id: ciudadId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

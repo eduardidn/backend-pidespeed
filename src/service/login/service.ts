@@ -6,7 +6,7 @@ import {
   UsuarioEmpresa,
   HTTP400Error,
   PasswordHelper,
-  TokenUtils
+  TokenUtils,
 } from "../../utils";
 
 /**

@@ -29,7 +29,6 @@ export async function listDeliveryOrder({ DeliveryOrderId }) {
 }
 
 export async function addDeliveryOrder(data) {
-  if (!data.image) throw new HTTP400Error("Image is required");
   return DeliveryOrder.create(data);
 }
 

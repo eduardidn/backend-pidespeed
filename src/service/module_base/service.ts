@@ -14,7 +14,7 @@ import {
   Usuario,
   UsuarioEmpresa,
   Zona,
-  UploadImage
+  UploadImage,
 } from "../../utils";
 import fs from "fs";
 import Axios from "axios";

@@ -44,7 +44,6 @@ export async function addPago(value) {
 export async function updatePago({ pagoId, value }) {
   return Pago.findOneAndUpdate({ _id: pagoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

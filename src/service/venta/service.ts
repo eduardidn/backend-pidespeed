@@ -71,7 +71,6 @@ export async function addVenta(value) {
 export async function updateVenta({ ventaId, value }) {
   return Venta.findOneAndUpdate({ _id: ventaId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

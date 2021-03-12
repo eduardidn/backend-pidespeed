@@ -55,7 +55,6 @@ export async function addAdicional(value) {
 export async function updateAdicional({ adicionalId, value }) {
   return Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;

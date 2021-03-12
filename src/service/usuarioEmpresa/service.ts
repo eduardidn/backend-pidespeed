@@ -1,4 +1,10 @@
-import { UsuarioEmpresa, PasswordHelper, UploadImage, Socket, HTTP400Error } from "../../utils";
+import {
+  UsuarioEmpresa,
+  PasswordHelper,
+  UploadImage,
+  Socket,
+  HTTP400Error,
+} from "../../utils";
 
 const types = {
   car: "600f87f33ba83247a488ecae",

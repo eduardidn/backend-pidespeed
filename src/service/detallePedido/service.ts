@@ -57,7 +57,6 @@ export async function addDetallePedido(value) {
 export async function updateDetallePedido({ detallePedidoId, value }) {
   return DetallePedido.findOneAndUpdate({ _id: detallePedidoId }, value, {
     new: true,
-
   }).then((data) => {
     if (data) {
       data.id = data._id;
