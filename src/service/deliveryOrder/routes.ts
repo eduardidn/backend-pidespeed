@@ -5,6 +5,7 @@ export default express
   .Router()
   .get("/:empresaId", CatchErrors(controller.listDeliveryOrders))
   .get("/list/one/:DeliveryOrderId", CatchErrors(controller.listDeliveryOrder))
+  .post("/delivery-price", CatchErrors(controller.getDeliveryPrice))
   .post("/", CatchErrors(controller.addDeliveryOrder))
   .put("/", CatchErrors(controller.updateDeliveryOrder))
   .delete("/", CatchErrors(controller.deleteDeliveryOrder));

@@ -3,7 +3,7 @@ import * as controller from "./controller";
 import { CatchErrors } from "../../utils";
 export default express
   .Router()
-  .get("/:empresaId/:type", CatchErrors(controller.listUsuarios))
+  .get("/:empresaId/:type/:role?", CatchErrors(controller.listUsuarios))
   .get("/list/one/:usuarioId/:type", CatchErrors(controller.listUsuario))
   .post("/", CatchErrors(controller.addUsuario))
   .post("/search-user-field", CatchErrors(controller.listUserCompanyByField))

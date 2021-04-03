@@ -40,19 +40,19 @@ async function createUserToken({
   userId,
   admin,
   empresa,
-  empresaId,
+  companyId,
   delivery,
 }: {
   userId;
   admin?;
   empresa?;
-  empresaId?;
+  companyId?;
   delivery?;
 }) {
   const data: any = { userId };
   if (admin) data.admin = admin;
   if (empresa) data.empresa = empresa;
-  if (empresaId) data.empresaId = empresaId;
+  if (companyId) data.companyId = companyId;
   if (delivery) data.delivery = delivery;
   return _createToken(userId, data);
 }

@@ -2,11 +2,11 @@ import { UploadImage, Empresa, Categoria, UsuarioEmpresa } from "../../utils";
 import { addUsuario } from "../usuarioEmpresa/service";
 import { Client } from "@googlemaps/google-maps-services-js";
 
-export async function list({ ruta, ciudadId }) {
+export async function list({ ruta, ciudadId, coordenadas }) {
   const { _id: categoria } = await Categoria.findOne({ ruta }).lean();
-  let query: any = { publish: true, es_sucursal: 0, categoria };
+  let query: any = { publish: false, es_sucursal: 0, categoria, prueba: 1 };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  const empresas = await Empresa.find(query)
+  const empresas: any = await Empresa.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -19,20 +19,18 @@ export async function list({ ruta, ciudadId }) {
         return data;
       }),
     );
-  return empresas;
+  return coordenadas
+    ? Promise.all(
+        empresas.map(async (empresa) => {
+          empresa.distance = await getDistance(empresa.coordenadas, "");
+          return empresa;
+        }),
+      )
+    : empresas;
 }
 
-export async function listAll() {
-  const empresas = await Empresa.find({}).skip(1).limit(25).lean();
-  for (const empresa of empresas) {
-    UsuarioEmpresa.findOneAndUpdate(
-      { _id: (empresa as any).usuario },
-      {
-        empresa: (empresa as any)._id,
-      },
-    ).exec();
-  }
-  return Empresa.find({})
+export async function listAll(coordenadas) {
+  const empresas: any = await Empresa.find({})
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -47,12 +45,21 @@ export async function listAll() {
         }
       }),
     );
+
+  return coordenadas
+    ? Promise.all(
+        empresas.map(async (empresa) => {
+          empresa.distance = await getDistance(empresa.coordenadas, "");
+          return empresa;
+        }),
+      )
+    : empresas;
 }
 
-export async function listAllInfo({ empresaId, ciudadId }) {
+export async function listAllInfo({ empresaId, ciudadId, coordenadas }) {
   let query: any = { _id: empresaId };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  const empresas: any = await Empresa.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -65,15 +72,23 @@ export async function listAllInfo({ empresaId, ciudadId }) {
         return data;
       }),
     );
+  return coordenadas
+    ? Promise.all(
+        empresas.map(async (empresa) => {
+          empresa.distance = await getDistance(empresa.coordenadas, "");
+          return empresa;
+        }),
+      )
+    : empresas;
 }
 
-export async function listHome({ tipo, ciudadId, sort }) {
+export async function listHome({ tipo, ciudadId, sort, coordenadas }) {
   tipo = Number(tipo) === 1 ? true : false;
   let query: any = { es_sucursal: 0 };
   if (tipo === 3) query = { ...query, prueba: 1 };
   if (tipo) query = { ...query, publish: tipo };
   if (ciudadId) query = { ...query, ciudad: ciudadId };
-  return Empresa.find(query)
+  const empresas: any = await Empresa.find(query)
     .populate("categoria", "ruta")
     .populate("logo", "url")
     .populate("img", "url")
@@ -87,10 +102,18 @@ export async function listHome({ tipo, ciudadId, sort }) {
         return data;
       }),
     );
+  return coordenadas
+    ? Promise.all(
+        empresas.map(async (empresa) => {
+          empresa.distance = await getDistance(empresa.coordenadas, "");
+          return empresa;
+        }),
+      )
+    : empresas;
 }
 
-export async function listSucursales({ empresaId }) {
-  return Empresa.findOne({ empresa: empresaId })
+export async function listSucursales({ empresaId, coordenadas }) {
+  const empresas: any = await Empresa.findOne({ empresa: empresaId })
     .select("_id nombre principal")
     .lean()
     .then((data) => {
@@ -99,10 +122,18 @@ export async function listSucursales({ empresaId }) {
         return data;
       }
     });
+  return coordenadas
+    ? Promise.all(
+        empresas.map(async (empresa) => {
+          empresa.distance = await getDistance(empresa.coordenadas, "");
+          return empresa;
+        }),
+      )
+    : empresas;
 }
 
 export async function listOne({ field, value }) {
-  return Empresa.findOne({ [field]: value })
+  const empresa: any = await Empresa.findOne({ [field]: value })
     .lean()
     .populate("categoria", "ruta")
     .populate("logo", "url")
@@ -115,6 +146,8 @@ export async function listOne({ field, value }) {
         return data;
       }
     });
+  empresa.distance = await getDistance(empresa.coordenadas, "");
+  return empresa;
 }
 
 export async function addVisita({ ruta }) {
@@ -169,4 +202,33 @@ export async function deleteEmpresa(empresaId) {
     await UploadImage.deleteImage(empresa.img);
   empresa.delete();
   return empresa;
+}
+
+export async function getDistance(eCoordenadas, uLocation) {
+  const eCoor = eCoordenadas ? _parseCoordinates(eCoordenadas) : null;
+  const uCoor = _parseCoordinates(uLocation);
+  return eCoor?.lat & uCoor?.lat ? _getMettersDistance(eCoor, uCoor) : false;
+}
+
+function _parseCoordinates(coor) {
+  const coordenadas = coor?.split(",");
+  const lat = Number(coordenadas?.[0]?.substr(1));
+  const lng = Number(coordenadas?.[1]?.substr(1)?.slice(0, -1));
+  return lat & lng && { lat, lng };
+}
+
+async function _getMettersDistance(origin, uLocation) {
+  const client = new Client({});
+  const distance = (
+    await client.distancematrix({
+      params: {
+        origins: [origin],
+        destinations: [uLocation],
+        key: process.env.GOOGLE_KEY,
+      },
+    })
+  ).data?.rows?.[0]?.elements?.[0]?.distance?.text;
+  let metters = Number(distance?.split(" ")[0]);
+  if (!(distance as any)?.includes("km") && metters) metters = metters / 1000;
+  return metters;
 }

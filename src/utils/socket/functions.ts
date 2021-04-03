@@ -1,3 +1,4 @@
+import UsuarioEmpresa from "../models/UsuarioEmpresa";
 import { emitSocket, emitToAdmin } from "./index";
 const notificationsUser = [];
 const notificationsEmpresa = [];
@@ -43,6 +44,13 @@ export async function pedido(type, data) {
       emitSocket("empresa", data.id, "actualizar:pedidosEmpresa", data),
   };
   emitPedidioNotification[type](data);
+}
+
+export async function saveCoords({ id: workerId, coords }) {
+  UsuarioEmpresa.findOneAndUpdate(
+    { _id: workerId },
+    { coordinates: coords },
+  ).exec();
 }
 
 function PActualizado(data) {

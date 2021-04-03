@@ -4,6 +4,7 @@ import {
   UploadImage,
   Socket,
   HTTP400Error,
+  Role,
 } from "../../utils";
 
 const types = {
@@ -12,10 +13,15 @@ const types = {
   bike: "600f88423ba83247a488ecb0",
 };
 
-export function listUsuarios({ empresaId, type }) {
+export async function listUsuarios({ empresaId, type, role }) {
+  if (!role) role = "worker";
+  const { id: roleId } = await Role.findOne({
+    name: new RegExp(role, "gi"),
+  }).lean();
   return UsuarioEmpresa.find({
     $or: [{ empresa: empresaId }, { empresaDelivery: empresaId }],
     type,
+    role: roleId,
   })
     .populate("img")
     .lean()
@@ -83,6 +89,11 @@ export async function addUsuario(data) {
     data.empresaDelivery = data.empresa;
     delete data.empresa;
   }
+  if (!data.role) data.role = "worker";
+  const { id: roleId } = await Role.findOne({
+    name: new RegExp(data.role, "gi"),
+  }).lean();
+  data.role = roleId;
   return UsuarioEmpresa.create(data);
 }
 

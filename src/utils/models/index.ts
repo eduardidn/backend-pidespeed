@@ -23,6 +23,7 @@ export { default as File } from "./File";
 export { default as Pago } from "./Pago";
 export { default as Pedido } from "./Pedido";
 export { default as Producto } from "./Producto";
+export { default as Role } from "./Role";
 export { default as Sabor } from "./Sabor";
 export { default as Sirope } from "./Sirope";
 export { default as Subcategoria } from "./Subcategoria";

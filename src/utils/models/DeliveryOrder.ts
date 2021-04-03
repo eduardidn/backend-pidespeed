@@ -41,6 +41,10 @@ const schema = new Schema(
       ref: "empresaDelivey",
       default: "5fcd3afc64e32d421c2e579b",
     },
+    assignedWorker: {
+      type: Schema.Types.ObjectId,
+      ref: "usuarioEmpresa",
+    },
     order: {
       type: Schema.Types.ObjectId,
       ref: "pedido",

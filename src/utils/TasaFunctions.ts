@@ -1,11 +1,13 @@
-import { HTTP400Error, TokenUtils } from "@utils";
+import { Socket, TokenUtils } from "@utils";
 import cron from "node-cron";
 import axios from "axios";
-import Empresa from "./models/Empresa";
-import Adicional from "./models/Adicional";
-import Producto from "./models/Producto";
-import Config from "./models/Config";
-
+import {
+  Empresa,
+  Adicional,
+  Producto,
+  Config,
+  EmpresaDelivery,
+} from "./models";
 class TasaFunc {
   public mes: any = 0;
   public token: any;
@@ -13,6 +15,15 @@ class TasaFunc {
   start() {
     cron.schedule("*/30 * * * *", () => {
       this.revisarTasa();
+    });
+    // request Coords
+    cron.schedule("*/5 * * * *", async () => {
+      const companies = await EmpresaDelivery.find({}).select("_id").lean();
+      await Promise.all(
+        companies.map(({ _id }) =>
+          Socket.emitSocket("empresa", _id, "renew-coords", {}),
+        ),
+      );
     });
     setTimeout(() => {
       this.revisarTasa();

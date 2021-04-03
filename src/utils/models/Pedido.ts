@@ -16,6 +16,9 @@ const schema = new Schema(
       type: String,
       required: [true, "precio is required"],
     },
+    deliveryPrice: {
+      type: String,
+    },
     moneda: {
       type: String,
       default: "BSS",

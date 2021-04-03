@@ -26,6 +26,7 @@ import mail from "./service/mail";
 import pago from "./service/pago";
 import pedido from "./service/pedido";
 import producto from "./service/producto";
+import role from "./service/role";
 import sabor from "./service/sabor";
 import sirope from "./service/sirope";
 import tamano from "./service/tamano";
@@ -62,6 +63,7 @@ export default async function (app) {
     .use(pago)
     .use(pedido)
     .use(producto)
+    .use(role)
     .use(sabor)
     .use(sirope)
     .use(tamano)

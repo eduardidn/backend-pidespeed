@@ -49,7 +49,7 @@ export async function loginEmpresa({ password, user }) {
   const { password: savedPassword } = usuario;
   const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
-  const empresa = await Empresa.findOne({ _id: usuario.empresa })
+  const company = await Empresa.findOne({ _id: usuario.empresa })
     .populate("categoria")
     .populate("logo")
     .populate("img")
@@ -57,7 +57,7 @@ export async function loginEmpresa({ password, user }) {
     .populate("estado");
   const token = await TokenUtils.createUserToken({
     userId: usuario._id,
-    empresaId: empresa._id,
+    companyId: company._id,
     empresa: true,
     delivery: false,
   });
@@ -69,7 +69,7 @@ export async function loginEmpresa({ password, user }) {
     token,
     tokenAdmin: tokenEmpresa,
     user: usuario,
-    empresa,
+    company,
   };
 }
 
@@ -89,7 +89,7 @@ export async function loginEmpresaDelivery({ password, user }) {
   const { password: savedPassword } = usuario;
   const match = await PasswordHelper.compare({ password, hash: savedPassword });
   if (!match) throw new HTTP400Error("Usuario o contraseña incorrectos");
-  const empresa = await EmpresaDelivery.findOne({
+  const company = await EmpresaDelivery.findOne({
     _id: usuario.empresaDelivery,
   })
     .populate("logo")
@@ -97,6 +97,7 @@ export async function loginEmpresaDelivery({ password, user }) {
     .populate("estado");
   const token = await TokenUtils.createUserToken({
     userId: usuario._id,
+    companyId: company._id,
     empresa: true,
     delivery: true,
   });
@@ -108,7 +109,7 @@ export async function loginEmpresaDelivery({ password, user }) {
     token,
     tokenAdmin: tokenEmpresa,
     user: usuario,
-    empresa,
+    company,
   };
 }
 

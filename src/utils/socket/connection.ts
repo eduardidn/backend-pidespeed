@@ -1,5 +1,10 @@
 import { Server } from "socket.io";
-import { checkNotifications, pedido, deleteNotification } from "./functions";
+import {
+  checkNotifications,
+  pedido,
+  deleteNotification,
+  saveCoords,
+} from "./functions";
 
 export function onConnect(socket, io?: Server): void {
   // verificar notificaciones no entregadas
@@ -13,6 +18,9 @@ export function onConnect(socket, io?: Server): void {
   socket.on("actualizar:pedidosEmpresa", (data) =>
     pedido("actualizar:pedidosEmpresa", data),
   );
+
+  // socket de coords
+  socket.on("save-coords", (data) => saveCoords(data));
 
   // BORRAR NOTIFICACIONES CUANDO YA HAN SIDO VISTAS
   socket.on("notificacion:usuario", (data) => deleteNotification("user", data));

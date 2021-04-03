@@ -46,10 +46,15 @@ const schema = new Schema(
       type: String,
       required: [true, "telefono is required"],
     },
+    coordinates: String,
     type: {
       type: String,
       required: [true, "type is required"],
       enum: ["delivery", "empresa"],
+    },
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: "role",
     },
     empresa: {
       type: Schema.Types.ObjectId,

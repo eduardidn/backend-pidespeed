@@ -12,6 +12,7 @@ export { default as MongoDB } from "./MongoDB";
 export { default as PasswordHelper } from "./PasswordHelper";
 export { default as TokenUtils } from "./TokenUtils";
 export { default as CatchErrors } from "./CatchErrors";
+export { default as Clone } from "./Clone";
 export { default as Validator } from "./Validator";
 
 export {
