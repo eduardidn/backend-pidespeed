@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pedido = exports.deleteNotification = exports.checkNotifications = void 0;
+exports.saveCoords = exports.pedido = exports.deleteNotification = exports.checkNotifications = void 0;
+const UsuarioEmpresa_1 = __importDefault(require("../models/UsuarioEmpresa"));
 const index_1 = require("./index");
 const notificationsUser = [];
 const notificationsEmpresa = [];
@@ -58,6 +62,12 @@ function pedido(type, data) {
     });
 }
 exports.pedido = pedido;
+function saveCoords({ id: workerId, coords }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        UsuarioEmpresa_1.default.findOneAndUpdate({ _id: workerId }, { coordinates: coords }).exec();
+    });
+}
+exports.saveCoords = saveCoords;
 function PActualizado(data) {
     index_1.emitSocket("user", data.userId, "pedido:actualizado", data);
     notificationsUser[data.userId] = {

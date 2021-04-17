@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCiudad = exports.updateCiudad = exports.addCiudad = exports.listOne = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -46,7 +46,7 @@ function listOne(req, res) {
 exports.listOne = listOne;
 function addCiudad(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre, estado } = _utils_1.Validator.validate(req.body, "nombre estado");
+        const { nombre, estado } = utils_1.Validator.validate(req.body, "nombre estado");
         return service.addCiudad({ nombre, estado }).then((data) => res.json(data));
     });
 }

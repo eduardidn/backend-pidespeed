@@ -10,11 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePedido = exports.updatePedido = exports.addPedido = exports.listOne = exports.listOneByDatos = exports.listByIds = exports.listByUsuario = exports.listByEstado = exports.list = void 0;
-const _models_1 = require("@models");
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.find()
+        return utils_1.Pedido.find()
             .populate("file", "url")
             .sort({ _id: -1 })
             .lean()
@@ -36,7 +35,7 @@ function listByEstado({ estado }) {
             query = Object.assign(Object.assign({}, query), { aprobado: 0, terminado: 0, cancelado: 0 });
         if (estado === "cancelados")
             query = Object.assign(Object.assign({}, query), { cancelado: 1 });
-        return _models_1.Pedido.find(query)
+        return utils_1.Pedido.find(query)
             .populate("file", "url")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -50,7 +49,7 @@ function listByEstado({ estado }) {
 exports.listByEstado = listByEstado;
 function listByUsuario({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.find({ usuario: usuarioId })
+        return utils_1.Pedido.find({ usuario: usuarioId })
             .populate("file", "url")
             .sort({ _id: -1 })
             .lean()
@@ -64,7 +63,7 @@ exports.listByUsuario = listByUsuario;
 function listByIds({ ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.Pedido.find({ _id: { $in: ids } })
+        return utils_1.Pedido.find({ _id: { $in: ids } })
             .populate("file", "url")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -76,7 +75,7 @@ function listByIds({ ids }) {
 exports.listByIds = listByIds;
 function listOneByDatos({ codigo, precio }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.find({ codigo, precio })
+        return utils_1.Pedido.find({ codigo, precio })
             .populate("file", "url")
             .sort({ _id: -1 })
             .lean()
@@ -89,7 +88,7 @@ function listOneByDatos({ codigo, precio }) {
 exports.listOneByDatos = listOneByDatos;
 function listOne({ pedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.findOne({ _id: pedidoId })
+        return utils_1.Pedido.findOne({ _id: pedidoId })
             .populate("file", "url")
             .lean()
             .then((data) => {
@@ -103,15 +102,14 @@ function listOne({ pedidoId }) {
 exports.listOne = listOne;
 function addPedido(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.create(value);
+        return utils_1.Pedido.create(value);
     });
 }
 exports.addPedido = addPedido;
 function updatePedido({ pedidoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pedido.findOneAndUpdate({ _id: pedidoId }, value, {
+        return utils_1.Pedido.findOneAndUpdate({ _id: pedidoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -123,9 +121,9 @@ function updatePedido({ pedidoId, value }) {
 exports.updatePedido = updatePedido;
 function deletePedido(pedidoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const pedido = yield _models_1.Pedido.findOneAndDelete({ _id: pedidoId });
+        const pedido = yield utils_1.Pedido.findOneAndDelete({ _id: pedidoId });
         if (pedido.file)
-            yield _utils_1.UploadImage.deleteImage(pedido.img);
+            yield utils_1.UploadImage.deleteImage(pedido.img);
         pedido.delete();
         return pedido;
     });

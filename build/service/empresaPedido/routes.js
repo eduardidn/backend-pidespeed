@@ -24,20 +24,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/", _utils_1.CatchErrors(controller.list))
-    .get("/by-empresa-and-pedido/:pedidoId/:empresaId", _utils_1.CatchErrors(controller.listEmpresaPedidos))
-    .get("/by-pedido/:pedidoId", _utils_1.CatchErrors(controller.listByPedido))
-    .get("/by-empresa/:empresaId", _utils_1.CatchErrors(controller.listByEmpresa))
-    .get("/todos/pendientes", _utils_1.CatchErrors(controller.listAllPendientes))
-    .get("/todos/terminados", _utils_1.CatchErrors(controller.listAllTerminados))
-    .get("/pendientes/:empresaId", _utils_1.CatchErrors(controller.listPendientes))
-    .get("/terminados/:empresaId", _utils_1.CatchErrors(controller.listTerminados))
-    .get("/entregados/:empresaId", _utils_1.CatchErrors(controller.listEntregados))
-    .get("/list/by-pago/:ids", _utils_1.CatchErrors(controller.listByIds))
-    .get("/:empresaPedidoId", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addEmpresaPedido))
-    .put("/:empresaPedidoId", _utils_1.CatchErrors(controller.updateEmpresaPedido))
-    .delete("/:empresaPedidoId", _utils_1.CatchErrors(controller.deleteEmpresaPedido));
+    .get("/", utils_1.CatchErrors(controller.list))
+    .get("/by-empresa-and-pedido/:pedidoId/:empresaId", utils_1.CatchErrors(controller.listEmpresaPedidos))
+    .get("/by-pedido/:pedidoId", utils_1.CatchErrors(controller.listByPedido))
+    .get("/by-empresa/:empresaId", utils_1.CatchErrors(controller.listByEmpresa))
+    .get("/todos/pendientes", utils_1.CatchErrors(controller.listAllPendientes))
+    .get("/todos/terminados", utils_1.CatchErrors(controller.listAllTerminados))
+    .get("/pendientes/:empresaId", utils_1.CatchErrors(controller.listPendientes))
+    .get("/terminados/:empresaId", utils_1.CatchErrors(controller.listTerminados))
+    .get("/entregados/:empresaId", utils_1.CatchErrors(controller.listEntregados))
+    .get("/list/by-pago/:ids", utils_1.CatchErrors(controller.listByIds))
+    .get("/:empresaPedidoId", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addEmpresaPedido))
+    .put("/:empresaPedidoId", utils_1.CatchErrors(controller.updateEmpresaPedido))
+    .delete("/:empresaPedidoId", utils_1.CatchErrors(controller.deleteEmpresaPedido));

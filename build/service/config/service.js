@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteConfig = exports.updateConfig = exports.addConfig = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Config.find({})
+        return utils_1.Config.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Config.findOne({})
+        return utils_1.Config.findOne({})
             .sort({ _id: 1 })
             .lean()
             .then((data) => {
@@ -40,15 +40,14 @@ function listOne() {
 exports.listOne = listOne;
 function addConfig(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Config.create(value);
+        return utils_1.Config.create(value);
     });
 }
 exports.addConfig = addConfig;
 function updateConfig({ configId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Config.findOneAndUpdate({ _id: configId }, value, {
+        return utils_1.Config.findOneAndUpdate({ _id: configId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -60,7 +59,7 @@ function updateConfig({ configId, value }) {
 exports.updateConfig = updateConfig;
 function deleteConfig(configId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Config.findOneAndDelete({ _id: configId });
+        return utils_1.Config.findOneAndDelete({ _id: configId });
     });
 }
 exports.deleteConfig = deleteConfig;

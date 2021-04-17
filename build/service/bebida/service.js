@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBebida = exports.updateBebida = exports.addBebida = exports.listOne = exports.listByIds = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ tipo, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
@@ -19,7 +19,7 @@ function list({ tipo, empresaId }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Bebida.find(query)
+        return utils_1.Bebida.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listByIds({ tipo, ids }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Bebida.find(query)
+        return utils_1.Bebida.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByIds({ tipo, ids }) {
 exports.listByIds = listByIds;
 function listOne({ bebidaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Bebida.findOne({ _id: bebidaId })
+        return utils_1.Bebida.findOne({ _id: bebidaId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ bebidaId }) {
 exports.listOne = listOne;
 function addBebida(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Bebida.create(value);
+        return utils_1.Bebida.create(value);
     });
 }
 exports.addBebida = addBebida;
 function updateBebida({ bebidaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Bebida.findOneAndUpdate({ _id: bebidaId }, value, {
+        return utils_1.Bebida.findOneAndUpdate({ _id: bebidaId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -85,7 +84,7 @@ function updateBebida({ bebidaId, value }) {
 exports.updateBebida = updateBebida;
 function deleteBebida(bebidaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Bebida.findOneAndDelete({ _id: bebidaId });
+        return utils_1.Bebida.findOneAndDelete({ _id: bebidaId });
     });
 }
 exports.deleteBebida = deleteBebida;

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTopping = exports.updateByIds = exports.updateTopping = exports.addTopping = exports.listOne = exports.listByIds = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list(tipo, empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
@@ -19,7 +19,7 @@ function list(tipo, empresaId) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Topping.find(query)
+        return utils_1.Topping.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listByIds(tipo, ids) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Topping.find(query)
+        return utils_1.Topping.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByIds(tipo, ids) {
 exports.listByIds = listByIds;
 function listOne({ toppingId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Topping.findOne({ _id: toppingId })
+        return utils_1.Topping.findOne({ _id: toppingId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ toppingId }) {
 exports.listOne = listOne;
 function addTopping(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Topping.create(value);
+        return utils_1.Topping.create(value);
     });
 }
 exports.addTopping = addTopping;
 function updateTopping({ toppingId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Topping.findOneAndUpdate({ _id: toppingId }, value, {
+        return utils_1.Topping.findOneAndUpdate({ _id: toppingId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -86,16 +85,15 @@ exports.updateTopping = updateTopping;
 function updateByIds({ value, ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.Topping.updateMany({ _id: { $in: ids } }, value, {
+        return utils_1.Topping.updateMany({ _id: { $in: ids } }, value, {
             new: true,
-            lean: true,
         });
     });
 }
 exports.updateByIds = updateByIds;
 function deleteTopping(toppingId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Topping.findOneAndDelete({ _id: toppingId });
+        return utils_1.Topping.findOneAndDelete({ _id: toppingId });
     });
 }
 exports.deleteTopping = deleteTopping;

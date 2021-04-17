@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePago = exports.updatePago = exports.addPago = exports.listOne = exports.listAll = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.find({ empresa: empresaId })
+        return utils_1.Pago.find({ empresa: empresaId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list({ empresaId }) {
 exports.list = list;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.find({})
+        return utils_1.Pago.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listAll() {
 exports.listAll = listAll;
 function listOne({ pagoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.findOne({ _id: pagoId })
+        return utils_1.Pago.findOne({ _id: pagoId })
             .lean()
             .then((data) => {
             if (data) {
@@ -52,15 +52,14 @@ function listOne({ pagoId }) {
 exports.listOne = listOne;
 function addPago(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.create(value);
+        return utils_1.Pago.create(value);
     });
 }
 exports.addPago = addPago;
 function updatePago({ pagoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.findOneAndUpdate({ _id: pagoId }, value, {
+        return utils_1.Pago.findOneAndUpdate({ _id: pagoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -72,7 +71,7 @@ function updatePago({ pagoId, value }) {
 exports.updatePago = updatePago;
 function deletePago(pagoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Pago.findOneAndDelete({ _id: pagoId });
+        return utils_1.Pago.findOneAndDelete({ _id: pagoId });
     });
 }
 exports.deletePago = deletePago;

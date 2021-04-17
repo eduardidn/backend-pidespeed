@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCuenta = exports.updateCuenta = exports.addCuenta = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Cuenta.find({})
+        return utils_1.Cuenta.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne({ cuentaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Cuenta.findOne({ _id: cuentaId })
+        return utils_1.Cuenta.findOne({ _id: cuentaId })
             .lean()
             .then((data) => {
             if (data) {
@@ -39,15 +39,14 @@ function listOne({ cuentaId }) {
 exports.listOne = listOne;
 function addCuenta(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Cuenta.create(value);
+        return utils_1.Cuenta.create(value);
     });
 }
 exports.addCuenta = addCuenta;
 function updateCuenta({ cuentaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Cuenta.findOneAndUpdate({ _id: cuentaId }, value, {
+        return utils_1.Cuenta.findOneAndUpdate({ _id: cuentaId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -59,7 +58,7 @@ function updateCuenta({ cuentaId, value }) {
 exports.updateCuenta = updateCuenta;
 function deleteCuenta(cuentaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Cuenta.findOneAndDelete({ _id: cuentaId });
+        return utils_1.Cuenta.findOneAndDelete({ _id: cuentaId });
     });
 }
 exports.deleteCuenta = deleteCuenta;

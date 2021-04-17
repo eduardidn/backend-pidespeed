@@ -24,8 +24,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .post("/upload/public", _utils_1.CatchErrors(controller.uploadImagePublic))
-    .post("/upload", _utils_1.CatchErrors(controller.uploadImage));
+    .post("/upload/public", utils_1.CatchErrors(controller.uploadImagePublic))
+    .post("/upload", utils_1.CatchErrors(controller.uploadImage));

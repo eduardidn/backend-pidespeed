@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAdicional = exports.updateAdicional = exports.addAdicional = exports.listOne = exports.listByIds = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ tipo, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
@@ -19,7 +19,7 @@ function list({ tipo, empresaId }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Adicional.find(query)
+        return utils_1.Adicional.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listByIds({ tipo, ids }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Adicional.find(query)
+        return utils_1.Adicional.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByIds({ tipo, ids }) {
 exports.listByIds = listByIds;
 function listOne({ adicionalId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Adicional.findOne({ _id: adicionalId })
+        return utils_1.Adicional.findOne({ _id: adicionalId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ adicionalId }) {
 exports.listOne = listOne;
 function addAdicional(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Adicional.create(value);
+        return utils_1.Adicional.create(value);
     });
 }
 exports.addAdicional = addAdicional;
 function updateAdicional({ adicionalId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
+        return utils_1.Adicional.findOneAndUpdate({ _id: adicionalId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -85,7 +84,7 @@ function updateAdicional({ adicionalId, value }) {
 exports.updateAdicional = updateAdicional;
 function deleteAdicional(adicionalId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Adicional.findOneAndDelete({ _id: adicionalId });
+        return utils_1.Adicional.findOneAndDelete({ _id: adicionalId });
     });
 }
 exports.deleteAdicional = deleteAdicional;

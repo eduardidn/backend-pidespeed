@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCategoria = exports.updateCategoria = exports.addCategoria = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list(tipo) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
         let query;
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Categoria.find(query)
+        return utils_1.Categoria.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -30,7 +30,7 @@ function list(tipo) {
 exports.list = list;
 function listOne({ categoriaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Categoria.findOne({ _id: categoriaId })
+        return utils_1.Categoria.findOne({ _id: categoriaId })
             .lean()
             .then((data) => {
             if (data) {
@@ -43,15 +43,14 @@ function listOne({ categoriaId }) {
 exports.listOne = listOne;
 function addCategoria(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Categoria.create(value);
+        return utils_1.Categoria.create(value);
     });
 }
 exports.addCategoria = addCategoria;
 function updateCategoria({ categoriaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Categoria.findOneAndUpdate({ _id: categoriaId }, value, {
+        return utils_1.Categoria.findOneAndUpdate({ _id: categoriaId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -63,7 +62,7 @@ function updateCategoria({ categoriaId, value }) {
 exports.updateCategoria = updateCategoria;
 function deleteCategoria(categoriaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Categoria.findOneAndDelete({ _id: categoriaId });
+        return utils_1.Categoria.findOneAndDelete({ _id: categoriaId });
     });
 }
 exports.deleteCategoria = deleteCategoria;

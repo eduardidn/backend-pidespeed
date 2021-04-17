@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmpresaPedido = exports.updateEmpresaPedido = exports.addEmpresaPedido = exports.listOne = exports.listByIds = exports.listEntregados = exports.listTerminados = exports.listPendientes = exports.listAllTerminados = exports.listAllPendientes = exports.listByEmpresa = exports.listByPedido = exports.listEmpresaPedidos = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({})
+        return utils_1.EmpresaPedido.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listEmpresaPedidos({ pedidoId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ pedido: pedidoId, empresa: empresaId })
+        return utils_1.EmpresaPedido.find({ pedido: pedidoId, empresa: empresaId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listEmpresaPedidos({ pedidoId, empresaId }) {
 exports.listEmpresaPedidos = listEmpresaPedidos;
 function listByPedido({ pedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ pedido: pedidoId })
+        return utils_1.EmpresaPedido.find({ pedido: pedidoId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByPedido({ pedidoId }) {
 exports.listByPedido = listByPedido;
 function listByEmpresa({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ empresa: empresaId })
+        return utils_1.EmpresaPedido.find({ empresa: empresaId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -65,7 +65,7 @@ function listByEmpresa({ empresaId }) {
 exports.listByEmpresa = listByEmpresa;
 function listAllPendientes() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ terminado: 0, entregado: 0 })
+        return utils_1.EmpresaPedido.find({ terminado: 0, entregado: 0 })
             .populate({
             path: "empresa",
             select: "nombre email telefono logo",
@@ -82,7 +82,7 @@ function listAllPendientes() {
 exports.listAllPendientes = listAllPendientes;
 function listAllTerminados() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({ terminado: 1, entregado: 0 })
+        return utils_1.EmpresaPedido.find({ terminado: 1, entregado: 0 })
             .populate({
             path: "empresa",
             select: "nombre email telefono logo",
@@ -99,7 +99,7 @@ function listAllTerminados() {
 exports.listAllTerminados = listAllTerminados;
 function listPendientes({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({
+        return utils_1.EmpresaPedido.find({
             empresa: empresaId,
             terminado: 0,
             entregado: 0,
@@ -116,7 +116,7 @@ function listPendientes({ empresaId }) {
 exports.listPendientes = listPendientes;
 function listTerminados({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({
+        return utils_1.EmpresaPedido.find({
             empresa: empresaId,
             terminado: 1,
             entregado: 0,
@@ -133,7 +133,7 @@ function listTerminados({ empresaId }) {
 exports.listTerminados = listTerminados;
 function listEntregados({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.find({
+        return utils_1.EmpresaPedido.find({
             empresa: empresaId,
             terminado: 1,
             entregado: 1,
@@ -151,7 +151,7 @@ exports.listEntregados = listEntregados;
 function listByIds({ ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.EmpresaPedido.find({ _id: { $in: ids } })
+        return utils_1.EmpresaPedido.find({ _id: { $in: ids } })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -164,7 +164,7 @@ function listByIds({ ids }) {
 exports.listByIds = listByIds;
 function listOne({ empresaPedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.findOne({ _id: empresaPedidoId })
+        return utils_1.EmpresaPedido.findOne({ _id: empresaPedidoId })
             .lean()
             .then((data) => {
             if (data) {
@@ -177,15 +177,14 @@ function listOne({ empresaPedidoId }) {
 exports.listOne = listOne;
 function addEmpresaPedido(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.create(value);
+        return utils_1.EmpresaPedido.create(value);
     });
 }
 exports.addEmpresaPedido = addEmpresaPedido;
 function updateEmpresaPedido({ empresaPedidoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.findOneAndUpdate({ _id: empresaPedidoId }, value, {
+        return utils_1.EmpresaPedido.findOneAndUpdate({ _id: empresaPedidoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -197,7 +196,7 @@ function updateEmpresaPedido({ empresaPedidoId, value }) {
 exports.updateEmpresaPedido = updateEmpresaPedido;
 function deleteEmpresaPedido(empresaPedidoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.EmpresaPedido.findOneAndDelete({ _id: empresaPedidoId });
+        return utils_1.EmpresaPedido.findOneAndDelete({ _id: empresaPedidoId });
     });
 }
 exports.deleteEmpresaPedido = deleteEmpresaPedido;

@@ -29,11 +29,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCategoria = exports.updateCategoria = exports.addCategoria = exports.listOne = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo } = _utils_1.Validator.validate(req.params, "tipo");
+        const { tipo } = utils_1.Validator.validate(req.params, "tipo");
         return service.list(tipo).then((data) => res.json(data));
     });
 }
@@ -47,7 +47,7 @@ function listOne(req, res) {
 exports.listOne = listOne;
 function addCategoria(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre, publish, categoria } = _utils_1.Validator.validate(req.body, "nombre publish categoria");
+        const { nombre, publish, categoria } = utils_1.Validator.validate(req.body, "nombre publish categoria");
         return service
             .addCategoria({ nombre, publish, categoria })
             .then((data) => res.json(data));

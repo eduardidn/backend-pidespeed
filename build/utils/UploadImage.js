@@ -33,7 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getImgData = exports.deleteImage = exports.listFiles = exports.uploadTest = exports.uploadBase64 = void 0;
 const GoogleStorage = __importStar(require("./GoogleStorage"));
-const _models_1 = require("@models");
+const index_1 = require("./index");
 const crypto_1 = __importDefault(require("crypto"));
 const fs_1 = __importDefault(require("fs"));
 const BUCKETNAME = "pidespeed-storage";
@@ -50,7 +50,8 @@ function uploadBase64({ imageBuffer, filename, folder, update, id, }) {
         yield GoogleStorage.makePublic(BUCKETNAME, imagesPath);
         if (update) {
             const file = yield getImage({ id });
-            yield GoogleStorage.deleteFile(BUCKETNAME, file.url);
+            if (file)
+                yield GoogleStorage.deleteFile(BUCKETNAME, file.url);
             return updateImage({ id, url: imagesPath, type: folder });
         }
         return saveImage({
@@ -81,25 +82,27 @@ function saveImage({ url, type }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!url)
             throw new Error("Url is not defined");
-        return _models_1.File.create({ url, type });
+        return index_1.File.create({ url, type });
     });
 }
 function getImage({ id }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.File.findOne({ _id: id }).exec();
+        return index_1.File.findOne({ _id: id }).exec();
     });
 }
 function updateImage({ id, url, type }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!url)
             throw new Error("Url is not defined");
-        return _models_1.File.findOneAndUpdate({ _id: id }, { url, type }, { new: true });
+        return index_1.File.findOneAndUpdate({ _id: id }, { url, type }, { new: true });
     });
 }
 function deleteImage(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const file = yield _models_1.File.findOneAndDelete({ _id: id });
-        return GoogleStorage.deleteFile(BUCKETNAME, file.url);
+        const file = yield index_1.File.findOneAndDelete({ _id: id });
+        if (file)
+            return GoogleStorage.deleteFile(BUCKETNAME, file === null || file === void 0 ? void 0 : file.url);
+        return;
     });
 }
 exports.deleteImage = deleteImage;

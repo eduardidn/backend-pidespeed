@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/list/one/:categoriaProductoId/public", _utils_1.CatchErrors(controller.listOne))
-    .get("/list/categorias/:rutaCategoria/:tipo?", _utils_1.CatchErrors(controller.listByRuta))
-    .post("/", _utils_1.CatchErrors(controller.addCategoriaProducto))
-    .put("/:categoriaProductoId", _utils_1.CatchErrors(controller.updateCategoriaProducto))
-    .delete("/:categoriaProductoId", _utils_1.CatchErrors(controller.deleteCategoriaProducto));
+    .get("/:tipo/public", utils_1.CatchErrors(controller.list))
+    .get("/list/one/:categoriaProductoId/public", utils_1.CatchErrors(controller.listOne))
+    .get("/list/categorias/:rutaCategoria/:tipo?", utils_1.CatchErrors(controller.listByRuta))
+    .post("/", utils_1.CatchErrors(controller.addCategoriaProducto))
+    .put("/:categoriaProductoId", utils_1.CatchErrors(controller.updateCategoriaProducto))
+    .delete("/:categoriaProductoId", utils_1.CatchErrors(controller.deleteCategoriaProducto));

@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:ciudadId/public", _utils_1.CatchErrors(controller.list))
-    .get("/list/all/public", _utils_1.CatchErrors(controller.listAll))
-    .get("/list/by-ids/:ids/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("/list/one/:zonaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addZona))
-    .put("/:zonaId", _utils_1.CatchErrors(controller.updateZona))
-    .delete("/:zonaId", _utils_1.CatchErrors(controller.deleteZona));
+    .get("/:ciudadId/public", utils_1.CatchErrors(controller.list))
+    .get("/list/all/public", utils_1.CatchErrors(controller.listAll))
+    .get("/list/by-ids/:ids/public", utils_1.CatchErrors(controller.listByIds))
+    .get("/list/one/:zonaId/public", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addZona))
+    .put("/:zonaId", utils_1.CatchErrors(controller.updateZona))
+    .delete("/:zonaId", utils_1.CatchErrors(controller.deleteZona));

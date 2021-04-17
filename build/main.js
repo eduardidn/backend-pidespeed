@@ -18,7 +18,6 @@ const module_alias_1 = __importDefault(require("module-alias"));
 module_alias_1.default.addAliases({
     "@utils": `${__dirname}/utils`,
     "@models": `${__dirname}/utils/models`,
-    "@middlewares": `${__dirname}/utils/middlewares`,
     "@": `${__dirname}/*`,
 });
 module_alias_1.default();

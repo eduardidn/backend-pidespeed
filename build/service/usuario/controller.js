@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsuario = exports.updatePassword = exports.updateUsuarioPublic = exports.updateUsuario = exports.listOneById = exports.listOne = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -39,8 +39,8 @@ function list(req, res) {
 exports.list = list;
 function listOne(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuarioId } = req.user;
-        return service.listOne({ usuarioId }).then((data) => res.json(data));
+        const { userId } = req.user;
+        return service.listOne({ usuarioId: userId }).then((data) => res.json(data));
     });
 }
 exports.listOne = listOne;
@@ -53,10 +53,10 @@ function listOneById(req, res) {
 exports.listOneById = listOneById;
 function updateUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuarioId } = req.user;
+        const { userId } = req.user;
         const value = req.body;
         return service
-            .updateUsuario({ usuarioId, value })
+            .updateUsuario({ usuarioId: userId, value })
             .then((data) => res.json(data));
     });
 }
@@ -73,7 +73,7 @@ function updateUsuarioPublic(req, res) {
 exports.updateUsuarioPublic = updateUsuarioPublic;
 function updatePassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, usuarioId } = _utils_1.Validator.validate(req.body, "password");
+        const { password, usuarioId } = utils_1.Validator.validate(req.body, "password");
         return service
             .updatePassword({ usuarioId, password })
             .then((data) => res.json(data));
@@ -82,8 +82,8 @@ function updatePassword(req, res) {
 exports.updatePassword = updatePassword;
 function deleteUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuarioId } = req.user;
-        return service.deleteUsuario(usuarioId).then((data) => res.json(data));
+        const { userId } = req.user;
+        return service.deleteUsuario(userId).then((data) => res.json(data));
     });
 }
 exports.deleteUsuario = deleteUsuario;

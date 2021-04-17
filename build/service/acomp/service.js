@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAcomp = exports.updateAcomp = exports.addAcomp = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.find({})
+        return utils_1.Acomp.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne({ acompId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.findOne({ _id: acompId })
+        return utils_1.Acomp.findOne({ _id: acompId })
             .lean()
             .then((data) => {
             if (data) {
@@ -39,15 +39,14 @@ function listOne({ acompId }) {
 exports.listOne = listOne;
 function addAcomp(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.create(value);
+        return utils_1.Acomp.create(value);
     });
 }
 exports.addAcomp = addAcomp;
 function updateAcomp({ acompId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.findOneAndUpdate({ _id: acompId }, value, {
+        return utils_1.Acomp.findOneAndUpdate({ _id: acompId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -59,7 +58,7 @@ function updateAcomp({ acompId, value }) {
 exports.updateAcomp = updateAcomp;
 function deleteAcomp(acompId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Acomp.findOneAndDelete({ _id: acompId });
+        return utils_1.Acomp.findOneAndDelete({ _id: acompId });
     });
 }
 exports.deleteAcomp = deleteAcomp;

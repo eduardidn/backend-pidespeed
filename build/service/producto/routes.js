@@ -24,14 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:ruta/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/list/one/:productoId/public", _utils_1.CatchErrors(controller.listOne))
-    .get("/list/by-datos/:nombre/:descripcion", _utils_1.CatchErrors(controller.listOneByDatos))
-    .get("/restar-cantidad/:productoId/:cantidad", _utils_1.CatchErrors(controller.restarCantidad))
-    .get("/list/categorias-esp/:ruta/:tipo/public", _utils_1.CatchErrors(controller.listCatEsp))
-    .post("/", _utils_1.CatchErrors(controller.addProducto))
-    .put("/:productoId", _utils_1.CatchErrors(controller.updateProducto))
-    .delete("/:productoId", _utils_1.CatchErrors(controller.deleteProducto));
+    .get("/:ruta/:tipo/public", utils_1.CatchErrors(controller.list))
+    .get("/list/one/:productoId/public", utils_1.CatchErrors(controller.listOne))
+    .get("/list/by-datos/:nombre/:descripcion", utils_1.CatchErrors(controller.listOneByDatos))
+    .get("/restar-cantidad/:productoId/:cantidad", utils_1.CatchErrors(controller.restarCantidad))
+    .get("/list/categorias-esp/:ruta/:tipo/public", utils_1.CatchErrors(controller.listCatEsp))
+    .post("/", utils_1.CatchErrors(controller.addProducto))
+    .put("/:productoId", utils_1.CatchErrors(controller.updateProducto))
+    .delete("/:productoId", utils_1.CatchErrors(controller.deleteProducto));

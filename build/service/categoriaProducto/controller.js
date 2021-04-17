@@ -29,18 +29,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.listByRuta = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo } = _utils_1.Validator.validate(req.params, "tipo");
+        const { tipo } = utils_1.Validator.validate(req.params, "tipo");
         return service.list(tipo).then((data) => res.json(data));
     });
 }
 exports.list = list;
 function listByRuta(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, rutaCategoria } = _utils_1.Validator.validate(req.params, "tipo rutaCategoria");
+        const { tipo, rutaCategoria } = utils_1.Validator.validate(req.params, "tipo rutaCategoria");
         return service
             .listByRuta({ tipo, rutaCategoria })
             .then((data) => res.json(data));
@@ -58,7 +58,7 @@ function listOne(req, res) {
 exports.listOne = listOne;
 function addCategoriaProducto(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre, publish, categoria } = _utils_1.Validator.validate(req.body, "nombre publish categoria");
+        const { nombre, publish, categoria } = utils_1.Validator.validate(req.body, "nombre publish categoria");
         return service
             .addCategoriaProducto({ nombre, publish, categoria })
             .then((data) => res.json(data));

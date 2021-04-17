@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/list/all/public", _utils_1.CatchErrors(controller.list))
-    .get("/one", _utils_1.CatchErrors(controller.listOne))
-    .get("/list/one/:usuarioId", _utils_1.CatchErrors(controller.listOneById))
-    .put("/", _utils_1.CatchErrors(controller.updateUsuario))
-    .put("/:email/public", _utils_1.CatchErrors(controller.updateUsuarioPublic))
-    .put("/password", _utils_1.CatchErrors(controller.updatePassword))
-    .delete("/", _utils_1.CatchErrors(controller.deleteUsuario));
+    .get("/list/all/public", utils_1.CatchErrors(controller.list))
+    .get("/one", utils_1.CatchErrors(controller.listOne))
+    .get("/list/one/:usuarioId", utils_1.CatchErrors(controller.listOneById))
+    .put("/", utils_1.CatchErrors(controller.updateUsuario))
+    .put("/:email/public", utils_1.CatchErrors(controller.updateUsuarioPublic))
+    .put("/password", utils_1.CatchErrors(controller.updatePassword))
+    .delete("/", utils_1.CatchErrors(controller.deleteUsuario));

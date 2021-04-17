@@ -24,24 +24,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .put("/set-password-empresa", _utils_1.CatchErrors(controller.updatePasswordEmpresa))
-    .post("/create-user", _utils_1.CatchErrors(controller.addUser))
-    .post("/buscar-user-field", _utils_1.CatchErrors(controller.listUserByField))
-    .post("/buscar-empresa-field", _utils_1.CatchErrors(controller.listEmpresaByField))
-    .put("/recuperar-password", _utils_1.CatchErrors(controller.updatePasswordUser))
-    .put("/recuperar-password-empresa", _utils_1.CatchErrors(controller.updatePasswordEmpresa))
-    .put("/recuperar-password-empresa-delivery", _utils_1.CatchErrors(controller.updatePasswordEmpresaDelivery))
-    .put("/recuperar-password-admin", _utils_1.CatchErrors(controller.updatePasswordAdmin))
-    .put("/set-password-empresa", _utils_1.CatchErrors(controller.updatePasswordEmpresa))
-    .post("/login-user/", _utils_1.CatchErrors(controller.loginUser))
-    .post("/login-empresa", _utils_1.CatchErrors(controller.loginEmpresa))
-    .post("/login-empresa-delivery", _utils_1.CatchErrors(controller.loginEmpresaDelivery))
-    .post("/login-admin", _utils_1.CatchErrors(controller.loginAdmin));
+    .put("/set-password-empresa", utils_1.CatchErrors(controller.updatePasswordEmpresa))
+    .post("/create-user", utils_1.CatchErrors(controller.addUser))
+    .post("/buscar-user-field", utils_1.CatchErrors(controller.listUserByField))
+    .post("/buscar-empresa-field", utils_1.CatchErrors(controller.listEmpresaByField))
+    .put("/recuperar-password", utils_1.CatchErrors(controller.updatePasswordUser))
+    .put("/recuperar-password-empresa", utils_1.CatchErrors(controller.updatePasswordEmpresa))
+    .put("/recuperar-password-empresa-delivery", utils_1.CatchErrors(controller.updatePasswordEmpresaDelivery))
+    .put("/recuperar-password-admin", utils_1.CatchErrors(controller.updatePasswordAdmin))
+    .put("/set-password-empresa", utils_1.CatchErrors(controller.updatePasswordEmpresa))
+    .post("/login-user", utils_1.CatchErrors(controller.loginUser))
+    .post("/login-empresa", utils_1.CatchErrors(controller.loginEmpresa))
+    .post("/login-empresa-delivery", utils_1.CatchErrors(controller.loginEmpresaDelivery))
+    .post("/login-admin", utils_1.CatchErrors(controller.loginAdmin));
 /**
- * @@deprecated
+ * ../../../../deprecated
  */
 /* .post('/buscarUserEmail/completo', CatchErrors(controller.buscarUserByEmail))
 .get('/buscarEmpresaEmail/:email', CatchErrors(controller.buscarEmpresaEmail))

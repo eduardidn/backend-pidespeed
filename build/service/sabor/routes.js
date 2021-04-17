@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/by-ids/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("/list/one/:saborId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addSabor))
-    .put("/:saborId", _utils_1.CatchErrors(controller.updateSabor))
-    .put("/by-ids/:ids", _utils_1.CatchErrors(controller.updateByIds))
-    .delete("/:saborId", _utils_1.CatchErrors(controller.deleteSabor));
+    .get("/:empresaId/:tipo/public", utils_1.CatchErrors(controller.list))
+    .get("/by-ids/:ids/:tipo/public", utils_1.CatchErrors(controller.listByIds))
+    .get("/list/one/:saborId/public", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addSabor))
+    .put("/:saborId", utils_1.CatchErrors(controller.updateSabor))
+    .put("/by-ids/:ids", utils_1.CatchErrors(controller.updateByIds))
+    .delete("/:saborId", utils_1.CatchErrors(controller.deleteSabor));

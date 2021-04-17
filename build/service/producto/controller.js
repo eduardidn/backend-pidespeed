@@ -29,32 +29,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProducto = exports.updateProducto = exports.addProducto = exports.listOne = exports.restarCantidad = exports.listOneByDatos = exports.listByIds = exports.listCatEsp = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, ruta } = _utils_1.Validator.validate(req.params, "tipo ruta");
+        const { tipo, ruta } = utils_1.Validator.validate(req.params, "tipo ruta");
         return service.list({ tipo, ruta }).then((data) => res.json(data));
     });
 }
 exports.list = list;
 function listCatEsp(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, ruta } = _utils_1.Validator.validate(req.params, "tipo ruta");
+        const { tipo, ruta } = utils_1.Validator.validate(req.params, "tipo ruta");
         return service.listCatEsp({ tipo, ruta }).then((data) => res.json(data));
     });
 }
 exports.listCatEsp = listCatEsp;
 function listByIds(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, ids } = _utils_1.Validator.validate(req.params, "tipo ids");
+        const { tipo, ids } = utils_1.Validator.validate(req.params, "tipo ids");
         return service.listByIds({ tipo, ids }).then((data) => res.json(data));
     });
 }
 exports.listByIds = listByIds;
 function listOneByDatos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { nombre, descripcion } = _utils_1.Validator.validate(req.params, "nombre descripcion");
+        const { nombre, descripcion } = utils_1.Validator.validate(req.params, "nombre descripcion");
         return service
             .listOneByDatos({ nombre, descripcion })
             .then((data) => res.json(data));
@@ -63,7 +63,7 @@ function listOneByDatos(req, res) {
 exports.listOneByDatos = listOneByDatos;
 function restarCantidad(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { productoId, cantidad } = _utils_1.Validator.validate(req.params, "productoId cantidad");
+        const { productoId, cantidad } = utils_1.Validator.validate(req.params, "productoId cantidad");
         return service
             .restarCantidad({ productoId, cantidad })
             .then((data) => res.json(data));

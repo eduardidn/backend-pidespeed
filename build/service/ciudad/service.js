@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCiudad = exports.updateCiudad = exports.addCiudad = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Ciudad.find({})
+        return utils_1.Ciudad.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne({ ciudadId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Ciudad.findOne({ _id: ciudadId })
+        return utils_1.Ciudad.findOne({ _id: ciudadId })
             .lean()
             .then((data) => {
             if (data) {
@@ -39,15 +39,14 @@ function listOne({ ciudadId }) {
 exports.listOne = listOne;
 function addCiudad(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Ciudad.create(value);
+        return utils_1.Ciudad.create(value);
     });
 }
 exports.addCiudad = addCiudad;
 function updateCiudad({ ciudadId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Ciudad.findOneAndUpdate({ _id: ciudadId }, value, {
+        return utils_1.Ciudad.findOneAndUpdate({ _id: ciudadId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -59,7 +58,7 @@ function updateCiudad({ ciudadId, value }) {
 exports.updateCiudad = updateCiudad;
 function deleteCiudad(ciudadId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Ciudad.findOneAndDelete({ _id: ciudadId });
+        return utils_1.Ciudad.findOneAndDelete({ _id: ciudadId });
     });
 }
 exports.deleteCiudad = deleteCiudad;

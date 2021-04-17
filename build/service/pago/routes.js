@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId", _utils_1.CatchErrors(controller.list))
-    .get("/list/all", _utils_1.CatchErrors(controller.listAll))
-    .get("/list/one/:pagoId", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addPago))
-    .put("/:pagoId", _utils_1.CatchErrors(controller.updatePago))
-    .delete("/:pagoId", _utils_1.CatchErrors(controller.deletePago));
+    .get("/:empresaId", utils_1.CatchErrors(controller.list))
+    .get("/list/all", utils_1.CatchErrors(controller.listAll))
+    .get("/list/one/:pagoId", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addPago))
+    .put("/:pagoId", utils_1.CatchErrors(controller.updatePago))
+    .delete("/:pagoId", utils_1.CatchErrors(controller.deletePago));

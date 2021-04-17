@@ -24,11 +24,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/public", _utils_1.CatchErrors(controller.list))
-    .get("/:ciudadId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addCiudad))
-    .put("/:ciudadId", _utils_1.CatchErrors(controller.updateCiudad))
-    .delete("/:ciudadId", _utils_1.CatchErrors(controller.deleteCiudad));
+    .get("/public", utils_1.CatchErrors(controller.list))
+    .get("/:ciudadId/public", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addCiudad))
+    .put("/:ciudadId", utils_1.CatchErrors(controller.updateCiudad))
+    .delete("/:ciudadId", utils_1.CatchErrors(controller.deleteCiudad));

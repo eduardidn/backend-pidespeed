@@ -10,11 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsuario = exports.updatePassword = exports.updateUsuarioPublic = exports.updateUsuario = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.find({})
+        return utils_1.Usuario.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -27,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.findOne({ _id: usuarioId })
+        return utils_1.Usuario.findOne({ _id: usuarioId })
             .lean()
             .then((data) => {
             if (data) {
@@ -40,9 +39,8 @@ function listOne({ usuarioId }) {
 exports.listOne = listOne;
 function updateUsuario({ usuarioId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.findOneAndUpdate({ _id: usuarioId }, value, {
+        return utils_1.Usuario.findOneAndUpdate({ _id: usuarioId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -54,9 +52,8 @@ function updateUsuario({ usuarioId, value }) {
 exports.updateUsuario = updateUsuario;
 function updateUsuarioPublic({ email, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.findOneAndUpdate({ email }, value, {
+        return utils_1.Usuario.findOneAndUpdate({ email }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -68,8 +65,8 @@ function updateUsuarioPublic({ email, value }) {
 exports.updateUsuarioPublic = updateUsuarioPublic;
 function updatePassword({ usuarioId, password }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const hashPassword = yield _utils_1.PasswordHelper.encryptPassword(password);
-        return _models_1.Usuario.findOneAndUpdate({ _id: usuarioId }, { password: hashPassword }, { new: true, lean: true }).then((data) => {
+        const hashPassword = yield utils_1.PasswordHelper.encryptPassword(password);
+        return utils_1.Usuario.findOneAndUpdate({ _id: usuarioId }, { password: hashPassword }, { new: true }).then((data) => {
             if (data) {
                 data.id = data._id;
                 return data;
@@ -80,7 +77,7 @@ function updatePassword({ usuarioId, password }) {
 exports.updatePassword = updatePassword;
 function deleteUsuario(usuarioId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Usuario.findOneAndDelete({ _id: usuarioId });
+        return utils_1.Usuario.findOneAndDelete({ _id: usuarioId });
     });
 }
 exports.deleteUsuario = deleteUsuario;

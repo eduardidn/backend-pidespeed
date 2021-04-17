@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTipoBebida = exports.updateTipoBebida = exports.addTipoBebida = exports.listOne = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.find({})
+        return utils_1.TipoBebida.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listOne({ tipoBebidaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.findOne({ _id: tipoBebidaId })
+        return utils_1.TipoBebida.findOne({ _id: tipoBebidaId })
             .lean()
             .then((data) => {
             if (data) {
@@ -39,15 +39,14 @@ function listOne({ tipoBebidaId }) {
 exports.listOne = listOne;
 function addTipoBebida(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.create(value);
+        return utils_1.TipoBebida.create(value);
     });
 }
 exports.addTipoBebida = addTipoBebida;
 function updateTipoBebida({ tipoBebidaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.findOneAndUpdate({ _id: tipoBebidaId }, value, {
+        return utils_1.TipoBebida.findOneAndUpdate({ _id: tipoBebidaId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -59,7 +58,7 @@ function updateTipoBebida({ tipoBebidaId, value }) {
 exports.updateTipoBebida = updateTipoBebida;
 function deleteTipoBebida(tipoBebidaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.TipoBebida.findOneAndDelete({ _id: tipoBebidaId });
+        return utils_1.TipoBebida.findOneAndDelete({ _id: tipoBebidaId });
     });
 }
 exports.deleteTipoBebida = deleteTipoBebida;

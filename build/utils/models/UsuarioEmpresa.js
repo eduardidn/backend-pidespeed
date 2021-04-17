@@ -46,10 +46,15 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: [true, "telefono is required"],
     },
+    coordinates: String,
     type: {
         type: String,
         required: [true, "type is required"],
         enum: ["delivery", "empresa"],
+    },
+    role: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "role",
     },
     empresa: {
         type: mongoose_1.Schema.Types.ObjectId,

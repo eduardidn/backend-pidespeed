@@ -24,14 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId", _utils_1.CatchErrors(controller.list))
-    .get("/list/all", _utils_1.CatchErrors(controller.listAll))
-    .get("/list/no-pagados/:empresaId", _utils_1.CatchErrors(controller.listNoPagados))
-    .get("/list-by-pago/:ids", _utils_1.CatchErrors(controller.listByIds))
-    .get("/list/one/:ventaId", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addVenta))
-    .put("/:ventaId", _utils_1.CatchErrors(controller.updateVenta))
-    .delete("/:ventaId", _utils_1.CatchErrors(controller.deleteVenta));
+    .get("/:empresaId", utils_1.CatchErrors(controller.list))
+    .get("/list/all", utils_1.CatchErrors(controller.listAll))
+    .get("/list/no-pagados/:empresaId", utils_1.CatchErrors(controller.listNoPagados))
+    .get("/list-by-pago/:ids", utils_1.CatchErrors(controller.listByIds))
+    .get("/list/one/:ventaId", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addVenta))
+    .put("/:ventaId", utils_1.CatchErrors(controller.updateVenta))
+    .delete("/:ventaId", utils_1.CatchErrors(controller.deleteVenta));

@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsuario = exports.updateUsuario = exports.addUsuario = exports.listUserCompanyByField = exports.listUsuario = exports.listUsuarios = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function listUsuarios(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -45,7 +45,7 @@ function listUsuario(req, res) {
 exports.listUsuario = listUsuario;
 function listUserCompanyByField(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { field, value } = _utils_1.Validator.validate(req.body, "field value");
+        const { field, value } = utils_1.Validator.validate(req.body, "field value");
         return service
             .listUserCompanyByField({ field, value })
             .then((data) => res.json(data));

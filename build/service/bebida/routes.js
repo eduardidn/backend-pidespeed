@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/by-ids/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("/list/one/:bebidaId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addBebida))
-    .put("/:bebidaId", _utils_1.CatchErrors(controller.updateBebida))
-    .delete("/:bebidaId", _utils_1.CatchErrors(controller.deleteBebida));
+    .get("/:empresaId/:tipo/public", utils_1.CatchErrors(controller.list))
+    .get("/by-ids/:ids/:tipo/public", utils_1.CatchErrors(controller.listByIds))
+    .get("/list/one/:bebidaId/public", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addBebida))
+    .put("/:bebidaId", utils_1.CatchErrors(controller.updateBebida))
+    .delete("/:bebidaId", utils_1.CatchErrors(controller.deleteBebida));

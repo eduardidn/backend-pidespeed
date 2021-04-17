@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const _middlewares_1 = require("@middlewares");
+const utils_1 = require("./utils");
 const module_base_1 = __importDefault(require("./service/module_base"));
 const acomp_1 = __importDefault(require("./service/acomp"));
 const adicional_1 = __importDefault(require("./service/adicional"));
@@ -25,6 +25,7 @@ const ciudad_1 = __importDefault(require("./service/ciudad"));
 const config_1 = __importDefault(require("./service/config"));
 const cuenta_1 = __importDefault(require("./service/cuenta"));
 const detallePedido_1 = __importDefault(require("./service/detallePedido"));
+const deliveryOrder_1 = __importDefault(require("./service/deliveryOrder"));
 const empresa_1 = __importDefault(require("./service/empresa"));
 const empresaDelivery_1 = __importDefault(require("./service/empresaDelivery"));
 const empresaPedido_1 = __importDefault(require("./service/empresaPedido"));
@@ -37,6 +38,7 @@ const mail_1 = __importDefault(require("./service/mail"));
 const pago_1 = __importDefault(require("./service/pago"));
 const pedido_1 = __importDefault(require("./service/pedido"));
 const producto_1 = __importDefault(require("./service/producto"));
+const role_1 = __importDefault(require("./service/role"));
 const sabor_1 = __importDefault(require("./service/sabor"));
 const sirope_1 = __importDefault(require("./service/sirope"));
 const tamano_1 = __importDefault(require("./service/tamano"));
@@ -60,6 +62,7 @@ function default_1(app) {
             .use(config_1.default)
             .use(cuenta_1.default)
             .use(detallePedido_1.default)
+            .use(deliveryOrder_1.default)
             .use(empresa_1.default)
             .use(empresaDelivery_1.default)
             .use(empresaPedido_1.default)
@@ -72,6 +75,7 @@ function default_1(app) {
             .use(pago_1.default)
             .use(pedido_1.default)
             .use(producto_1.default)
+            .use(role_1.default)
             .use(sabor_1.default)
             .use(sirope_1.default)
             .use(tamano_1.default)
@@ -82,7 +86,7 @@ function default_1(app) {
             .use(venta_1.default)
             .use(zona_1.default)
             .use(module_base_1.default);
-        app.use("/api", router).use(_middlewares_1.ErrorHandle);
+        app.use("/api", router).use(utils_1.ErrorHandle);
         return app;
     });
 }

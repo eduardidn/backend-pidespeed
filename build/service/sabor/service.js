@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSabor = exports.updateByIds = exports.updateSabor = exports.addSabor = exports.listOne = exports.listByIds = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list(tipo, empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
@@ -19,7 +19,7 @@ function list(tipo, empresaId) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sabor.find(query)
+        return utils_1.Sabor.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listByIds(tipo, ids) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sabor.find(query)
+        return utils_1.Sabor.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByIds(tipo, ids) {
 exports.listByIds = listByIds;
 function listOne({ saborId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sabor.findOne({ _id: saborId })
+        return utils_1.Sabor.findOne({ _id: saborId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ saborId }) {
 exports.listOne = listOne;
 function addSabor(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sabor.create(value);
+        return utils_1.Sabor.create(value);
     });
 }
 exports.addSabor = addSabor;
 function updateSabor({ saborId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sabor.findOneAndUpdate({ _id: saborId }, value, {
+        return utils_1.Sabor.findOneAndUpdate({ _id: saborId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -86,16 +85,15 @@ exports.updateSabor = updateSabor;
 function updateByIds({ value, ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.Sabor.updateMany({ _id: { $in: ids } }, value, {
+        return utils_1.Sabor.updateMany({ _id: { $in: ids } }, value, {
             new: true,
-            lean: true,
         });
     });
 }
 exports.updateByIds = updateByIds;
 function deleteSabor(saborId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sabor.findOneAndDelete({ _id: saborId });
+        return utils_1.Sabor.findOneAndDelete({ _id: saborId });
     });
 }
 exports.deleteSabor = deleteSabor;

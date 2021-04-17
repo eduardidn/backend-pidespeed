@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteDetallePedido = exports.updateDetallePedido = exports.addDetallePedido = exports.listOne = exports.listByPedido = exports.listPedidos = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({})
+        return utils_1.DetallePedido.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list() {
 exports.list = list;
 function listPedidos({ pedidoId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({ pedido: pedidoId, empresa: empresaId })
+        return utils_1.DetallePedido.find({ pedido: pedidoId, empresa: empresaId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listPedidos({ pedidoId, empresaId }) {
 exports.listPedidos = listPedidos;
 function listByPedido({ pedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.find({ pedido: pedidoId })
+        return utils_1.DetallePedido.find({ pedido: pedidoId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByPedido({ pedidoId }) {
 exports.listByPedido = listByPedido;
 function listOne({ detallePedidoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.findOne({ _id: detallePedidoId })
+        return utils_1.DetallePedido.findOne({ _id: detallePedidoId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ detallePedidoId }) {
 exports.listOne = listOne;
 function addDetallePedido(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.create(value);
+        return utils_1.DetallePedido.create(value);
     });
 }
 exports.addDetallePedido = addDetallePedido;
 function updateDetallePedido({ detallePedidoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.findOneAndUpdate({ _id: detallePedidoId }, value, {
+        return utils_1.DetallePedido.findOneAndUpdate({ _id: detallePedidoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -85,7 +84,7 @@ function updateDetallePedido({ detallePedidoId, value }) {
 exports.updateDetallePedido = updateDetallePedido;
 function deleteDetallePedido(detallePedidoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.DetallePedido.findOneAndDelete({ _id: detallePedidoId });
+        return utils_1.DetallePedido.findOneAndDelete({ _id: detallePedidoId });
     });
 }
 exports.deleteDetallePedido = deleteDetallePedido;

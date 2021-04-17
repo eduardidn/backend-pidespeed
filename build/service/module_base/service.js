@@ -10,18 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.importar = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 const BUCKETNAME = "pidespeed-storage";
 const tablas = {
-    acomp: _models_1.Acomp,
-    adicional: _models_1.Adicional,
-    bebida: _models_1.Bebida,
-    topping: _models_1.Topping,
-    sirope: _models_1.Sirope,
-    sabor: _models_1.Sabor,
-    tamano: _models_1.Tamano,
-    zona: _models_1.Zona,
-    categoriaProducto: _models_1.CategoriaProducto,
+    acomp: utils_1.Acomp,
+    adicional: utils_1.Adicional,
+    bebida: utils_1.Bebida,
+    topping: utils_1.Topping,
+    sirope: utils_1.Sirope,
+    sabor: utils_1.Sabor,
+    tamano: utils_1.Tamano,
+    zona: utils_1.Zona,
+    categoriaProducto: utils_1.CategoriaProducto,
 };
 function importar() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -42,7 +42,7 @@ function importar() {
           let logo = '5fa5b4bdb6dac50570af1a1b';
           let img = '5fa5b438e8a25c36c0fe1f52';
           if (data.logo === 'web/6.png') {
-            await Empresa.findOneAndUpdate({ _id: data._id }, { logo, img }, { lean: true, new: true })
+            await Empresa.findOneAndUpdate({ _id: data._id }, { logo, img }, {  new: true })
           }
         } */
         // return datos;

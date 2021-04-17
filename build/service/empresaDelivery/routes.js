@@ -24,17 +24,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/public/list/all", _utils_1.CatchErrors(controller.listAll))
-    .get("/public/home/:tipo/:sort/:ciudad?", _utils_1.CatchErrors(controller.listHome))
-    .get("/public/categoria/:ruta/:ciudadId?", _utils_1.CatchErrors(controller.list))
-    .get("/public/list/all/:empresaId/:ciudadId?", _utils_1.CatchErrors(controller.listAll))
-    .get("/public/one/:field/:value", _utils_1.CatchErrors(controller.listOne))
-    .get("/public/sucursales/:empresaId", _utils_1.CatchErrors(controller.listSucursales))
-    .get("/public/add-visita/:ruta", _utils_1.CatchErrors(controller.addVisita))
-    .get("/add-venta/:ruta", _utils_1.CatchErrors(controller.addVenta))
-    .post("/public", _utils_1.CatchErrors(controller.addEmpresa))
-    .put("/:empresaId", _utils_1.CatchErrors(controller.updateEmpresa))
-    .delete("/:empresaId", _utils_1.CatchErrors(controller.deleteEmpresa));
+    .get("/public/list/all", utils_1.CatchErrors(controller.listAll))
+    .get("/public/home/:tipo/:sort/:ciudad?", utils_1.CatchErrors(controller.listHome))
+    .get("/public/categoria/:ruta/:ciudadId?", utils_1.CatchErrors(controller.list))
+    .get("/public/list/all/:empresaId/:ciudadId?", utils_1.CatchErrors(controller.listAll))
+    .get("/public/one/:field/:value", utils_1.CatchErrors(controller.listOne))
+    .get("/public/sucursales/:empresaId", utils_1.CatchErrors(controller.listSucursales))
+    .get("/public/add-visita/:ruta", utils_1.CatchErrors(controller.addVisita))
+    .get("/add-venta/:ruta", utils_1.CatchErrors(controller.addVenta))
+    .post("/public", utils_1.CatchErrors(controller.addEmpresa))
+    .put("/:empresaId", utils_1.CatchErrors(controller.updateEmpresa))
+    .delete("/:empresaId", utils_1.CatchErrors(controller.deleteEmpresa));

@@ -24,14 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .post("/cambio", _utils_1.CatchErrors(controller.mailCambio))
-    .post("/estado-pedido", _utils_1.CatchErrors(controller.mailEstadoPedido))
-    .post("/pedido-terminado", _utils_1.CatchErrors(controller.mailPedidoListo))
-    .post("/nuevo-pedido", _utils_1.CatchErrors(controller.mailNuevoPedido))
-    .post("/bienvenido/public", _utils_1.CatchErrors(controller.mailBienvenido))
-    .post("/verificar/public", _utils_1.CatchErrors(controller.mailVerificacion))
-    .post("/recuperar-pass/public", _utils_1.CatchErrors(controller.mailRecuperarPass))
-    .post("/promocion/public", _utils_1.CatchErrors(controller.mailPromocion));
+    .post("/cambio", utils_1.CatchErrors(controller.mailCambio))
+    .post("/estado-pedido", utils_1.CatchErrors(controller.mailEstadoPedido))
+    .post("/pedido-terminado", utils_1.CatchErrors(controller.mailPedidoListo))
+    .post("/nuevo-pedido", utils_1.CatchErrors(controller.mailNuevoPedido))
+    .post("/bienvenido/public", utils_1.CatchErrors(controller.mailBienvenido))
+    .post("/verificar/public", utils_1.CatchErrors(controller.mailVerificacion))
+    .post("/recuperar-pass/public", utils_1.CatchErrors(controller.mailRecuperarPass))
+    .post("/promocion/public", utils_1.CatchErrors(controller.mailPromocion));

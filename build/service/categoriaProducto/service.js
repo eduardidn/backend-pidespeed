@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCategoriaProducto = exports.updateCategoriaProducto = exports.addCategoriaProducto = exports.listOne = exports.listByRuta = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list(tipo) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
         let query;
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.CategoriaProducto.find(query)
+        return utils_1.CategoriaProducto.find(query)
             .populate("categoria", "icono")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -31,7 +31,7 @@ function list(tipo) {
 exports.list = list;
 function listByRuta({ tipo, rutaCategoria }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: categoria } = yield _models_1.Categoria.findOne({
+        const { _id: categoria } = yield utils_1.Categoria.findOne({
             ruta: rutaCategoria,
         }).lean();
         tipo = Number(tipo) === 1 ? true : false;
@@ -40,7 +40,7 @@ function listByRuta({ tipo, rutaCategoria }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.CategoriaProducto.find(query)
+        return utils_1.CategoriaProducto.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -53,7 +53,7 @@ function listByRuta({ tipo, rutaCategoria }) {
 exports.listByRuta = listByRuta;
 function listOne({ categoriaProductoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.CategoriaProducto.findOne({ _id: categoriaProductoId })
+        return utils_1.CategoriaProducto.findOne({ _id: categoriaProductoId })
             .lean()
             .then((data) => {
             if (data) {
@@ -66,15 +66,14 @@ function listOne({ categoriaProductoId }) {
 exports.listOne = listOne;
 function addCategoriaProducto(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.CategoriaProducto.create(value);
+        return utils_1.CategoriaProducto.create(value);
     });
 }
 exports.addCategoriaProducto = addCategoriaProducto;
 function updateCategoriaProducto({ categoriaProductoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.CategoriaProducto.findOneAndUpdate({ _id: categoriaProductoId }, value, {
+        return utils_1.CategoriaProducto.findOneAndUpdate({ _id: categoriaProductoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -86,7 +85,7 @@ function updateCategoriaProducto({ categoriaProductoId, value }) {
 exports.updateCategoriaProducto = updateCategoriaProducto;
 function deleteCategoriaProducto(categoriaProductoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.CategoriaProducto.findOneAndDelete({ _id: categoriaProductoId });
+        return utils_1.CategoriaProducto.findOneAndDelete({ _id: categoriaProductoId });
     });
 }
 exports.deleteCategoriaProducto = deleteCategoriaProducto;

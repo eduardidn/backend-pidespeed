@@ -11,6 +11,8 @@ function onConnect(socket, io) {
     socket.on("pedido:nuevo", (data) => functions_1.pedido("nuevo", data));
     socket.on("actualizar:pedidos", (data) => functions_1.pedido("actualizar:pedidos", data));
     socket.on("actualizar:pedidosEmpresa", (data) => functions_1.pedido("actualizar:pedidosEmpresa", data));
+    // socket de coords
+    socket.on("save-coords", (data) => functions_1.saveCoords(data));
     // BORRAR NOTIFICACIONES CUANDO YA HAN SIDO VISTAS
     socket.on("notificacion:usuario", (data) => functions_1.deleteNotification("user", data));
     socket.on("notificacion:empresa", (data) => functions_1.deleteNotification("empresa", data));

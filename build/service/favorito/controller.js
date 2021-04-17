@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFavoritoByUsuario = exports.deleteFavorito = exports.addFavorito = exports.listAll = exports.verifyFavorito = exports.listOne = exports.listEsp = exports.list = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -71,7 +71,7 @@ function listAll(req, res) {
 exports.listAll = listAll;
 function addFavorito(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { usuario, empresa, categoria } = _utils_1.Validator.validate(req.body, "usuario empresa categoria");
+        const { usuario, empresa, categoria } = utils_1.Validator.validate(req.body, "usuario empresa categoria");
         return service
             .addFavorito({ usuario, empresa, categoria })
             .then((data) => res.json(data));

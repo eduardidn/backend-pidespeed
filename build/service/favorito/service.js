@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFavoritoByUsuario = exports.deleteFavorito = exports.addFavorito = exports.verifyFavorito = exports.listOne = exports.listAll = exports.listEsp = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ usuarioId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        let favoritos = yield _models_1.Favorito.find({ usuario: usuarioId })
+        let favoritos = yield utils_1.Favorito.find({ usuario: usuarioId })
             .populate({
             path: "empresa",
             populate: "img logo",
@@ -31,8 +31,8 @@ function list({ usuarioId }) {
 exports.list = list;
 function listEsp({ usuarioId, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: categoria } = yield _models_1.Categoria.findOne({ ruta }).lean();
-        let favoritos = yield _models_1.Favorito.findOne({ usuario: usuarioId, categoria })
+        const { _id: categoria } = yield utils_1.Categoria.findOne({ ruta }).lean();
+        let favoritos = yield utils_1.Favorito.findOne({ usuario: usuarioId, categoria })
             .populate({
             path: "empresa",
             populate: "img logo",
@@ -50,7 +50,7 @@ function listEsp({ usuarioId, ruta }) {
 exports.listEsp = listEsp;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.find({})
+        return utils_1.Favorito.find({})
             .populate({
             path: "empresa",
             populate: "img logo",
@@ -68,7 +68,7 @@ function listAll() {
 exports.listAll = listAll;
 function listOne({ usuarioId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
+        return utils_1.Favorito.findOne({ usuario: usuarioId, empresa: empresaId })
             .populate({
             path: "empresa",
             populate: "img logo",
@@ -86,7 +86,7 @@ function listOne({ usuarioId, empresaId }) {
 exports.listOne = listOne;
 function verifyFavorito({ usuarioId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.countDocuments({
+        return utils_1.Favorito.countDocuments({
             usuario: usuarioId,
             empresa: empresaId,
         }).then((data) => data > 0);
@@ -95,19 +95,19 @@ function verifyFavorito({ usuarioId, empresaId }) {
 exports.verifyFavorito = verifyFavorito;
 function addFavorito(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.create(value);
+        return utils_1.Favorito.create(value);
     });
 }
 exports.addFavorito = addFavorito;
 function deleteFavorito(favoritoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.findOneAndDelete({ _id: favoritoId });
+        return utils_1.Favorito.findOneAndDelete({ _id: favoritoId });
     });
 }
 exports.deleteFavorito = deleteFavorito;
 function deleteFavoritoByUsuario({ usuarioId, empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Favorito.findOneAndDelete({ usuario: usuarioId, empresa: empresaId });
+        return utils_1.Favorito.findOneAndDelete({ usuario: usuarioId, empresa: empresaId });
     });
 }
 exports.deleteFavoritoByUsuario = deleteFavoritoByUsuario;

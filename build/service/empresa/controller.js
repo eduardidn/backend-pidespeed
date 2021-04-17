@@ -32,39 +32,44 @@ exports.deleteEmpresa = exports.updateEmpresa = exports.addEmpresa = exports.add
 const service = __importStar(require("./service"));
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { ruta, ciudadId } = req.params;
-        return service.list({ ruta, ciudadId }).then((data) => res.json(data));
+        const { ruta, ciudadId, coordenadas } = req.params;
+        return service
+            .list({ ruta, ciudadId, coordenadas })
+            .then((data) => res.json(data));
     });
 }
 exports.list = list;
 function listAll(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        return service.listAll().then((data) => res.json(data));
+        const { coordenadas } = req.params;
+        return service.listAll(coordenadas).then((data) => res.json(data));
     });
 }
 exports.listAll = listAll;
 function listAllInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { empresaId, ciudadId } = req.params;
+        const { empresaId, ciudadId, coordenadas } = req.params;
         return service
-            .listAllInfo({ empresaId, ciudadId })
+            .listAllInfo({ empresaId, ciudadId, coordenadas })
             .then((data) => res.json(data));
     });
 }
 exports.listAllInfo = listAllInfo;
 function listHome(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { tipo, sort, ciudadId } = req.params;
+        const { tipo, sort, ciudadId, coordenadas } = req.params;
         return service
-            .listHome({ tipo, ciudadId, sort })
+            .listHome({ tipo, ciudadId, sort, coordenadas })
             .then((data) => res.json(data));
     });
 }
 exports.listHome = listHome;
 function listSucursales(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { empresaId } = req.params;
-        return service.listSucursales({ empresaId }).then((data) => res.json(data));
+        const { empresaId, coordenadas } = req.params;
+        return service
+            .listSucursales({ empresaId, coordenadas })
+            .then((data) => res.json(data));
     });
 }
 exports.listSucursales = listSucursales;

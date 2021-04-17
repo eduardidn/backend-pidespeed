@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:type", _utils_1.CatchErrors(controller.listUsuarios))
-    .get("/list/one/:usuarioId/:type", _utils_1.CatchErrors(controller.listUsuario))
-    .post("/", _utils_1.CatchErrors(controller.addUsuario))
-    .post("/search-user-field", _utils_1.CatchErrors(controller.listUserCompanyByField))
-    .put("/", _utils_1.CatchErrors(controller.updateUsuario))
-    .delete("/:usuarioId", _utils_1.CatchErrors(controller.deleteUsuario));
+    .get("/:empresaId/:type/:role?", utils_1.CatchErrors(controller.listUsuarios))
+    .get("/list/one/:usuarioId/:type", utils_1.CatchErrors(controller.listUsuario))
+    .post("/", utils_1.CatchErrors(controller.addUsuario))
+    .post("/search-user-field", utils_1.CatchErrors(controller.listUserCompanyByField))
+    .put("/", utils_1.CatchErrors(controller.updateUsuario))
+    .delete("/:usuarioId", utils_1.CatchErrors(controller.deleteUsuario));

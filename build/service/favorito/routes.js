@@ -24,14 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:usuarioId", _utils_1.CatchErrors(controller.list))
-    .get("/list/all", _utils_1.CatchErrors(controller.listAll))
-    .get("/list-one/:usuarioId/:empresaId", _utils_1.CatchErrors(controller.listOne))
-    .get("/verify/:usuarioId/:empresaId", _utils_1.CatchErrors(controller.verifyFavorito))
-    .get("/list-by-ruta/:usuarioId/:ruta", _utils_1.CatchErrors(controller.listEsp))
-    .post("/", _utils_1.CatchErrors(controller.addFavorito))
-    .delete("/:favoritoId", _utils_1.CatchErrors(controller.deleteFavorito))
-    .delete("/:usuarioId/:empresaId", _utils_1.CatchErrors(controller.deleteFavoritoByUsuario));
+    .get("/:usuarioId", utils_1.CatchErrors(controller.list))
+    .get("/list/all", utils_1.CatchErrors(controller.listAll))
+    .get("/list-one/:usuarioId/:empresaId", utils_1.CatchErrors(controller.listOne))
+    .get("/verify/:usuarioId/:empresaId", utils_1.CatchErrors(controller.verifyFavorito))
+    .get("/list-by-ruta/:usuarioId/:ruta", utils_1.CatchErrors(controller.listEsp))
+    .post("/", utils_1.CatchErrors(controller.addFavorito))
+    .delete("/:favoritoId", utils_1.CatchErrors(controller.deleteFavorito))
+    .delete("/:usuarioId/:empresaId", utils_1.CatchErrors(controller.deleteFavoritoByUsuario));

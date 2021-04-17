@@ -24,15 +24,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/", _utils_1.CatchErrors(controller.list))
-    .get("/:estado", _utils_1.CatchErrors(controller.listByEstado))
-    .get("/list/by-usuario/:usuarioId", _utils_1.CatchErrors(controller.listByUsuario))
-    .get("/list/one/:pedidoId", _utils_1.CatchErrors(controller.listOne))
-    .get("/by-datos/:codigo/:precio", _utils_1.CatchErrors(controller.listOneByDatos))
-    .get("/list/by-pago/:ids", _utils_1.CatchErrors(controller.listByIds))
-    .post("/", _utils_1.CatchErrors(controller.addPedido))
-    .put("/:pedidoId", _utils_1.CatchErrors(controller.updatePedido))
-    .delete("/:pedidoId", _utils_1.CatchErrors(controller.deletePedido));
+    .get("/", utils_1.CatchErrors(controller.list))
+    .get("/:estado", utils_1.CatchErrors(controller.listByEstado))
+    .get("/list/by-usuario/:usuarioId", utils_1.CatchErrors(controller.listByUsuario))
+    .get("/list/one/:pedidoId", utils_1.CatchErrors(controller.listOne))
+    .get("/by-datos/:codigo/:precio", utils_1.CatchErrors(controller.listOneByDatos))
+    .get("/list/by-pago/:ids", utils_1.CatchErrors(controller.listByIds))
+    .post("/", utils_1.CatchErrors(controller.addPedido))
+    .put("/:pedidoId", utils_1.CatchErrors(controller.updatePedido))
+    .delete("/:pedidoId", utils_1.CatchErrors(controller.deletePedido));

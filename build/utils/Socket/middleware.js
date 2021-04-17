@@ -35,7 +35,7 @@ function middleware(socket, next) {
         else {
             setTimeout(() => socket.emit("Joined with success"), 1000);
             socket.join(`/empresa/${data.userId}`);
-            socket.join(`/empresa/${data.adminId}`);
+            socket.join(`/empresa/${data.companyId}`);
         }
         return next();
     });

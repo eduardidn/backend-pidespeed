@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTamano = exports.updateTamano = exports.addTamano = exports.listOne = exports.listByEmpresa = exports.listAll = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ ids, tipo }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
@@ -19,7 +19,7 @@ function list({ ids, tipo }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Tamano.find(query)
+        return utils_1.Tamano.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -31,7 +31,7 @@ function list({ ids, tipo }) {
 }
 exports.list = list;
 function listAll() {
-    return _models_1.Tamano.find({})
+    return utils_1.Tamano.find({})
         .lean()
         .then((datos) => datos.map((data) => {
         if (data) {
@@ -42,7 +42,7 @@ function listAll() {
 }
 exports.listAll = listAll;
 function listByEmpresa({ empresaId }) {
-    return _models_1.Tamano.find({ empresa: empresaId })
+    return utils_1.Tamano.find({ empresa: empresaId })
         .lean()
         .then((datos) => datos.map((data) => {
         if (data) {
@@ -54,7 +54,7 @@ function listByEmpresa({ empresaId }) {
 exports.listByEmpresa = listByEmpresa;
 function listOne({ tamanoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Tamano.findOne({ _id: tamanoId })
+        return utils_1.Tamano.findOne({ _id: tamanoId })
             .lean()
             .then((data) => {
             if (data) {
@@ -67,15 +67,14 @@ function listOne({ tamanoId }) {
 exports.listOne = listOne;
 function addTamano(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Tamano.create(value);
+        return utils_1.Tamano.create(value);
     });
 }
 exports.addTamano = addTamano;
 function updateTamano({ tamanoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Tamano.findOneAndUpdate({ _id: tamanoId }, value, {
+        return utils_1.Tamano.findOneAndUpdate({ _id: tamanoId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -87,7 +86,7 @@ function updateTamano({ tamanoId, value }) {
 exports.updateTamano = updateTamano;
 function deleteTamano(tamanoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Tamano.findOneAndDelete({ _id: tamanoId });
+        return utils_1.Tamano.findOneAndDelete({ _id: tamanoId });
     });
 }
 exports.deleteTamano = deleteTamano;

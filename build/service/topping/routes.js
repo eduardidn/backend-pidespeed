@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/:empresaId/:tipo/public", _utils_1.CatchErrors(controller.list))
-    .get("/by-ids/:ids/:tipo/public", _utils_1.CatchErrors(controller.listByIds))
-    .get("/list/one/:toppingId/public", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addTopping))
-    .put("/:toppingId", _utils_1.CatchErrors(controller.updateTopping))
-    .put("/by-ids/:ids", _utils_1.CatchErrors(controller.updateByIds))
-    .delete("/:toppingId", _utils_1.CatchErrors(controller.deleteTopping));
+    .get("/:empresaId/:tipo/public", utils_1.CatchErrors(controller.list))
+    .get("/by-ids/:ids/:tipo/public", utils_1.CatchErrors(controller.listByIds))
+    .get("/list/one/:toppingId/public", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addTopping))
+    .put("/:toppingId", utils_1.CatchErrors(controller.updateTopping))
+    .put("/by-ids/:ids", utils_1.CatchErrors(controller.updateByIds))
+    .delete("/:toppingId", utils_1.CatchErrors(controller.deleteTopping));

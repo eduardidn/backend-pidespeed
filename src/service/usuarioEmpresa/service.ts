@@ -15,7 +15,7 @@ const types = {
 
 export async function listUsuarios({ empresaId, type, role }) {
   if (!role) role = "worker";
-  const { id: roleId } = await Role.findOne({
+  const { _id: roleId } = await Role.findOne({
     name: new RegExp(role, "gi"),
   }).lean();
   return UsuarioEmpresa.find({
@@ -37,7 +37,7 @@ export async function listUsuarios({ empresaId, type, role }) {
 
 export async function listUsuario({ usuarioId, type }) {
   return UsuarioEmpresa.findOne({ _id: usuarioId, type })
-    .populate("img")
+    .populate("img", "role")
     .lean()
     .then((data) => {
       if (data) {
@@ -90,7 +90,7 @@ export async function addUsuario(data) {
     delete data.empresa;
   }
   if (!data.role) data.role = "worker";
-  const { id: roleId } = await Role.findOne({
+  const { _id: roleId } = await Role.findOne({
     name: new RegExp(data.role, "gi"),
   }).lean();
   data.role = roleId;

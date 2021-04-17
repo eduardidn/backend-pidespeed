@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSirope = exports.updateByIds = exports.updateSirope = exports.addSirope = exports.listOne = exports.listByIds = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list(tipo, empresaId) {
     return __awaiter(this, void 0, void 0, function* () {
         tipo = Number(tipo) === 1 ? true : false;
@@ -19,7 +19,7 @@ function list(tipo, empresaId) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sirope.find(query)
+        return utils_1.Sirope.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listByIds(tipo, ids) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Sirope.find(query)
+        return utils_1.Sirope.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -52,7 +52,7 @@ function listByIds(tipo, ids) {
 exports.listByIds = listByIds;
 function listOne({ siropeId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sirope.findOne({ _id: siropeId })
+        return utils_1.Sirope.findOne({ _id: siropeId })
             .lean()
             .then((data) => {
             if (data) {
@@ -65,15 +65,14 @@ function listOne({ siropeId }) {
 exports.listOne = listOne;
 function addSirope(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sirope.create(value);
+        return utils_1.Sirope.create(value);
     });
 }
 exports.addSirope = addSirope;
 function updateSirope({ siropeId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sirope.findOneAndUpdate({ _id: siropeId }, value, {
+        return utils_1.Sirope.findOneAndUpdate({ _id: siropeId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -86,16 +85,15 @@ exports.updateSirope = updateSirope;
 function updateByIds({ value, ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.Sirope.updateMany({ _id: { $in: ids } }, value, {
+        return utils_1.Sirope.updateMany({ _id: { $in: ids } }, value, {
             new: true,
-            lean: true,
         });
     });
 }
 exports.updateByIds = updateByIds;
 function deleteSirope(siropeId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Sirope.findOneAndDelete({ _id: siropeId });
+        return utils_1.Sirope.findOneAndDelete({ _id: siropeId });
     });
 }
 exports.deleteSirope = deleteSirope;

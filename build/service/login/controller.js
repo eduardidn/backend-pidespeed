@@ -29,18 +29,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUser = exports.addUser = exports.listUserByField = exports.updatePasswordAdmin = exports.updatePasswordEmpresaDelivery = exports.updatePasswordEmpresa = exports.updatePasswordUser = exports.listEmpresaByField = exports.loginAdmin = exports.loginEmpresaDelivery = exports.loginEmpresa = exports.loginUser = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function loginUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { user, password } = _utils_1.Validator.validate(req.body, "user password");
+        const { user, password } = utils_1.Validator.validate(req.body, "user password");
         return service.loginUser({ user, password }).then((data) => res.json(data));
     });
 }
 exports.loginUser = loginUser;
 function loginEmpresa(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { user, password } = _utils_1.Validator.validate(req.body, "user password");
+        const { user, password } = utils_1.Validator.validate(req.body, "user password");
         return service
             .loginEmpresa({ user, password })
             .then((data) => res.json(data));
@@ -49,7 +49,7 @@ function loginEmpresa(req, res) {
 exports.loginEmpresa = loginEmpresa;
 function loginEmpresaDelivery(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { user, password } = _utils_1.Validator.validate(req.body, "user password");
+        const { user, password } = utils_1.Validator.validate(req.body, "user password");
         return service
             .loginEmpresaDelivery({ user, password })
             .then((data) => res.json(data));
@@ -58,7 +58,7 @@ function loginEmpresaDelivery(req, res) {
 exports.loginEmpresaDelivery = loginEmpresaDelivery;
 function loginAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { user, password } = _utils_1.Validator.validate(req.body, "user password");
+        const { user, password } = utils_1.Validator.validate(req.body, "user password");
         return service.loginAdmin({ user, password }).then((data) => res.json(data));
     });
 }
@@ -68,7 +68,7 @@ exports.loginAdmin = loginAdmin;
  */
 function listEmpresaByField(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { field, value } = _utils_1.Validator.validate(req.body, "field value");
+        const { field, value } = utils_1.Validator.validate(req.body, "field value");
         return service
             .listEmpresaByField({ field, value })
             .then((data) => res.json(data));
@@ -77,7 +77,7 @@ function listEmpresaByField(req, res) {
 exports.listEmpresaByField = listEmpresaByField;
 function updatePasswordUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, email } = _utils_1.Validator.validate(req.body, "password");
+        const { password, email } = utils_1.Validator.validate(req.body, "password");
         return service
             .updatePasswordUser({ email, password })
             .then((data) => res.json(data));
@@ -86,7 +86,7 @@ function updatePasswordUser(req, res) {
 exports.updatePasswordUser = updatePasswordUser;
 function updatePasswordEmpresa(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, field, value } = _utils_1.Validator.validate(req.body, "password");
+        const { password, field, value } = utils_1.Validator.validate(req.body, "password");
         return service
             .updatePasswordEmpresa({ field, value, password })
             .then((data) => res.json(data));
@@ -95,7 +95,7 @@ function updatePasswordEmpresa(req, res) {
 exports.updatePasswordEmpresa = updatePasswordEmpresa;
 function updatePasswordEmpresaDelivery(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, field, value } = _utils_1.Validator.validate(req.body, "password");
+        const { password, field, value } = utils_1.Validator.validate(req.body, "password");
         return service
             .updatePasswordEmpresaDelivery({ field, value, password })
             .then((data) => res.json(data));
@@ -104,7 +104,7 @@ function updatePasswordEmpresaDelivery(req, res) {
 exports.updatePasswordEmpresaDelivery = updatePasswordEmpresaDelivery;
 function updatePasswordAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, adminId } = _utils_1.Validator.validate(req.body, "password");
+        const { password, adminId } = utils_1.Validator.validate(req.body, "password");
         return service
             .updatePasswordAdmin({ adminId, password })
             .then((data) => res.json(data));
@@ -116,7 +116,7 @@ exports.updatePasswordAdmin = updatePasswordAdmin;
  */
 function listUserByField(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { field, value } = _utils_1.Validator.validate(req.body, "field value");
+        const { field, value } = utils_1.Validator.validate(req.body, "field value");
         return service
             .listUserByField({ field, value })
             .then((data) => res.json(data));

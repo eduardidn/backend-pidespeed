@@ -10,18 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProducto = exports.updateProducto = exports.addProducto = exports.listOne = exports.restarCantidad = exports.listOneByDatos = exports.listByIds = exports.listCatEsp = exports.list = void 0;
-const _models_1 = require("@models");
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 function list({ tipo, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
+        const { _id: empresa } = yield utils_1.Empresa.findOne({ ruta }).lean();
         tipo = Number(tipo) === 1 ? true : false;
         let query = {
             empresa,
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Producto.find(query)
+        return utils_1.Producto.find(query)
             .populate("file", "url")
             .lean()
             .then((datos) => datos.map((data) => {
@@ -35,14 +34,14 @@ function list({ tipo, ruta }) {
 exports.list = list;
 function listCatEsp({ tipo, ruta }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { _id: empresa } = yield _models_1.Empresa.findOne({ ruta }).lean();
+        const { _id: empresa } = yield utils_1.Empresa.findOne({ ruta }).lean();
         tipo = Number(tipo) === 1 ? true : false;
         let query = {
             empresa,
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        let categorias = yield _models_1.Producto.find(query)
+        let categorias = yield utils_1.Producto.find(query)
             .select("categoria_product")
             .populate("categoria_product", "nombre")
             .sort({ categoria_product: 1 })
@@ -70,7 +69,7 @@ function listByIds({ tipo, ids }) {
         };
         if (tipo)
             query = Object.assign(Object.assign({}, query), { publish: tipo });
-        return _models_1.Producto.find(query)
+        return utils_1.Producto.find(query)
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -83,7 +82,7 @@ function listByIds({ tipo, ids }) {
 exports.listByIds = listByIds;
 function listOneByDatos({ nombre, descripcion }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Producto.findOne({ nombre, descripcion })
+        return utils_1.Producto.findOne({ nombre, descripcion })
             .populate("file", "url")
             .lean()
             .then((data) => {
@@ -95,7 +94,7 @@ function listOneByDatos({ nombre, descripcion }) {
 exports.listOneByDatos = listOneByDatos;
 function restarCantidad({ productoId, cantidad }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const producto = yield _models_1.Producto.findOne({ _id: productoId })
+        const producto = yield utils_1.Producto.findOne({ _id: productoId })
             .select("cantidad")
             .exec();
         producto.cantidad = producto.cantidad - Number(cantidad);
@@ -105,7 +104,7 @@ function restarCantidad({ productoId, cantidad }) {
 exports.restarCantidad = restarCantidad;
 function listOne({ productoId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Producto.findOne({ _id: productoId })
+        return utils_1.Producto.findOne({ _id: productoId })
             .populate("file", "url")
             .populate("categoria_product")
             .lean()
@@ -120,15 +119,14 @@ function listOne({ productoId }) {
 exports.listOne = listOne;
 function addProducto(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Producto.create(value);
+        return utils_1.Producto.create(value);
     });
 }
 exports.addProducto = addProducto;
 function updateProducto({ productoId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Producto.findOneAndUpdate({ _id: productoId }, value, {
+        return utils_1.Producto.findOneAndUpdate({ _id: productoId }, value, {
             new: true,
-            lean: true,
         })
             .populate("file", "url")
             .then((data) => {
@@ -142,8 +140,8 @@ function updateProducto({ productoId, value }) {
 exports.updateProducto = updateProducto;
 function deleteProducto(productoId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const producto = yield _models_1.Producto.findOneAndDelete({ _id: productoId });
-        yield _utils_1.UploadImage.deleteImage(producto.file);
+        const producto = yield utils_1.Producto.findOneAndDelete({ _id: productoId });
+        yield utils_1.UploadImage.deleteImage(producto.file);
         return producto;
     });
 }

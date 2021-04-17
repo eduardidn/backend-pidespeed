@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadImagePublic = exports.uploadImage = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 const service = __importStar(require("./service"));
 function uploadImage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,7 +49,7 @@ function uploadImagePublic(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { value: { filetype: type, value, filename }, folder, } = req.body;
         if (folder !== "pedidos")
-            throw new _utils_1.HTTP400Error("No tienes permisos para realizar esta acción");
+            throw new utils_1.HTTP400Error("No tienes permisos para realizar esta acción");
         const data = Buffer.from(value, "base64");
         const imageBuffer = {
             type,

@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadImage = void 0;
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 function uploadImage({ imageBuffer, folder, filename, update, id, }) {
     return __awaiter(this, void 0, void 0, function* () {
         const name = filename.split(";")[0];
-        return _utils_1.UploadImage.uploadBase64({
+        return utils_1.UploadImage.uploadBase64({
             imageBuffer,
             folder,
             filename: name,

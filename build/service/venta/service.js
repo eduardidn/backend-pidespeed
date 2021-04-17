@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteVenta = exports.updateVenta = exports.addVenta = exports.listOne = exports.listByIds = exports.listNoPagados = exports.listAll = exports.list = void 0;
-const _models_1 = require("@models");
+const utils_1 = require("../../utils");
 function list({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.find({ empresa: empresaId })
+        return utils_1.Venta.find({ empresa: empresaId })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -26,7 +26,7 @@ function list({ empresaId }) {
 exports.list = list;
 function listAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.find({})
+        return utils_1.Venta.find({})
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -39,7 +39,7 @@ function listAll() {
 exports.listAll = listAll;
 function listNoPagados({ empresaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.find({ empresa: empresaId, pagado: 0 })
+        return utils_1.Venta.find({ empresa: empresaId, pagado: 0 })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -53,7 +53,7 @@ exports.listNoPagados = listNoPagados;
 function listByIds({ ids }) {
     return __awaiter(this, void 0, void 0, function* () {
         ids = ids.split(",");
-        return _models_1.Venta.find({ _id: { $in: ids } })
+        return utils_1.Venta.find({ _id: { $in: ids } })
             .lean()
             .then((datos) => datos.map((data) => {
             if (data) {
@@ -66,7 +66,7 @@ function listByIds({ ids }) {
 exports.listByIds = listByIds;
 function listOne({ ventaId }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.findOne({ _id: ventaId })
+        return utils_1.Venta.findOne({ _id: ventaId })
             .lean()
             .then((data) => {
             if (data) {
@@ -79,15 +79,14 @@ function listOne({ ventaId }) {
 exports.listOne = listOne;
 function addVenta(value) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.create(value);
+        return utils_1.Venta.create(value);
     });
 }
 exports.addVenta = addVenta;
 function updateVenta({ ventaId, value }) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.findOneAndUpdate({ _id: ventaId }, value, {
+        return utils_1.Venta.findOneAndUpdate({ _id: ventaId }, value, {
             new: true,
-            lean: true,
         }).then((data) => {
             if (data) {
                 data.id = data._id;
@@ -99,7 +98,7 @@ function updateVenta({ ventaId, value }) {
 exports.updateVenta = updateVenta;
 function deleteVenta(ventaId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return _models_1.Venta.findOneAndDelete({ _id: ventaId });
+        return utils_1.Venta.findOneAndDelete({ _id: ventaId });
     });
 }
 exports.deleteVenta = deleteVenta;

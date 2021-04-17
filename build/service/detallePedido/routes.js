@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("./controller"));
-const _utils_1 = require("@utils");
+const utils_1 = require("../../utils");
 exports.default = express_1.default
     .Router()
-    .get("/", _utils_1.CatchErrors(controller.list))
-    .get("/:pedidoId/:empresaId", _utils_1.CatchErrors(controller.listPedidos))
-    .get("/list/by-pedido/:pedidoId", _utils_1.CatchErrors(controller.listByPedido))
-    .get("/:detallePedidoId", _utils_1.CatchErrors(controller.listOne))
-    .post("/", _utils_1.CatchErrors(controller.addDetallePedido))
-    .put("/:detallePedidoId", _utils_1.CatchErrors(controller.updateDetallePedido))
-    .delete("/:detallePedidoId", _utils_1.CatchErrors(controller.deleteDetallePedido));
+    .get("/", utils_1.CatchErrors(controller.list))
+    .get("/:pedidoId/:empresaId", utils_1.CatchErrors(controller.listPedidos))
+    .get("/list/by-pedido/:pedidoId", utils_1.CatchErrors(controller.listByPedido))
+    .get("/:detallePedidoId", utils_1.CatchErrors(controller.listOne))
+    .post("/", utils_1.CatchErrors(controller.addDetallePedido))
+    .put("/:detallePedidoId", utils_1.CatchErrors(controller.updateDetallePedido))
+    .delete("/:detallePedidoId", utils_1.CatchErrors(controller.deleteDetallePedido));
