@@ -8,6 +8,7 @@ export { default as CompanyPartner } from "./CompanyPartner";
 export { default as Bebida } from "./Bebida";
 export { default as Categoria } from "./Categoria";
 export { default as CategoriaProducto } from "./CategoriaProducto";
+export { default as ChatMessage } from "./ChatMessage";
 export { default as Ciudad } from "./Ciudad";
 export { default as Config } from "./Config";
 export { default as Cuenta } from "./Cuenta";

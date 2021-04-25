@@ -3,6 +3,7 @@ export * as UploadImage from "./UploadImage";
 export * from "./models";
 export * from "./middlewares";
 export * from "./socket";
+export * from "./Encrypt";
 
 export { Socket };
 

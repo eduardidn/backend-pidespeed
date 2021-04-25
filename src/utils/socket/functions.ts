@@ -13,6 +13,7 @@ export function checkNotifications() {
   notificationsEmpresa.map((item: any) => {
     if (item.event) {
       emitSocket("empresa", item.id, item.event, item.data);
+      emitSocket("user", item.id, item.event, item.data);
     }
   });
   notificationsAdmin.map((item: any) => {

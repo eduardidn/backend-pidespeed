@@ -15,22 +15,12 @@ const schema = new Schema(
       type: String,
       required: [true, "price is required"],
     },
-    to_go: {
-      type: Boolean,
-      required: [true, "to_go is required"],
+    state: {
+      type: String,
+      enum: ["delivered", "inProcess", "waiting"],
+      default: "waiting",
     },
-    delivery: {
-      type: Object,
-      required: [true, "precio is required"],
-    },
-    finished: {
-      type: Boolean,
-      required: [true, "finished is required"],
-    },
-    delivered: {
-      type: Boolean,
-      required: [true, "delivered is required"],
-    },
+    coords: [String],
     user: {
       type: Schema.Types.ObjectId,
       ref: "usuario",

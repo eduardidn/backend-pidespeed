@@ -11,32 +11,25 @@ const prices = [
   { metters: 8, price: 1.6 },
 ];
 
-export function listDeliveryOrders({ empresaId }) {
+export function listDeliveryOrders({ companyId }) {
   return DeliveryOrder.find({
-    empresaDelivery: empresaId,
+    deliveryCompany: companyId,
   })
-    .populate("img")
-    .lean()
-    .then((datos) =>
-      datos.map((data) => {
-        if (data) {
-          data.id = data._id;
-          return data;
-        }
-      }),
-    );
+    .populate([
+      {
+        path: "assignedWorker",
+        populate: { path: "img", select: "url" },
+      },
+      {
+        path: "user",
+        select: { nombre: 1, apellido: 1, email: 1, telefono1: 1, cedula: 1 },
+      },
+    ])
+    .lean();
 }
 
 export async function listDeliveryOrder({ DeliveryOrderId }) {
-  return DeliveryOrder.findOne({ _id: DeliveryOrderId })
-    .populate("img")
-    .lean()
-    .then((data) => {
-      if (data) {
-        data.id = data._id;
-        return data;
-      }
-    });
+  return DeliveryOrder.findOne({ _id: DeliveryOrderId }).populate("img").lean();
 }
 
 export async function getDeliveryPrice(empresas) {
@@ -47,7 +40,7 @@ export async function getDeliveryPrice(empresas) {
 
 export async function addDeliveryOrder(data: any) {
   const order = await DeliveryOrder.create(data);
-  Socket.emitSocket("empresa", "5fcd3afc64e32d421c2e579b", "new-order", order);
+  Socket.emitSocket("empresa", data.deliveryCompany, "new-order", order);
   return order;
 }
 

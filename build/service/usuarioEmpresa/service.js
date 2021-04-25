@@ -20,7 +20,7 @@ function listUsuarios({ empresaId, type, role }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!role)
             role = "worker";
-        const { id: roleId } = yield utils_1.Role.findOne({
+        const { _id: roleId } = yield utils_1.Role.findOne({
             name: new RegExp(role, "gi"),
         }).lean();
         return utils_1.UsuarioEmpresa.find({
@@ -42,7 +42,7 @@ exports.listUsuarios = listUsuarios;
 function listUsuario({ usuarioId, type }) {
     return __awaiter(this, void 0, void 0, function* () {
         return utils_1.UsuarioEmpresa.findOne({ _id: usuarioId, type })
-            .populate("img")
+            .populate("img", "role")
             .lean()
             .then((data) => {
             if (data) {
@@ -100,7 +100,7 @@ function addUsuario(data) {
         }
         if (!data.role)
             data.role = "worker";
-        const { id: roleId } = yield utils_1.Role.findOne({
+        const { _id: roleId } = yield utils_1.Role.findOne({
             name: new RegExp(data.role, "gi"),
         }).lean();
         data.role = roleId;
