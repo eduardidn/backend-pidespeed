@@ -27,6 +27,7 @@ function checkNotifications() {
     notificationsEmpresa.map((item) => {
         if (item.event) {
             index_1.emitSocket("empresa", item.id, item.event, item.data);
+            index_1.emitSocket("user", item.id, item.event, item.data);
         }
     });
     notificationsAdmin.map((item) => {

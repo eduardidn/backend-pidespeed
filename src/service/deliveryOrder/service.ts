@@ -2,6 +2,7 @@ import {
   HTTP400Error,
   DeliveryOrder,
   Empresa,
+  DetallePedido,
   Clone,
   Socket,
 } from "../../utils";
@@ -11,8 +12,8 @@ const prices = [
   { metters: 8, price: 1.6 },
 ];
 
-export function listDeliveryOrders({ companyId }) {
-  return DeliveryOrder.find({
+export async function listDeliveryOrders({ companyId }) {
+  const deliveryOrders: any = await DeliveryOrder.find({
     deliveryCompany: companyId,
   })
     .populate([
@@ -26,6 +27,15 @@ export function listDeliveryOrders({ companyId }) {
       },
     ])
     .lean();
+  await Promise.all(
+    deliveryOrders.map(async (deliveryOrder) => {
+      const orderDetails: any = await DetallePedido.find({
+        pedido: deliveryOrder.order,
+      }).lean();
+      deliveryOrder.details = _detalleorders(orderDetails);
+    }),
+  );
+  return deliveryOrders;
 }
 
 export async function listDeliveryOrder({ DeliveryOrderId }) {
@@ -114,6 +124,83 @@ const removeItemFromArr = (arr, id: string) => {
 
 function _getPrice(distance) {
   return prices.find((price) => price.metters >= distance)?.price || 5;
+}
+
+// LOCAL FUNCTIONS
+function _detalleorders(items) {
+  return items.map((item) => {
+    const details = [];
+    details.push({
+      nombre: item.nombre_producto,
+      cantidad: item.cantidad,
+    });
+    if (item.acomp.sirope !== "vacio" && item.acomp.sirope) {
+      if (item.acomp?.sirope?.length) {
+        const nombres = [];
+        item.acomp.sirope.map(({ nombre }) => nombres.push(nombre));
+        details.push({ nombre: `Siropes: ${nombres.join(", ")}`, cost: "" });
+      } else {
+        const nombre = "Sirope: " + item.acomp.sirope.nombre;
+        details.push({ nombre, cost: "" });
+      }
+    }
+
+    if (item.acomp?.topping !== "vacio" && item.acomp?.topping) {
+      if (item.acomp.topping.length) {
+        const nombres = [];
+        item.acomp.sirope.map(({ nombre }) => nombres.push(nombre));
+        details.push({ nombre: `Toppings: ${nombres.join(", ")}`, cost: "" });
+      } else {
+        const nombre = "Toppings: " + item.acomp.topping.nombre;
+        details.push({ nombre, cost: "" });
+      }
+    }
+
+    if (item.acomp.bebida !== "vacio" && item.acomp.bebida) {
+      if (item.acomp.bebida.length) {
+        const nombres = [];
+        item.acomp.bebida.map(({ nombre }) => nombres.push(nombre));
+        details.push({ nombre: `Bebidas: ${nombres.join(", ")}`, cost: "" });
+      } else {
+        const nombre = "Bebida: " + item.acomp.bebida.nombre;
+        details.push({ nombre, cost: "" });
+      }
+    }
+
+    if (item.acomp.instrucciones !== "vacio" && item.acomp.instrucciones) {
+      const nombre = `instrucciones: ${item.acomp.instrucciones}`;
+      details.push({
+        nombre,
+        cost: "",
+      });
+    }
+
+    if (item.add.adicional !== "vacio" && item.add.adicional) {
+      if (item.add.adicional.length) {
+        const nombres = [];
+        const precio = 0;
+        item.acomp.bebida.map(([{ nombre, precio }]) => {
+          nombres.push(nombre);
+          precio += Number(precio);
+        });
+        details.push({
+          nombre: `Adicionales: ${nombres.join(", ")}`,
+          cost: precio,
+        });
+      } else {
+        const nombre = "Adicional: " + item.add.adicional.nombre;
+        details.push({
+          nombre,
+          cost: item.add.adicional.precio,
+        });
+        details.push({
+          nombre: "Precio del Producto",
+          cost: item.precio_producto,
+        });
+      }
+    }
+    return details;
+  });
 }
 /* async function _getDistance(eLocations, uLocation) {
   const eCoords = [];

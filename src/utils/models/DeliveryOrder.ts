@@ -20,17 +20,23 @@ const schema = new Schema(
       enum: ["delivered", "inProcess", "waiting"],
       default: "waiting",
     },
-    coords: [String],
+    companies: [{ name: String, coords: String }],
+    isFromPidespeed: {
+      type: Boolean,
+      default: true,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "usuario",
       required: [true, "user is required"],
     },
-    deliveryCompany: {
-      type: Schema.Types.ObjectId,
-      ref: "empresaDelivey",
-      default: "5fcd3afc64e32d421c2e579b",
-    },
+    deliveryCompany: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "empresaDelivey",
+        default: "5fcd3afc64e32d421c2e579b",
+      },
+    ],
     assignedWorker: {
       type: Schema.Types.ObjectId,
       ref: "usuarioEmpresa",

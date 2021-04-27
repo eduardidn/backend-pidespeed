@@ -36,6 +36,8 @@ var Categoria_1 = require("./Categoria");
 Object.defineProperty(exports, "Categoria", { enumerable: true, get: function () { return Categoria_1.default; } });
 var CategoriaProducto_1 = require("./CategoriaProducto");
 Object.defineProperty(exports, "CategoriaProducto", { enumerable: true, get: function () { return CategoriaProducto_1.default; } });
+var ChatMessage_1 = require("./ChatMessage");
+Object.defineProperty(exports, "ChatMessage", { enumerable: true, get: function () { return ChatMessage_1.default; } });
 var Ciudad_1 = require("./Ciudad");
 Object.defineProperty(exports, "Ciudad", { enumerable: true, get: function () { return Ciudad_1.default; } });
 var Config_1 = require("./Config");
